@@ -1,0 +1,118 @@
+package by.tananushka.project.service.impl;
+
+import by.tananushka.project.bean.Client;
+import by.tananushka.project.command.ErrorMessageKey;
+import by.tananushka.project.controller.ParamName;
+import by.tananushka.project.controller.SessionContent;
+import by.tananushka.project.dao.ClientDao;
+import by.tananushka.project.dao.DaoException;
+import by.tananushka.project.dao.DaoProvider;
+import by.tananushka.project.service.ClientService;
+import by.tananushka.project.service.ServiceException;
+import by.tananushka.project.service.validation.UserDataValidator;
+import by.tananushka.project.util.EmailSender;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClientServiceImpl implements ClientService {
+
+	private static final ClientService instance = new ClientServiceImpl();
+	private static Logger log = LogManager.getLogger();
+	private ClientDao clientDao = DaoProvider.getInstance().getClientDao();
+	private UserDataValidator validator = UserDataValidator.getInstance();
+
+	private ClientServiceImpl() {
+	}
+
+	public static ClientService getInstance() {
+		return instance;
+	}
+
+	@Override
+	public Client createClient(SessionContent content) throws ServiceException {
+		boolean isParameterValid = true;
+		List<String> errorsList = new ArrayList<>();
+		content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, null);
+		String login = content.getRequestParameter(ParamName.PARAM_LOGIN).strip();
+		content.assignSessionAttribute(ParamName.PARAM_LOGIN_DEFAULT, login);
+		if (!validator.checkLogin(login)) {
+			errorsList.add(ErrorMessageKey.INVALID_LOGIN);
+			isParameterValid = false;
+		}
+		if (!checkLogin(login)) {
+			errorsList.add(ErrorMessageKey.LOGIN_EXISTS);
+		}
+		String name = content.getRequestParameter(ParamName.PARAM_NAME).strip();
+		content.assignSessionAttribute(ParamName.PARAM_NAME_DEFAULT, name);
+		if (!validator.checkName(name)) {
+			errorsList.add(ErrorMessageKey.INVALID_NAME);
+			isParameterValid = false;
+		}
+		String surname = content.getRequestParameter(ParamName.PARAM_SURNAME).strip();
+		content.assignSessionAttribute(ParamName.PARAM_SURNAME_DEFAULT, surname);
+		if (!validator.checkSurame(surname)) {
+			errorsList.add(ErrorMessageKey.INVALID_SURNAME);
+			isParameterValid = false;
+		}
+		String phone = content.getRequestParameter(ParamName.PARAM_PHONE).strip();
+		content.assignSessionAttribute(ParamName.PARAM_PHONE_DEFAULT, phone);
+		if (!validator.checkPhone(phone)) {
+			errorsList.add(ErrorMessageKey.INVALID_PHONE);
+			isParameterValid = false;
+		}
+		String email = content.getRequestParameter(ParamName.PARAM_EMAIL).strip();
+		content.assignSessionAttribute(ParamName.PARAM_EMAIL_DEFAULT, email);
+		if (!validator.checkEmail(email)) {
+			errorsList.add(ErrorMessageKey.INVALID_EMAIL);
+			isParameterValid = false;
+		}
+		String password = content.getRequestParameter(ParamName.PARAM_PASS).strip();
+		content.assignSessionAttribute(ParamName.PARAM_PASS_DEFAULT, password);
+		if (!validator.checkPassword(password)) {
+			errorsList.add(ErrorMessageKey.INVALID_PASSWORD);
+			isParameterValid = false;
+		}
+		String passwordRepeated = content.getRequestParameter(ParamName.PARAM_PASS_REPEATED).strip();
+		content.assignSessionAttribute(ParamName.PARAM_PASS_REPEATED_DEFAULT, passwordRepeated);
+		if (!password.equals(passwordRepeated)) {
+			errorsList.add(ErrorMessageKey.PASSWORDS_NOT_EQUAL);
+			isParameterValid = false;
+		}
+		Client client = null;
+		if (isParameterValid) {
+			client = new Client();
+			client.setLogin(login);
+			client.setPassword(password);
+			client.setName(name);
+			client.setSurname(surname);
+			client.setPhone(phone);
+			client.setEmail(email);
+		} else {
+			content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, errorsList);
+			throw new ServiceException("Invalid parameter(s)");
+		}
+		Client newClient;
+		try {
+			newClient = clientDao.createClient(client);
+			EmailSender.sendConfirmation(newClient);
+		} catch (DaoException e) {
+			log.error("Dao exception");
+			throw new ServiceException(e);
+		}
+		return newClient;
+	}
+
+	@Override
+	public boolean checkLogin(String login) throws ServiceException {
+		boolean isLoginFree;
+		try {
+			isLoginFree = clientDao.checkLogin(login);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+		return isLoginFree;
+	}
+}

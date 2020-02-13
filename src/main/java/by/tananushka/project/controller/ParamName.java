@@ -1,0 +1,81 @@
+package by.tananushka.project.controller;
+
+public final class ParamName {
+
+	public static final String PARAM_COMMAND = "command";
+	public static final String PARAM_LOGIN = "login";
+	public static final String PARAM_PASS = "password";
+	public static final String PARAM_PASS_REPEATED = "passwordRepeated";
+	public static final String PARAM_NAME = "name";
+	public static final String PARAM_SURNAME = "surname";
+	public static final String PARAM_PHONE = "phone";
+	public static final String PARAM_EMAIL = "email";
+	public static final String PARAM_LOGIN_DEFAULT = "defLogin";
+	public static final String PARAM_PASS_DEFAULT = "defPassword";
+	public static final String PARAM_PASS_REPEATED_DEFAULT = "defPasswordRepeated";
+	public static final String PARAM_NAME_DEFAULT = "defName";
+	public static final String PARAM_SURNAME_DEFAULT = "defSurname";
+	public static final String PARAM_PHONE_DEFAULT = "defPhone";
+	public static final String PARAM_EMAIL_DEFAULT = "defEmail";
+	public static final String PARAM_MESSAGE_DEFAULT = "defMessage";
+	public static final String PARAM_ERROR = "error";
+	public static final String PARAM_ERR_MESSAGE = "errMessage";
+	public static final String PARAM_ERR_AUTH_MESSAGE = "errAuthMessage";
+	public static final String PARAM_ERR_REG_MESSAGE = "errRegMessage";
+	public static final String PARAM_ERR_SEND_MESSAGE = "errSendMessage";
+	public static final String PARAM_USER = "user";
+	public static final String PARAM_ROLE = "role";
+	public static final String PARAM_LOCALE = "locale";
+	public static final String PARAM_RU_RU = "ru_RU";
+	public static final String PARAM_EN_EN = "en_EN";
+	public static final String PARAM_CURRENT_PAGE = "currentPage";
+	public static final String PARAM_PREVIOUS_PAGE = "previousPage";
+	public static final String PARAM_REQUEST_ENCODING = "requestEncoding";
+	public static final String PARAM_UTF_8 = "UTF-8";
+	public static final String PARAM_CONTENT_TYPE = "text/html; charset=UTF-8";
+	public static final String PARAM_APP_JSON = "application/json";
+	public static final String PARAM_LOGIN_INFO = "loginInfo";
+	public static final String PARAM_MAIL_USERNAME = "mail.username";
+	public static final String PARAM_MAIL_USERNAME_MSG = "mail.username.messages";
+	public static final String PARAM_MAIL_PASS = "mail.password";
+	public static final String PARAM_MAIL_CONFIRMATION_SUBJECT = "mail.confirmation.subject";
+	public static final String PARAM_MAIL_MESSAGE_SUBJECT = "mail.message.subject";
+	public static final String PARAM_USER_ID = "userId";
+	public static final String PARAM_CONFIRMATION_TEXT_1 = "mail.confirmation.text1";
+	public static final String PARAM_CONFIRMATION_TEXT_2 = "mail.confirmation.text2";
+	public static final String PARAM_CONFIRMATION_TEXT_3 = "mail.confirmation.text3";
+	public static final String PARAM_CONFIRMATION_TEXT_4 = "mail.confirmation.text4";
+	public static final String PARAM_CONFIRMATION_TEXT_5 = "mail.confirmation.text5";
+	public static final String PARAM_MSG_TEXT_1 = "mail.msg.text1";
+	public static final String PARAM_MSG_TEXT_2 = "mail.msg.text2";
+	public static final String PARAM_MSG_TEXT_3 = "mail.msg.text3";
+	public static final String PARAM_MSG_TEXT_4 = "mail.msg.text4";
+	public static final String PARAM_MSG_TEXT_5 = "mail.msg.text5";
+	public static final String PARAM_MSG_TEXT_6 = "mail.msg.text6";
+	public static final String PARAM_MSG_NAME = "msgName";
+	public static final String PARAM_MSG_SURNAME = "msgSurname";
+	public static final String PARAM_MSG_PHONE = "msgPhone";
+	public static final String PARAM_MSG_EMAIL = "msgEmail";
+	public static final String PARAM_MSG_MESSAGE = "msgMessage";
+	public static final String PARAM_FILMS_LIST = "filmsList";
+	public static final String PARAM_PAGE = "page";
+	public static final String PARAM_TOTAL_PAGES = "totalPages";
+	public static final String PARAM_PAGE_NUMBER = "pageNumber";
+	public static final String PARAM_GENRE = "genre";
+	public static final String PARAM_COUNTRY = "country";
+	public static final String PARAM_AGE = "age";
+	public static final String PARAM_YEAR = "year";
+	public static final String PARAM_GENRES_LIST = "genresList";
+	public static final String PARAM_SELECT_LIST = "selectList";
+	public static final String PARAM_AGES_LIST = "agesList";
+	public static final String PARAM_YEARS_LIST = "yearsList";
+	public static final String PARAM_PAGE_URL = "pageUrl";
+	public static final String PARAM_COMMAND_VALUE = "commandValue";
+	public static final String PARAM_DEFAULT_VALUE = "defaultValue";
+	public static final String PARAM_SELECT_PARAM = "selectParam";
+	public static final String PARAM_SELECT = "select";
+	public static final String PARAM_ITEM = "item";
+
+	private ParamName() {
+	}
+}
