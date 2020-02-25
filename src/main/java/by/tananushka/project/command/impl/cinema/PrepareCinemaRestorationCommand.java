@@ -1,4 +1,4 @@
-package by.tananushka.project.command.impl.show;
+package by.tananushka.project.command.impl.cinema;
 
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.Command;
@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
-public class PrepareCinemaDeletionCommand implements Command {
+public class PrepareCinemaRestorationCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
 	private ShowService showService = ShowServiceImpl.getInstance();
@@ -29,20 +29,20 @@ public class PrepareCinemaDeletionCommand implements Command {
 		if (role != null &&
 						(role.equals(UserRole.MANAGER.toString()) ||
 										role.equals(UserRole.ADMIN.toString()))) {
-			String pageToGo = PageName.DELETE_CINEMA_PAGE;
+			String pageToGo = PageName.RESTORE_CINEMA_PAGE;
 			router.setPageToGo(pageToGo);
 			content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
-			content.assignSessionAttribute(ParamName.PARAM_ERR_DELETE_CINEMA_MESSAGE, null);
+			content.assignSessionAttribute(ParamName.PARAM_ERR_RESTORE_CINEMA_MESSAGE, null);
 			if (content.getSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN) == null) {
 				content.assignSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN,
 								PageName.MAIN_PAGE);
 			}
 			Map<Integer, String> cinemasMap;
 			try {
-				cinemasMap = showService.findActiveCinemas();
+				cinemasMap = showService.findInactiveCinemas();
 				content.assignSessionAttribute(ParamName.PARAM_CINEMAS_MAP, cinemasMap);
 			} catch (ServiceException e) {
-				throw new CommandException("Exception while preparing cinema deletion.", e);
+				throw new CommandException("Exception while preparing cinema restoration.", e);
 			}
 		}
 		return router;

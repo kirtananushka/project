@@ -1,6 +1,16 @@
 package by.tananushka.project.command;
 
 import by.tananushka.project.command.impl.ViewProfileCommand;
+import by.tananushka.project.command.impl.cinema.CreateCinemaCommand;
+import by.tananushka.project.command.impl.cinema.DeleteCinemaCommand;
+import by.tananushka.project.command.impl.cinema.PrepareCinemaCreationCommand;
+import by.tananushka.project.command.impl.cinema.PrepareCinemaDeletionCommand;
+import by.tananushka.project.command.impl.cinema.PrepareCinemaEditionCommand;
+import by.tananushka.project.command.impl.cinema.PrepareCinemaRestorationCommand;
+import by.tananushka.project.command.impl.cinema.PrepareCinemaUpdateCommand;
+import by.tananushka.project.command.impl.cinema.RestoreCinemaCommand;
+import by.tananushka.project.command.impl.cinema.UpdateCinemaCommand;
+import by.tananushka.project.command.impl.client.FindActiveClientsCommand;
 import by.tananushka.project.command.impl.common.AuthenticationCommand;
 import by.tananushka.project.command.impl.common.ChangeLocaleCommand;
 import by.tananushka.project.command.impl.common.EmailConfirmationCommand;
@@ -10,34 +20,25 @@ import by.tananushka.project.command.impl.common.RegistrationCommand;
 import by.tananushka.project.command.impl.common.RegistrationInitializeCommand;
 import by.tananushka.project.command.impl.common.SendMessageCommand;
 import by.tananushka.project.command.impl.film.CreateFilmCommand;
-import by.tananushka.project.command.impl.film.CreateGenreCommand;
 import by.tananushka.project.command.impl.film.DeleteFilmCommand;
 import by.tananushka.project.command.impl.film.EditFilmCommand;
 import by.tananushka.project.command.impl.film.FindActiveFilmsCommand;
 import by.tananushka.project.command.impl.film.FindFilmToDeleteCommand;
 import by.tananushka.project.command.impl.film.FindFilmsCommand;
 import by.tananushka.project.command.impl.film.PrepareFilmCreationCommand;
-import by.tananushka.project.command.impl.film.PrepareGenreCreationCommand;
-import by.tananushka.project.command.impl.film.PrepareGenreEditionCommand;
-import by.tananushka.project.command.impl.film.PrepareGenreUpdateCommand;
 import by.tananushka.project.command.impl.film.SetImageCommand;
 import by.tananushka.project.command.impl.film.UpdateFilmCommand;
-import by.tananushka.project.command.impl.film.UpdateGenreCommand;
-import by.tananushka.project.command.impl.show.CreateCinemaCommand;
+import by.tananushka.project.command.impl.genre.CreateGenreCommand;
+import by.tananushka.project.command.impl.genre.PrepareGenreCreationCommand;
+import by.tananushka.project.command.impl.genre.PrepareGenreEditionCommand;
+import by.tananushka.project.command.impl.genre.PrepareGenreUpdateCommand;
+import by.tananushka.project.command.impl.genre.UpdateGenreCommand;
 import by.tananushka.project.command.impl.show.CreateShowCommand;
-import by.tananushka.project.command.impl.show.DeleteCinemaCommand;
 import by.tananushka.project.command.impl.show.DeleteShowCommand;
 import by.tananushka.project.command.impl.show.EditShowCommand;
 import by.tananushka.project.command.impl.show.FindShowToDeleteCommand;
 import by.tananushka.project.command.impl.show.FindShowsCommand;
-import by.tananushka.project.command.impl.show.PrepareCinemaCreationCommand;
-import by.tananushka.project.command.impl.show.PrepareCinemaDeletionCommand;
-import by.tananushka.project.command.impl.show.PrepareCinemaEditionCommand;
-import by.tananushka.project.command.impl.show.PrepareCinemaRestorationCommand;
-import by.tananushka.project.command.impl.show.PrepareCinemaUpdateCommand;
 import by.tananushka.project.command.impl.show.PrepareShowCreationCommand;
-import by.tananushka.project.command.impl.show.RestoreCinemaCommand;
-import by.tananushka.project.command.impl.show.UpdateCinemaCommand;
 import by.tananushka.project.command.impl.show.UpdateShowCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -93,6 +94,7 @@ public class CommandProvider {
 		commands.put(CommandName.EDIT_GENRE, new PrepareGenreEditionCommand());
 		commands.put(CommandName.PREPARE_GENRE_UPDATE, new PrepareGenreUpdateCommand());
 		commands.put(CommandName.UPDATE_GENRE, new UpdateGenreCommand());
+		commands.put(CommandName.FIND_ACTIVE_CLIENTS, new FindActiveClientsCommand());
 	}
 
 	public static CommandProvider getInstance() {

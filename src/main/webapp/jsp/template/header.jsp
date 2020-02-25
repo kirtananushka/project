@@ -19,6 +19,8 @@
 <fmt:message key="cinema.restore" bundle="${resourceBundle}" var="restoreCinema"/>
 <fmt:message key="genre.create" bundle="${resourceBundle}" var="addGenre"/>
 <fmt:message key="genre.edit" bundle="${resourceBundle}" var="editGenre"/>
+<fmt:message key="clients" bundle="${resourceBundle}" var="clients"/>
+<fmt:message key="clients.active" bundle="${resourceBundle}" var="clientsActive"/>
 
 <div class="header">
     <div class="locale">
@@ -93,6 +95,15 @@
                 </ul>
             </c:if>
         </li>
+        <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+            <li><a href="${pageContext.request.contextPath}
+        controller?command=find_active_clients&page=1">${clients}</a>
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=find_active_clients&page=1">${clientsActive}</a></li>
+                </ul>
+            </li>
+        </c:if>
         <li><a href="${pageContext.request.contextPath}send_message">${sendMessage}</a></li>
     </ul>
     <ctg:menu-right/>

@@ -1,4 +1,4 @@
-package by.tananushka.project.command.impl.show;
+package by.tananushka.project.command.impl.cinema;
 
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.Command;

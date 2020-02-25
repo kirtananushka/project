@@ -67,9 +67,7 @@ public class FindFilmsCommand implements Command {
 			int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
 			int filmsFrom = 5 * (pageNumber - 1);
 			int filmsNumber = filmsList.size();
-			log.debug(filmsNumber);
 			int totalPages = (filmsNumber + 4) / 5;
-			log.debug(totalPages);
 			List<Film> filmsForPageList =
 							filmsList.stream().skip(filmsFrom).limit(5).collect(Collectors.toList());
 			String select = String.format(SELECT, paramSelect).strip();

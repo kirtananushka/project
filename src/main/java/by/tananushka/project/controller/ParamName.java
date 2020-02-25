@@ -88,6 +88,9 @@ public final class ParamName {
 	public static final String PARAM_PASS_REPEATED = "passwordRepeated";
 	public static final String PARAM_PASS_REPEATED_DEFAULT = "defPasswordRepeated";
 	public static final String PARAM_PHONE = "phone";
+	public static final String PARAM_REGISTRATION_DATE = "registrationDate";
+	public static final String PARAM_VERIFIED = "verified";
+	public static final String PARAM_ACTIVE = "active";
 	public static final String PARAM_PHONE_DEFAULT = "defPhone";
 	public static final String PARAM_PREVIOUS_PAGE = "previousPage";
 	public static final String PARAM_REQUEST_ENCODING = "requestEncoding";
@@ -127,6 +130,8 @@ public final class ParamName {
 	public static final String PARAM_TITLE_ID = "titleId";
 	public static final String PARAM_TITLE_DEFAULT = "titleDefault";
 	public static final String PARAM_IMAGE_DEFAULT = "imgDefault";
+	public static final String PARAM_CLIENTS_LIST = "clientsList";
+	public static final String PARAM_CLIENT_ID = "clientId";
 
 	private ParamName() {
 	}

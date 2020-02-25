@@ -1,4 +1,4 @@
-package by.tananushka.project.command.impl.film;
+package by.tananushka.project.command.impl.genre;
 
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.Command;
@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CreateGenreCommand implements Command {
+public class UpdateGenreCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
 	private FilmService filmService = ServiceProvider.getInstance().getFilmService();
@@ -34,24 +34,24 @@ public class CreateGenreCommand implements Command {
 			try {
 				Map<String, String> errorsMap = new LinkedHashMap<>();
 				String pageToGo;
-				if (filmService.createGenre(content)) {
+				if (filmService.updateGenre(content)) {
 					router.setRoute(Router.RouteType.REDIRECT);
-					pageToGo = PageName.CREATION_SUCCESSFUL_PAGE;
+					pageToGo = PageName.UPDATING_SUCCESSFUL_PAGE;
 				} else {
-					pageToGo = PageName.CREATE_GENRE_PAGE;
+					pageToGo = PageName.UPDATE_GENRE_PAGE;
 					Map<String, String> errorsMapFromContent =
 									(Map<String, String>) content
-													.getSessionAttribute(ParamName.PARAM_ERR_CREATE_GENRE_MESSAGE);
+													.getSessionAttribute(ParamName.PARAM_ERR_UPDATE_GENRE_MESSAGE);
 					if (errorsMapFromContent != null) {
 						errorsMap = errorsMapFromContent;
 					}
-					errorsMap.put(ErrorMessageKey.GENRE_CREATION_FAILED, "");
-					content.assignSessionAttribute(ParamName.PARAM_ERR_CREATE_GENRE_MESSAGE, errorsMap);
+					errorsMap.put(ErrorMessageKey.GENRE_UPDATING_FAILED, "");
+					content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_GENRE_MESSAGE, errorsMap);
 				}
 				router.setPageToGo(pageToGo);
 				content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 			} catch (ServiceException e) {
-				throw new CommandException("Exception while genre creation.", e);
+				throw new CommandException("Exception while genre updating.", e);
 			}
 		}
 		return router;

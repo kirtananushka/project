@@ -1,14 +1,17 @@
 package by.tananushka.project.bean;
 
+import java.time.LocalDateTime;
+
 public class User extends Entity {
 
 	private static final long serialVersionUID = 1L;
-	// FIXME: 08.01.2020 eq hc tostr
 	private int id;
 	private String login;
 	private String password;
 	private UserRole role;
 	private boolean isActive;
+	private boolean isVerified;
+	private LocalDateTime registrationDate;
 
 	public User() {
 	}
@@ -53,6 +56,65 @@ public class User extends Entity {
 		isActive = active;
 	}
 
+	public boolean isVerified() {
+		return isVerified;
+	}
+
+	public void setVerified(boolean verified) {
+		isVerified = verified;
+	}
+
+	public LocalDateTime getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(LocalDateTime registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		User user = (User) o;
+		if (id != user.id) {
+			return false;
+		}
+		if (isActive != user.isActive) {
+			return false;
+		}
+		if (isVerified != user.isVerified) {
+			return false;
+		}
+		if (login != null ? !login.equals(user.login) : user.login != null) {
+			return false;
+		}
+		if (password != null ? !password.equals(user.password) : user.password != null) {
+			return false;
+		}
+		if (role != user.role) {
+			return false;
+		}
+		return registrationDate != null ? registrationDate.equals(user.registrationDate)
+		                                : user.registrationDate == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id;
+		result = 31 * result + (login != null ? login.hashCode() : 0);
+		result = 31 * result + (password != null ? password.hashCode() : 0);
+		result = 31 * result + (role != null ? role.hashCode() : 0);
+		result = 31 * result + (isActive ? 1 : 0);
+		result = 31 * result + (isVerified ? 1 : 0);
+		result = 31 * result + (registrationDate != null ? registrationDate.hashCode() : 0);
+		return result;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder("User{");
@@ -61,6 +123,8 @@ public class User extends Entity {
 		sb.append(", password='").append(password).append('\'');
 		sb.append(", role=").append(role);
 		sb.append(", isActive=").append(isActive);
+		sb.append(", isVerified=").append(isVerified);
+		sb.append(", registrationDate=").append(registrationDate);
 		sb.append('}');
 		return sb.toString();
 	}

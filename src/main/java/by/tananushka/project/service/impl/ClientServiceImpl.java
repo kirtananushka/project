@@ -32,6 +32,17 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
+	public List<Client> findActiveClients() throws ServiceException {
+		List<Client> clientsList;
+		try {
+			clientsList = clientDao.findActiveClients();
+		} catch (DaoException e) {
+			throw new ServiceException("Exception while getting active clients", e);
+		}
+		return clientsList;
+	}
+
+	@Override
 	public Client createClient(SessionContent content) throws ServiceException {
 		boolean isParameterValid = true;
 		List<String> errorsList = new ArrayList<>();

@@ -3,6 +3,7 @@ package by.tananushka.project.dao.impl;
 import by.tananushka.project.bean.Client;
 import by.tananushka.project.dao.ClientDao;
 import by.tananushka.project.dao.DaoException;
+import by.tananushka.project.dao.SqlColumnsName;
 import by.tananushka.project.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.TimeZone;
 
 /**
  * The type Client dao.
@@ -20,12 +25,21 @@ import java.sql.Statement;
 public class ClientDaoImpl implements ClientDao {
 
 	private static final String INSERT_USER =
-					"INSERT INTO users (user_login, user_password, user_role, user_active) VALUES (?, ?, ?, ?)";
+					"INSERT INTO users (user_login, user_password, user_role, user_active)\n"
+									+ "VALUES (?, ?, ?, ?)";
 	private static final String INSERT_CLIENT =
-					"INSERT INTO clients (client_id, client_name, client_surname, client_phone, client_email) VALUES (?, ?, ?, ?, ?)";
-	private static final String CHECK_LOGIN = "SELECT user_login FROM users WHERE user_login = ?";
+					"INSERT INTO clients (client_id, client_name, client_surname,\n"
+									+ "client_phone, client_email) VALUES (?, ?, ?, ?, ?)";
+	private static final String FIND_ACTIVE_CLIENTS =
+					"SELECT client_id, user_login, client_name, client_surname, client_phone,\n"
+									+ "client_email, user_verification, user_active, user_registration_date\n"
+									+ "FROM clients INNER JOIN users ON client_id = user_id\n"
+									+ "WHERE user_active = true ORDER BY user_login;";
+	private static final String CHECK_LOGIN = "SELECT user_login FROM users\n"
+					+ "WHERE user_login = ?";
 	private static ClientDao clientDao = new ClientDaoImpl();
 	private static Logger log = LogManager.getLogger();
+	private final Calendar timezone = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"));
 
 	private ClientDaoImpl() {
 	}
@@ -80,6 +94,35 @@ public class ClientDaoImpl implements ClientDao {
 			closeResultSet(resultSet);
 		}
 		return client;
+	}
+
+	@Override
+	public List<Client> findActiveClients() throws DaoException {
+		ResultSet resultSet = null;
+		List<Client> clientList = new ArrayList<>();
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+		     Statement clientStatement = connection.createStatement()) {
+			resultSet = clientStatement.executeQuery(FIND_ACTIVE_CLIENTS);
+			while (resultSet.next()) {
+				Client client = new Client();
+				client.setId(resultSet.getInt(SqlColumnsName.CLIENT_ID));
+				client.setLogin(resultSet.getString(SqlColumnsName.USER_LOGIN));
+				client.setName(resultSet.getString(SqlColumnsName.CLIENT_NAME));
+				client.setSurname(resultSet.getString(SqlColumnsName.CLIENT_SURNAME));
+				client.setPhone(resultSet.getString(SqlColumnsName.CLIENT_PHONE));
+				client.setEmail(resultSet.getString(SqlColumnsName.CLIENT_EMAIL));
+				client.setVerified(resultSet.getBoolean(SqlColumnsName.USER_VERIFIED));
+				client.setActive(resultSet.getBoolean(SqlColumnsName.USER_ACTIVE));
+				client.setRegistrationDate(resultSet.getTimestamp(SqlColumnsName.
+								USER_REGISTRATION_DATE, timezone).toLocalDateTime());
+				clientList.add(client);
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Exception while getting active clients.", e);
+		} finally {
+			closeResultSet(resultSet);
+		}
+		return clientList;
 	}
 
 	@Override

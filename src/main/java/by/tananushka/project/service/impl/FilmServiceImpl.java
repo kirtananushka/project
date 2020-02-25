@@ -75,7 +75,7 @@ public class FilmServiceImpl implements FilmService {
 	@Override
 	public List<Film> findFilmsByGenre(String genre) throws ServiceException {
 		List<Film> filmsList = new ArrayList<>();
-		if (genre.isBlank() || validator.checkTwoDigitsString(genre) || validator.checkNumber(genre)) {
+		if (genre.isBlank() || validator.checkString(genre) || validator.checkNumber(genre)) {
 			log.debug("Genre is valid");
 			try {
 				filmsList = validator.checkNumber(genre) ?
@@ -91,7 +91,7 @@ public class FilmServiceImpl implements FilmService {
 	@Override
 	public List<Film> findActiveFilmsByGenre(String genre) throws ServiceException {
 		List<Film> filmsList = new ArrayList<>();
-		if (genre.isBlank() || validator.checkTwoDigitsString(genre) || validator.checkNumber(genre)) {
+		if (genre.isBlank() || validator.checkString(genre) || validator.checkNumber(genre)) {
 			log.debug("Genre is valid");
 			try {
 				filmsList = validator.checkNumber(genre) ?

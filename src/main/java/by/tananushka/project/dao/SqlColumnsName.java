@@ -7,6 +7,8 @@ public class SqlColumnsName {
 	public static final String USER_PASSWORD = "user_password";
 	public static final String USER_ROLE = "user_role";
 	public static final String USER_ACTIVE = "user_active";
+	public static final String USER_VERIFIED = "user_verification";
+	public static final String USER_REGISTRATION_DATE = "user_registration_date";
 	public static final String CLIENT_ID = "client_id";
 	public static final String CLIENT_NAME = "client_name";
 	public static final String CLIENT_SURNAME = "client_surname";

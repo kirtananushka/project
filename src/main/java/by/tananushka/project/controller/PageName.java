@@ -13,7 +13,7 @@ public final class PageName {
 	public static final String REGISTRATION_SUCCESSFUL_PAGE = "registration_successful";
 	public static final String VIEW_ADMIN_PROFILE_PAGE = "/jsp/user/admin/view_admin_profile.jsp";
 	public static final String AVAILABLE_FILMS_PAGE = "/jsp/user/common/films.jsp";
-	public static final String ACTIVE_FILMS_PAGE = "/jsp/user/manager/films_active.jsp";
+	public static final String ACTIVE_FILMS_PAGE = "/jsp/user/film/films_active.jsp";
 	public static final String AVAILABLE_SHOWS_PAGE = "/jsp/user/common/shows.jsp";
 	public static final String EDIT_FILM_PAGE = "film_edit";
 	public static final String EDIT_SHOW_PAGE = "show_edit";
@@ -43,6 +43,7 @@ public final class PageName {
 	public static final String CREATE_GENRE_PAGE = "genre_create";
 	public static final String CREATION_SUCCESSFUL_PAGE = "creation_successful";
 	public static final String RESTORATION_SUCCESSFUL_PAGE = "restoration_successful";
+	public static final String CLIENTS_PAGE = "clients";
 
 	private PageName() {
 	}

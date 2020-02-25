@@ -1,4 +1,4 @@
-package by.tananushka.project.command.impl.show;
+package by.tananushka.project.command.impl.genre;
 
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.Command;
@@ -10,7 +10,7 @@ import by.tananushka.project.controller.SessionContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class PrepareCinemaCreationCommand implements Command {
+public class PrepareGenreCreationCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
 
@@ -23,10 +23,10 @@ public class PrepareCinemaCreationCommand implements Command {
 		if (role != null &&
 						(role.equals(UserRole.MANAGER.toString()) ||
 										role.equals(UserRole.ADMIN.toString()))) {
-			String pageToGo = PageName.CREATE_CINEMA_PAGE;
+			String pageToGo = PageName.CREATE_GENRE_PAGE;
 			router.setPageToGo(pageToGo);
 			content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
-			content.assignSessionAttribute(ParamName.PARAM_ERR_CREATE_CINEMA_MESSAGE, null);
+			content.assignSessionAttribute(ParamName.PARAM_ERR_CREATE_GENRE_MESSAGE, null);
 			if (content.getSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN) == null) {
 				content.assignSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN,
 								PageName.MAIN_PAGE);

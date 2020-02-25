@@ -1,4 +1,4 @@
-package by.tananushka.project.command.impl.show;
+package by.tananushka.project.command.impl.cinema;
 
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.Command;
@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CreateCinemaCommand implements Command {
+public class PrepareCinemaUpdateCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
 	private ShowService showService = ServiceProvider.getInstance().getShowService();
@@ -31,27 +31,27 @@ public class CreateCinemaCommand implements Command {
 		if (role != null &&
 						(role.equals(UserRole.MANAGER.toString()) ||
 										role.equals(UserRole.ADMIN.toString()))) {
+			Map<String, String> errorsMap = new LinkedHashMap<>();
+			String pageToGo;
 			try {
-				Map<String, String> errorsMap = new LinkedHashMap<>();
-				String pageToGo;
-				if (showService.createCinema(content)) {
-					router.setRoute(Router.RouteType.REDIRECT);
-					pageToGo = PageName.CREATION_SUCCESSFUL_PAGE;
-				} else {
-					pageToGo = PageName.CREATE_CINEMA_PAGE;
-					Map<String, String> errorsMapFromContent =
-									(Map<String, String>) content
-													.getSessionAttribute(ParamName.PARAM_ERR_CREATE_CINEMA_MESSAGE);
-					if (errorsMapFromContent != null) {
-						errorsMap = errorsMapFromContent;
-					}
-					errorsMap.put(ErrorMessageKey.CINEMA_CREATION_FAILED, "");
-					content.assignSessionAttribute(ParamName.PARAM_ERR_CREATE_CINEMA_MESSAGE, errorsMap);
-				}
+				Map<Integer, String> cinemasMap = showService.findActiveCinemas();
+				int cinemaId = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_CINEMA));
+				content.assignRequestAttribute(ParamName.PARAM_CINEMA_ID, cinemaId);
+				String cinemaName = cinemasMap.get(cinemaId);
+				content.assignRequestAttribute(ParamName.PARAM_CINEMA, cinemaName);
+				pageToGo = PageName.UPDATE_CINEMA_PAGE;
 				router.setPageToGo(pageToGo);
-				content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 			} catch (ServiceException e) {
-				throw new CommandException("Exception while cinema creation.", e);
+				pageToGo = PageName.EDIT_CINEMA_PAGE;
+				router.setPageToGo(pageToGo);
+				Map<String, String> errorsMapFromContent =
+								(Map<String, String>) content
+												.getSessionAttribute(ParamName.PARAM_ERR_UPDATE_CINEMA_MESSAGE);
+				if (errorsMapFromContent != null) {
+					errorsMap = errorsMapFromContent;
+				}
+				errorsMap.put(ErrorMessageKey.CINEMA_UPDATING_FAILED, "");
+				content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_CINEMA_MESSAGE, errorsMap);
 			}
 		}
 		return router;
