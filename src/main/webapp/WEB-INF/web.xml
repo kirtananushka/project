@@ -4,6 +4,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -76,31 +80,192 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Available films page</servlet-name>
-        <jsp-file>/jsp/user/common/films.jsp</jsp-file>
+        <servlet-name>ConfirmationSuccessful page</servlet-name>
+        <jsp-file>/jsp/user/common/confirmation_successful.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Available films page</servlet-name>
-        <url-pattern>/films</url-pattern>
-    </servlet-mapping>
-
-
-    <servlet>
-        <servlet-name>Test page</servlet-name>
-        <jsp-file>/jsp/user/admin/test.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Test page</servlet-name>
-        <url-pattern>/user/admin/test</url-pattern>
+        <servlet-name>ConfirmationSuccessful page</servlet-name>
+        <url-pattern>/confirmation_successful</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Testnew page</servlet-name>
-        <jsp-file>/test.jsp</jsp-file>
+        <servlet-name>FilmEdit page</servlet-name>
+        <jsp-file>/jsp/user/manager/edit_film.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Testnew page</servlet-name>
-        <url-pattern>/test</url-pattern>
+        <servlet-name>FilmEdit page</servlet-name>
+        <url-pattern>/film_edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FilmUpdated page</servlet-name>
+        <jsp-file>/jsp/user/manager/view_film_updated.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FilmUpdated page</servlet-name>
+        <url-pattern>/film_updated</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowEdit page</servlet-name>
+        <jsp-file>/jsp/user/manager/edit_show.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowEdit page</servlet-name>
+        <url-pattern>/show_edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowUpdated page</servlet-name>
+        <jsp-file>/jsp/user/manager/view_show_updated.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowUpdated page</servlet-name>
+        <url-pattern>/show_updated</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteFilm page</servlet-name>
+        <jsp-file>/jsp/user/manager/delete_film.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteFilm page</servlet-name>
+        <url-pattern>/delete_film</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteShow page</servlet-name>
+        <jsp-file>/jsp/user/manager/delete_show.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteShow page</servlet-name>
+        <url-pattern>/delete_show</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeletionSuccessful page</servlet-name>
+        <jsp-file>/jsp/user/manager/deletion_successful.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeletionSuccessful page</servlet-name>
+        <url-pattern>/deletion_successful</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RestorationSuccessful page</servlet-name>
+        <jsp-file>/jsp/user/manager/restoration_successful.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RestorationSuccessful page</servlet-name>
+        <url-pattern>/restoration_successful</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FilmCreate page</servlet-name>
+        <jsp-file>/jsp/user/manager/create_film.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FilmCreate page</servlet-name>
+        <url-pattern>/film_create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowCreate page</servlet-name>
+        <jsp-file>/jsp/user/manager/create_show.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowCreate page</servlet-name>
+        <url-pattern>/show_create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CinemaCreate page</servlet-name>
+        <jsp-file>/jsp/user/manager/create_cinema.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CinemaCreate page</servlet-name>
+        <url-pattern>/cinema_create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CinemaEdit page</servlet-name>
+        <jsp-file>/jsp/user/manager/edit_cinema.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CinemaEdit page</servlet-name>
+        <url-pattern>/cinema_edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CinemaUpdate page</servlet-name>
+        <jsp-file>/jsp/user/manager/update_cinema.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CinemaUpdate page</servlet-name>
+        <url-pattern>/cinema_update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CinemaDelete page</servlet-name>
+        <jsp-file>/jsp/user/manager/delete_cinema.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CinemaDelete page</servlet-name>
+        <url-pattern>/cinema_delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CinemaRestore page</servlet-name>
+        <jsp-file>/jsp/user/manager/restore_cinema.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CinemaRestore page</servlet-name>
+        <url-pattern>/cinema_restore</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GenreCreate page</servlet-name>
+        <jsp-file>/jsp/user/manager/create_genre.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GenreCreate page</servlet-name>
+        <url-pattern>/genre_create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GenreEdit page</servlet-name>
+        <jsp-file>/jsp/user/manager/edit_genre.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GenreEdit page</servlet-name>
+        <url-pattern>/genre_edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GenreUpdate page</servlet-name>
+        <jsp-file>/jsp/user/manager/update_genre.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GenreUpdate page</servlet-name>
+        <url-pattern>/genre_update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreationSuccessful page</servlet-name>
+        <jsp-file>/jsp/user/manager/creation_successful.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreationSuccessful page</servlet-name>
+        <url-pattern>/creation_successful</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdatingSuccessful page</servlet-name>
+        <jsp-file>/jsp/user/manager/updating_successful.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdatingSuccessful page</servlet-name>
+        <url-pattern>/updating_successful</url-pattern>
     </servlet-mapping>
 
 

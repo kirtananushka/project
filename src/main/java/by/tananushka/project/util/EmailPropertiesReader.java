@@ -28,7 +28,7 @@ public class EmailPropertiesReader {
 							                            .getResourceAsStream(PATH)));
 		} catch (IOException e) {
 			log.fatal("Can't read email properties.");
-			throw new RuntimeException(e);
+			throw new RuntimeException("Can't read email properties.", e);
 		}
 		return properties;
 	}

@@ -3,7 +3,7 @@ package by.tananushka.project.command.impl.common;
 import by.tananushka.project.bean.User;
 import by.tananushka.project.command.Command;
 import by.tananushka.project.command.ErrorMessageKey;
-import by.tananushka.project.controller.JspPageName;
+import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
@@ -36,13 +36,13 @@ public class AuthenticationCommand implements Command {
 				User user = userOptional.get();
 				content.assignSessionAttribute(ParamName.PARAM_USER, user);
 				content.assignSessionAttribute(ParamName.PARAM_ROLE, user.getRole().toString());
-				pageToGo = JspPageName.MAIN_PAGE;
+				pageToGo = PageName.MAIN_PAGE;
 				content.assignSessionAttribute(ParamName.PARAM_ERR_AUTH_MESSAGE, null);
 			} else {
 				router.setRoute(Router.RouteType.REDIRECT);
 				content.assignSessionAttribute(ParamName.PARAM_ERR_AUTH_MESSAGE,
 								ErrorMessageKey.WRONG_LOGIN_OR_PASS);
-				pageToGo = JspPageName.LOGIN_PAGE;
+				pageToGo = PageName.LOGIN_PAGE;
 			}
 		} catch (ServiceException e) {
 			log.error("Service exception", e);

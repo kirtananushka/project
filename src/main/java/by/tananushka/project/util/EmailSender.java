@@ -44,7 +44,7 @@ public class EmailSender {
 			message.setContent(text, ParamName.PARAM_CONTENT_TYPE);
 			Transport.send(message);
 		} catch (MessagingException e) {
-			log.error("Error while sending email", e);
+			log.error("Exception while sending email", e);
 		}
 		log.info("Email was send to user: {} ({} {}) to {}", client.getLogin(), client.getName(), client
 						.getSurname(), client.getEmail());
@@ -70,7 +70,7 @@ public class EmailSender {
 			message.setContent(text, ParamName.PARAM_CONTENT_TYPE);
 			Transport.send(message);
 		} catch (MessagingException e) {
-			log.error("Error while sending message", e);
+			log.error("Exception while sending message", e);
 		}
 		log.info("New message was sent");
 	}

@@ -1,7 +1,7 @@
 package by.tananushka.project.command.impl.common;
 
 import by.tananushka.project.command.Command;
-import by.tananushka.project.controller.JspPageName;
+import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
@@ -22,7 +22,7 @@ public class ChangeLocaleCommand implements Command {
 		String pageToGo = (String) content.getSessionAttribute(ParamName.PARAM_CURRENT_PAGE);
 		log.debug("Page to go: {}", pageToGo);
 		if (pageToGo == null) {
-			pageToGo = JspPageName.MAIN_PAGE;
+			pageToGo = PageName.MAIN_PAGE;
 		}
 		Router router = new Router();
 		router.setPageToGo(pageToGo);

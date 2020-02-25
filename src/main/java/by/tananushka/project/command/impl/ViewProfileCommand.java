@@ -3,7 +3,7 @@ package by.tananushka.project.command.impl;
 import by.tananushka.project.bean.User;
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.Command;
-import by.tananushka.project.controller.JspPageName;
+import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
@@ -17,10 +17,10 @@ public class ViewProfileCommand implements Command {
 	@Override
 	public Router execute(SessionContent content) {
 		User user = (User) content.getSessionAttribute(ParamName.PARAM_USER);
-		String pageToGo = JspPageName.LOGIN_PAGE;
+		String pageToGo = PageName.LOGIN_PAGE;
 		if (user != null) {
 			if (user.getRole().equals(UserRole.ADMIN)) {
-				pageToGo = JspPageName.VIEW_ADMIN_PROFILE_PAGE;
+				pageToGo = PageName.VIEW_ADMIN_PROFILE_PAGE;
 			}
 		}
 		Router router = new Router();

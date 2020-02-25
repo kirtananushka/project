@@ -18,26 +18,44 @@ public class UserDataValidator {
 	}
 
 	public boolean checkLogin(String login) {
+		if (login == null) {
+			return false;
+		}
 		return login.matches(LOGIN_PATTERN);
 	}
 
 	public boolean checkName(String name) {
+		if (name == null) {
+			return false;
+		}
 		return name.matches(NAME_PATTERN);
 	}
 
 	public boolean checkSurame(String surname) {
+		if (surname == null) {
+			return false;
+		}
 		return surname.matches(NAME_PATTERN);
 	}
 
 	public boolean checkPhone(String phone) {
+		if (phone == null) {
+			return false;
+		}
 		return phone.matches(PHONE_PATTERN);
 	}
 
 	public boolean checkEmail(String email) {
+		if (email == null) {
+			return false;
+		}
 		return email.matches(EMAIL_PATTERN);
 	}
 
 	public boolean checkPassword(String password) {
+		if (password == null) {
+			return false;
+		}
 		return password.matches(PASS_PATTERN);
 	}
 }

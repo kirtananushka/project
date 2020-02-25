@@ -3,7 +3,7 @@ package by.tananushka.project.command.impl.common;
 import by.tananushka.project.bean.Client;
 import by.tananushka.project.command.Command;
 import by.tananushka.project.command.CommandException;
-import by.tananushka.project.controller.JspPageName;
+import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
@@ -22,14 +22,13 @@ public class RegistrationCommand implements Command {
 	public Router execute(SessionContent content) throws CommandException {
 		Router router = new Router();
 		router.setRoute(Router.RouteType.REDIRECT);
-		String pageToGo;
-		pageToGo = JspPageName.REGISTRATION_PAGE;
+		String pageToGo = PageName.REGISTRATION_PAGE;
 		content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 		try {
 			Client client = clientService.createClient(content);
 			content.assignSessionAttribute("newUser", client);
 			router.setRoute(Router.RouteType.REDIRECT);
-			pageToGo = JspPageName.REGISTRATION_SUCCESSFUL_PAGE;
+			pageToGo = PageName.REGISTRATION_SUCCESSFUL_PAGE;
 			content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, null);
 			content.assignSessionAttribute(ParamName.PARAM_LOGIN_DEFAULT, null);
 			content.assignSessionAttribute(ParamName.PARAM_NAME_DEFAULT, null);
@@ -39,9 +38,9 @@ public class RegistrationCommand implements Command {
 			content.assignSessionAttribute(ParamName.PARAM_PASS_DEFAULT, null);
 			content.assignSessionAttribute(ParamName.PARAM_PASS_REPEATED_DEFAULT, null);
 		} catch (ServiceException e) {
-			log.error("Error while registration.", e);
+			log.error("Exception while registration.", e);
 		} catch (Exception e) {
-			throw new CommandException("Error while registration.", e);
+			throw new CommandException("Exception while registration.", e);
 		}
 		router.setPageToGo(pageToGo);
 		return router;

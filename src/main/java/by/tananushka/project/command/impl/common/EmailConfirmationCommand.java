@@ -2,7 +2,7 @@ package by.tananushka.project.command.impl.common;
 
 import by.tananushka.project.command.Command;
 import by.tananushka.project.command.ErrorMessageKey;
-import by.tananushka.project.controller.JspPageName;
+import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
@@ -26,7 +26,7 @@ public class EmailConfirmationCommand implements Command {
 			userId = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_USER_ID));
 			isConfirmationSuccessful = userService.emailConfirmation(userId);
 			if (isConfirmationSuccessful) {
-				pageToGo = JspPageName.CONFIRMATION_SUCCESSFUL_PAGE;
+				pageToGo = PageName.CONFIRMATION_SUCCESSFUL_PAGE;
 				content.assignSessionAttribute(ParamName.PARAM_ERR_AUTH_MESSAGE,
 								null);
 				content.assignSessionAttribute(ParamName.PARAM_USER, null);
@@ -34,7 +34,7 @@ public class EmailConfirmationCommand implements Command {
 				content.assignSessionAttribute(ParamName.PARAM_ERR_AUTH_MESSAGE,
 								ErrorMessageKey.EMAIL_VERIFICATION_FAILED);
 				content.assignSessionAttribute(ParamName.PARAM_USER, null);
-				pageToGo = JspPageName.LOGIN_PAGE;
+				pageToGo = PageName.LOGIN_PAGE;
 			}
 		} catch (ServiceException e) {
 			log.error("Service exception", e);

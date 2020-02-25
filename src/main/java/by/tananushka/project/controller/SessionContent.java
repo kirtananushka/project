@@ -95,4 +95,8 @@ public class SessionContent {
 	public void invalidateSession() {
 		invalidateSession = true;
 	}
+
+	public String[] getParameterValuesByName(String paramName) {
+		return request.getParameterValues(paramName);
+	}
 }

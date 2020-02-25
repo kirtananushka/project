@@ -21,8 +21,7 @@
 <div class="outer">
     <div class="center-padding grey shadow width50 back-white">
         <p>${text}</p>
-        <form class="authentication" action="${pageContext.request.contextPath}/index"
-              method="get">
+        <form class="authentication" action="${pageContext.request.contextPath}/index">
             <div class="centerOnly">
                 <input class="button" type="submit" value=${main}>
             </div>

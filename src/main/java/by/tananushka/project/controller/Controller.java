@@ -19,6 +19,7 @@ public class Controller extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final CommandProvider commandProvider = CommandProvider.getInstance();
+	private static final String REDIRECT_COMMAND = "/redirect?page=";
 	private static Logger log = LogManager.getLogger();
 
 	@Override
@@ -37,7 +38,6 @@ public class Controller extends HttpServlet {
 					throws ServletException, IOException {
 		SessionContent content = new SessionContent(request);
 		String commandName = request.getParameter(ParamName.PARAM_COMMAND);
-		log.info(commandName); // FIXME: 20.01.2020
 		Command command = commandProvider.getCommand(commandName);
 		String pageToGo;
 		Router router;
@@ -50,16 +50,16 @@ public class Controller extends HttpServlet {
 					request.getRequestDispatcher(pageToGo).forward(request, response);
 					break;
 				case REDIRECT:
-					response.sendRedirect(pageToGo);
+					response.sendRedirect(REDIRECT_COMMAND + pageToGo);
 					break;
 				default:
-					log.error("Unknown route");
-					throw new CommandException();
+					log.error("Unknown route.");
+					throw new CommandException("Unknown route.");
 			}
 		} catch (CommandException e) {
-			log.error("The command can't be executed", e);
-			request.setAttribute(ParamName.PARAM_ERROR, e); // FIXME: 25.01.2020
-			request.getRequestDispatcher(JspPageName.ERROR_PAGE).forward(request, response);
+			log.error("The command can't be executed.", e);
+			request.setAttribute(ParamName.PARAM_ERROR, e);
+			request.getRequestDispatcher(PageName.ERROR_PAGE).forward(request, response);
 		}
 	}
 

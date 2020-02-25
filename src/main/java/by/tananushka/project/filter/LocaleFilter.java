@@ -14,12 +14,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/jsp/*"}, dispatcherTypes = {DispatcherType.FORWARD,
-                                                        DispatcherType.INCLUDE,
-                                                        DispatcherType.REQUEST})
-//
-//@WebFilter(urlPatterns = {"/jsp/*", "/command*"}, dispatcherTypes = {DispatcherType.FORWARD,
 //                                                        DispatcherType.INCLUDE,
-//                                                        DispatcherType.REQUEST})
+                                                        DispatcherType.REQUEST})
 public class LocaleFilter implements Filter {
 
 	@Override

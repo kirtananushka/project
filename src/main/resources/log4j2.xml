@@ -2,8 +2,6 @@
 <Configuration status="WARN">
 
     <Properties>
-        <!--                <property name="LOG_DIR">resources\logs</property>-->
-        <!--        <property name="LOG_DIR">..\logs</property>-->
         <property name="LOG_DIR">E:\IdeaProjects\projectfl\logs</property>
         <property name="ARCHIVE_LOG_DIR">${LOG_DIR}/archive</property>
         <property name="pattern1">

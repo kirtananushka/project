@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 public class MenuRightTag extends TagSupport {
 
 	private static final String LANGUAGE_EN = "en";
@@ -26,6 +26,7 @@ public class MenuRightTag extends TagSupport {
 	private static final String VALUE_PROFILE = "profile";
 	private static final String VALUE_CLIENT = "client";
 	private static final String VALUE_GUEST = "guest";
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public int doStartTag() throws JspException {

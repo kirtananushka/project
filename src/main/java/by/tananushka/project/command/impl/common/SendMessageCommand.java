@@ -1,7 +1,7 @@
 package by.tananushka.project.command.impl.common;
 
 import by.tananushka.project.command.Command;
-import by.tananushka.project.controller.JspPageName;
+import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
@@ -17,9 +17,9 @@ public class SendMessageCommand implements Command {
 
 	@Override
 	public Router execute(SessionContent content) {
-		String pageToGo = JspPageName.SEND_MESSAGE_PAGE;
+		String pageToGo = PageName.SEND_MESSAGE_PAGE;
 		if (userService.sendMessage(content)) {
-			pageToGo = JspPageName.MESSAGE_SENT_PAGE;
+			pageToGo = PageName.MESSAGE_SENT_PAGE;
 			content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_MESSAGE, null);
 			content.assignSessionAttribute(ParamName.PARAM_NAME_DEFAULT, null);
 			content.assignSessionAttribute(ParamName.PARAM_SURNAME_DEFAULT, null);
@@ -30,6 +30,7 @@ public class SendMessageCommand implements Command {
 		Router router = new Router();
 		router.setPageToGo(pageToGo);
 		router.setRoute(Router.RouteType.FORWARD);
+		content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 		return router;
 	}
 }

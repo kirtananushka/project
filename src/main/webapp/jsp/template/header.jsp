@@ -7,16 +7,19 @@
 <fmt:message key="project.name" bundle="${resourceBundle}" var="projectName"/>
 <fmt:message key="menu.main" bundle="${resourceBundle}" var="menuMain"/>
 <fmt:message key="films" bundle="${resourceBundle}" var="films"/>
+<fmt:message key="films.active" bundle="${resourceBundle}" var="filmsActive"/>
+<fmt:message key="shows.menu" bundle="${resourceBundle}" var="shows"/>
 <fmt:message key="title.send.message" bundle="${resourceBundle}" var="sendMessage"/>
+<fmt:message key="film.create" bundle="${resourceBundle}" var="addFilm"/>
+<fmt:message key="show.create" bundle="${resourceBundle}" var="addShow"/>
+<fmt:message key="shows.cinema" bundle="${resourceBundle}" var="cinema"/>
+<fmt:message key="cinema.create" bundle="${resourceBundle}" var="addCinema"/>
+<fmt:message key="cinema.edit" bundle="${resourceBundle}" var="editCinema"/>
+<fmt:message key="cinema.delete" bundle="${resourceBundle}" var="deleteCinema"/>
+<fmt:message key="cinema.restore" bundle="${resourceBundle}" var="restoreCinema"/>
+<fmt:message key="genre.create" bundle="${resourceBundle}" var="addGenre"/>
+<fmt:message key="genre.edit" bundle="${resourceBundle}" var="editGenre"/>
 
-
-<html>
-<head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexstyle.css">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/image/favicon.ico">
-    <title>${projectName}</title>
-</head>
-<body>
 <div class="header">
     <div class="locale">
         <form class="locale" action="${pageContext.request.contextPath}controller" method="post">
@@ -38,22 +41,60 @@
         <%--            </c:otherwise>--%>
         <%--        </c:choose>--%>
         <c:if test="${sessionScope.user.role eq 'ADMIN'}">
-            <li><a href="${pageContext.request.contextPath}\">Admin</a>
+            <li><a>Admin</a>
                 <ul>
-                    <li><a href="${pageContext.request.contextPath}/user/admin/test">${menuMain}</a></li>
-                    <li><a href="${pageContext.request.contextPath}\">${menuMain}</a></li>
-                    <li><a href="${pageContext.request.contextPath}\">${menuMain}</a></li>
+                    <li><a href="${pageContext.request.contextPath}controller?command=create_genre">${addGenre}</a></li>
                 </ul>
             </li>
         </c:if>
-        <%--        <li><a--%>
-        <%--                href="${pageContext.request.contextPath}/controller?command=search_films&genre=&country=&year=&age=&page=1">${films}</a></li>--%>
-        <li><a href="${pageContext.request.contextPath}/controller?command=films_available&page=1">${films}</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="${pageContext.request.contextPath}\send_message">${sendMessage}</a></li>
+        <c:if test="${sessionScope.user.role eq 'MANAGER'}">
+            <li><a href="${pageContext.request.contextPath}\">Manager</a>
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}controller?command=create_genre">${addGenre}</a></li>
+                </ul>
+            </li>
+        </c:if>
+        <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+            <li><a>${cinema}</a>
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=create_cinema">${addCinema}</a></li>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=edit_cinema">${editCinema}</a></li>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=delete_cinema">${deleteCinema}</a></li>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=restore_cinema">${restoreCinema}</a></li>
+                </ul>
+            </li>
+        </c:if>
+        <li><a href="${pageContext.request.contextPath}
+        controller?command=films_available&page=1">${films}</a>
+            <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=create_film">${addFilm}</a></li>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=films_active&page=1">${filmsActive}</a></li>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=create_genre">${addGenre}</a></li>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=edit_genre">${editGenre}</a></li>
+                </ul>
+            </c:if>
+        </li>
+        <li><a href="${pageContext.request.contextPath}
+        controller?command=shows_available&page=1">${shows}</a>
+            <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=create_show">${addShow}</a></li>
+
+                </ul>
+            </c:if>
+        </li>
+        <li><a href="${pageContext.request.contextPath}send_message">${sendMessage}</a></li>
     </ul>
     <ctg:menu-right/>
 </div>
 <div class="shadowHeader"></div>
-</body>
-</html>

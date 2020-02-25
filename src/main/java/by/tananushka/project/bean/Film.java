@@ -11,12 +11,21 @@ public class Film extends Entity {
 	private int age;
 	private int year;
 	private String img;
+	private boolean active;
 	private Set<String> countries;
 	private Set<String> genres;
 
 	public Film() {
 		countries = new TreeSet<>();
 		genres = new TreeSet<>();
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public int getId() {
@@ -101,6 +110,9 @@ public class Film extends Entity {
 		if (year != film.year) {
 			return false;
 		}
+		if (active != film.active) {
+			return false;
+		}
 		if (title != null ? !title.equals(film.title) : film.title != null) {
 			return false;
 		}
@@ -120,6 +132,7 @@ public class Film extends Entity {
 		result = 31 * result + age;
 		result = 31 * result + year;
 		result = 31 * result + (img != null ? img.hashCode() : 0);
+		result = 31 * result + (active ? 1 : 0);
 		result = 31 * result + (countries != null ? countries.hashCode() : 0);
 		result = 31 * result + (genres != null ? genres.hashCode() : 0);
 		return result;
@@ -133,6 +146,7 @@ public class Film extends Entity {
 		sb.append(", age=").append(age);
 		sb.append(", year=").append(year);
 		sb.append(", img='").append(img).append('\'');
+		sb.append(", active=").append(active);
 		sb.append(", countries=").append(countries);
 		sb.append(", genres=").append(genres);
 		sb.append('}');

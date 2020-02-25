@@ -54,8 +54,8 @@ public class ConnectionPool {
 		try {
 			initializeConnectionPool();
 		} catch (ConnectionPoolException e) {
-			log.fatal("Connection creation error");
-			throw new RuntimeException("Connection creation error", e);
+			log.fatal("Connection creation error.");
+			throw new RuntimeException("Connection creation error.", e);
 		}
 	}
 
@@ -82,9 +82,9 @@ public class ConnectionPool {
 			createConnections(poolSize);
 			checkConnectionsNumber();
 		} catch (SQLException e) {
-			throw new ConnectionPoolException("SQL exception during connection pool initialization", e);
+			throw new ConnectionPoolException("SQL exception while connection pool initialization.", e);
 		} catch (ClassNotFoundException e) {
-			throw new ConnectionPoolException("Database driver class is not found", e);
+			throw new ConnectionPoolException("Database driver class is not found.", e);
 		}
 	}
 
@@ -100,8 +100,12 @@ public class ConnectionPool {
 	private void checkConnectionsNumber() throws SQLException {
 		int freeConnectionSize = getFreeConnectionSize();
 		int givenConnectionSize = getGivenConnectionSize();
-		log.debug("Connections: free/given/poolsize: {}/{}/{}", freeConnectionSize,
+		log.debug("Connections: free/given/poolsize: {}/{}/{}.", freeConnectionSize,
 						givenConnectionSize, poolSize);
+		if ((givenConnectionSize + freeConnectionSize) == 0) {
+			log.fatal("There are no connections in the pool.");
+			throw new RuntimeException("There are no connections in the pool.");
+		}
 		int difference = poolSize - (givenConnectionSize + freeConnectionSize);
 		if (difference > 0) {
 			log.debug("Connection is missed. Connections difference: {}", difference);
@@ -124,7 +128,7 @@ public class ConnectionPool {
 			givenConnectionQueue.add(connection);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
-			log.error("Error connecting to data source.", e);
+			log.error("Exception while connecting to data source.", e);
 		}
 		return connection;
 	}
@@ -135,19 +139,19 @@ public class ConnectionPool {
 			closeConnectionQueue(freeConnectionQueue);
 			log.debug("Connections were destroyed.");
 		} catch (SQLException e) {
-			log.error("Error clearing the connection pool.", e);
+			log.error("Exception while clearing the connection pool.", e);
 		}
 		Enumeration<Driver> drivers = DriverManager.getDrivers();
 		while (drivers.hasMoreElements()) {
 			Driver driver = drivers.nextElement();
 			try {
 				DriverManager.deregisterDriver(driver);
-				log.debug("Driver {} was deregistrated.", driver);
+				log.debug("Driver {} was deregistered.", driver);
 			} catch (SQLException e) {
-				log.error("Error deregistering driver {}.", driver, e);
+				log.error("Exception while deregistering driver {}.", driver, e);
 			}
 		}
-		log.debug("All drivers were deregistrated.");
+		log.debug("All drivers were deregistered.");
 	}
 
 	private void closeConnectionQueue(Queue<ProxyConnection> queue) throws SQLException {
@@ -177,23 +181,24 @@ public class ConnectionPool {
 		public void close() throws SQLException {
 			checkConnectionsNumber();
 			if (connection == null) {
-				throw new SQLException("Attempt to close null connection");
+				throw new SQLException("Attempt to close the null connection.");
 			}
 			if (connection.isClosed()) {
-				throw new SQLException("Attempt to close the closed connection");
+				throw new SQLException("Attempt to close the closed connection.");
 			}
 			if (!(this instanceof ProxyConnection)) {
-				throw new SQLException("Attempt to put connection, which was created outside the pool");
+				throw new SQLException("Attempt to put connection, which was created outside the pool.");
 			}
 			if (connection.isReadOnly()) {
 				connection.setReadOnly(false);
 			}
 			this.setAutoCommit(true);
 			if (!givenConnectionQueue.remove(this)) {
-				throw new SQLException("Error deleting connection from the pool of given connections");
+				throw new SQLException("Exception while deletion connection "
+								+ "from the pool of given connections.");
 			}
 			if (!freeConnectionQueue.offer(this)) {
-				throw new SQLException("Error of placing connection in the pool");
+				throw new SQLException("Exception while placing connection in the pool.");
 			}
 			checkConnectionsNumber();
 		}

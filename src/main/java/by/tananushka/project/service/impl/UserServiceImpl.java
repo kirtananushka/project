@@ -36,17 +36,17 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> authentication(String login, String password) throws ServiceException {
 		if (!validator.checkLogin(login)) {
 			log.info("Login '{}' is invalid", login);
-			throw new ServiceException("Login or/and password are invalid");
+			throw new ServiceException("Login or/and password are invalid.");
 		}
 		if (!validator.checkLogin(password)) {
 			log.info("Password '{}' is invalid", password);
-			throw new ServiceException("Login or/and password are invalid");
+			throw new ServiceException("Login or/and password are invalid.");
 		}
 		Optional<User> userOptional;
 		try {
 			userOptional = userDao.authentication(login, password);
 		} catch (DaoException e) {
-			throw new ServiceException(e);
+			throw new ServiceException("Exception while authentication.", e);
 		}
 		return userOptional;
 	}
@@ -55,12 +55,12 @@ public class UserServiceImpl implements UserService {
 	public boolean emailConfirmation(int userId) throws ServiceException {
 		boolean isConfirmationSuccessful;
 		if (userId <= 0) {
-			throw new ServiceException("User ID is invalid");
+			throw new ServiceException("User ID is invalid.");
 		}
 		try {
 			isConfirmationSuccessful = userDao.emailConfirmation(userId);
 		} catch (DaoException e) {
-			throw new ServiceException(e);
+			throw new ServiceException("Exception while email confirmation.", e);
 		}
 		return isConfirmationSuccessful;
 	}

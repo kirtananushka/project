@@ -4,6 +4,7 @@ import by.tananushka.project.service.ClientService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,7 +19,7 @@ import java.io.PrintWriter;
 public class AjaxController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static org.apache.logging.log4j.Logger log = LogManager.getLogger();
+	private static Logger log = LogManager.getLogger();
 
 	public void processRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.debug("AjaxController");

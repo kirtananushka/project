@@ -2,6 +2,7 @@ package by.tananushka.project.service;
 
 import by.tananushka.project.service.impl.ClientServiceImpl;
 import by.tananushka.project.service.impl.FilmServiceImpl;
+import by.tananushka.project.service.impl.ShowServiceImpl;
 import by.tananushka.project.service.impl.UserServiceImpl;
 
 public class ServiceProvider {
@@ -10,6 +11,7 @@ public class ServiceProvider {
 	private final UserService userService = UserServiceImpl.getInstance();
 	private final ClientService clientService = ClientServiceImpl.getInstance();
 	private final FilmService filmService = FilmServiceImpl.getInstance();
+	private final ShowService showService = ShowServiceImpl.getInstance();
 
 	private ServiceProvider() {
 	}
@@ -28,5 +30,9 @@ public class ServiceProvider {
 
 	public FilmService getFilmService() {
 		return filmService;
+	}
+
+	public ShowService getShowService() {
+		return showService;
 	}
 }

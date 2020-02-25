@@ -9,12 +9,42 @@ import by.tananushka.project.command.impl.common.NoSuchCommand;
 import by.tananushka.project.command.impl.common.RegistrationCommand;
 import by.tananushka.project.command.impl.common.RegistrationInitializeCommand;
 import by.tananushka.project.command.impl.common.SendMessageCommand;
-import by.tananushka.project.command.impl.films.FindAvailableFilmsCommand;
+import by.tananushka.project.command.impl.film.CreateFilmCommand;
+import by.tananushka.project.command.impl.film.CreateGenreCommand;
+import by.tananushka.project.command.impl.film.DeleteFilmCommand;
+import by.tananushka.project.command.impl.film.EditFilmCommand;
+import by.tananushka.project.command.impl.film.FindActiveFilmsCommand;
+import by.tananushka.project.command.impl.film.FindFilmToDeleteCommand;
+import by.tananushka.project.command.impl.film.FindFilmsCommand;
+import by.tananushka.project.command.impl.film.PrepareFilmCreationCommand;
+import by.tananushka.project.command.impl.film.PrepareGenreCreationCommand;
+import by.tananushka.project.command.impl.film.PrepareGenreEditionCommand;
+import by.tananushka.project.command.impl.film.PrepareGenreUpdateCommand;
+import by.tananushka.project.command.impl.film.SetImageCommand;
+import by.tananushka.project.command.impl.film.UpdateFilmCommand;
+import by.tananushka.project.command.impl.film.UpdateGenreCommand;
+import by.tananushka.project.command.impl.show.CreateCinemaCommand;
+import by.tananushka.project.command.impl.show.CreateShowCommand;
+import by.tananushka.project.command.impl.show.DeleteCinemaCommand;
+import by.tananushka.project.command.impl.show.DeleteShowCommand;
+import by.tananushka.project.command.impl.show.EditShowCommand;
+import by.tananushka.project.command.impl.show.FindShowToDeleteCommand;
+import by.tananushka.project.command.impl.show.FindShowsCommand;
+import by.tananushka.project.command.impl.show.PrepareCinemaCreationCommand;
+import by.tananushka.project.command.impl.show.PrepareCinemaDeletionCommand;
+import by.tananushka.project.command.impl.show.PrepareCinemaEditionCommand;
+import by.tananushka.project.command.impl.show.PrepareCinemaRestorationCommand;
+import by.tananushka.project.command.impl.show.PrepareCinemaUpdateCommand;
+import by.tananushka.project.command.impl.show.PrepareShowCreationCommand;
+import by.tananushka.project.command.impl.show.RestoreCinemaCommand;
+import by.tananushka.project.command.impl.show.UpdateCinemaCommand;
+import by.tananushka.project.command.impl.show.UpdateShowCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.EnumMap;
 import java.util.Map;
+//import by.tananushka.project.command.impl.show.EditShowCommand;
 
 public class CommandProvider {
 
@@ -33,7 +63,36 @@ public class CommandProvider {
 		commands.put(CommandName.LOGOUT, new LogoutCommand());
 		commands.put(CommandName.EMAIL_CONFIRMATION, new EmailConfirmationCommand());
 		commands.put(CommandName.SEND_MESSAGE, new SendMessageCommand());
-		commands.put(CommandName.FILMS_AVAILABLE, new FindAvailableFilmsCommand());
+		commands.put(CommandName.FILMS_AVAILABLE, new FindFilmsCommand());
+		commands.put(CommandName.FILMS_ACTIVE, new FindActiveFilmsCommand());
+		commands.put(CommandName.SHOWS_AVAILABLE, new FindShowsCommand());
+		commands.put(CommandName.EDIT_FILM, new EditFilmCommand());
+		commands.put(CommandName.EDIT_SHOW, new EditShowCommand());
+		commands.put(CommandName.UPDATE_FILM, new UpdateFilmCommand());
+		commands.put(CommandName.UPDATE_SHOW, new UpdateShowCommand());
+		commands.put(CommandName.FILM_TO_DELETE, new FindFilmToDeleteCommand());
+		commands.put(CommandName.DELETE_FILM, new DeleteFilmCommand());
+		commands.put(CommandName.SHOW_TO_DELETE, new FindShowToDeleteCommand());
+		commands.put(CommandName.DELETE_SHOW, new DeleteShowCommand());
+		commands.put(CommandName.SET_IMAGE, new SetImageCommand());
+		commands.put(CommandName.CREATE_FILM, new PrepareFilmCreationCommand());
+		commands.put(CommandName.ADD_FILM, new CreateFilmCommand());
+		commands.put(CommandName.CREATE_SHOW, new PrepareShowCreationCommand());
+		commands.put(CommandName.ADD_SHOW, new CreateShowCommand());
+		commands.put(CommandName.CREATE_CINEMA, new PrepareCinemaCreationCommand());
+		commands.put(CommandName.ADD_CINEMA, new CreateCinemaCommand());
+		commands.put(CommandName.CREATE_GENRE, new PrepareGenreCreationCommand());
+		commands.put(CommandName.ADD_GENRE, new CreateGenreCommand());
+		commands.put(CommandName.DELETE_CINEMA, new PrepareCinemaDeletionCommand());
+		commands.put(CommandName.REMOVE_CINEMA, new DeleteCinemaCommand());
+		commands.put(CommandName.RESTORE_CINEMA, new PrepareCinemaRestorationCommand());
+		commands.put(CommandName.RETURN_CINEMA, new RestoreCinemaCommand());
+		commands.put(CommandName.EDIT_CINEMA, new PrepareCinemaEditionCommand());
+		commands.put(CommandName.PREPARE_CINEMA_UPDATE, new PrepareCinemaUpdateCommand());
+		commands.put(CommandName.UPDATE_CINEMA, new UpdateCinemaCommand());
+		commands.put(CommandName.EDIT_GENRE, new PrepareGenreEditionCommand());
+		commands.put(CommandName.PREPARE_GENRE_UPDATE, new PrepareGenreUpdateCommand());
+		commands.put(CommandName.UPDATE_GENRE, new UpdateGenreCommand());
 	}
 
 	public static CommandProvider getInstance() {
@@ -42,15 +101,16 @@ public class CommandProvider {
 
 	public Command getCommand(String commandName) {
 		Command command = commands.get(CommandName.NO_SUCH_COMMAND);
-		try {
-			CommandName name = CommandName
-							.valueOf(commandName
-											.replace("-", "_")
-											.toUpperCase());
-			command = commands.get(name);
-			log.debug("Command: ", name); // FIXME: 20.01.2020
-		} catch (IllegalArgumentException e) {
-			log.error("No such command: {}", commandName, e);
+		if (commandName != null) {
+			try {
+				CommandName name = CommandName
+								.valueOf(commandName
+												.replace("-", "_")
+												.toUpperCase());
+				command = commands.get(name);
+			} catch (IllegalArgumentException e) {
+				log.error("No such command: {}", commandName, e);
+			}
 		}
 		return command;
 	}
