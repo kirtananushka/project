@@ -3,10 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="bundle/pagecontent" var="resourceBundle"/>
-<%--<fmt:setBundle basename="bundle/err" var="errorBundle"/>--%>
+<fmt:setBundle basename="bundle/err" var="errorBundle"/>
 
-<%--<fmt:message key="project.name" bundle="${resourceBundle}" var="projectName"/>--%>
-<fmt:message key="nothing.found" bundle="${resourceBundle}" var="nothingFound"/>
+<fmt:message key="nothing.found" bundle="${errorBundle}" var="nothingFound"/>
 <fmt:message key="clients.active" bundle="${resourceBundle}" var="title"/>
 <fmt:message key="client.id" bundle="${resourceBundle}" var="id"/>
 <fmt:message key="login" bundle="${resourceBundle}" var="login"/>
@@ -17,24 +16,8 @@
 <fmt:message key="verified" bundle="${resourceBundle}" var="verified"/>
 <fmt:message key="active" bundle="${resourceBundle}" var="active"/>
 <fmt:message key="registration.date.short" bundle="${resourceBundle}" var="registrationDate"/>
-
-
-<%--<fmt:message key="password" bundle="${resourceBundle}" var="password"/>--%>
-<%--<fmt:message key="password.repeate" bundle="${resourceBundle}" var="repeatePassword"/>--%>
-<%--<fmt:message key="login.expl" bundle="${resourceBundle}" var="loginExpl"/>--%>
-<%--<fmt:message key="password.expl" bundle="${resourceBundle}" var="passwordExpl"/>--%>
-<%--<fmt:message key="name.expl" bundle="${resourceBundle}" var="nameExpl"/>--%>
-<%--<fmt:message key="name.placeholder" bundle="${resourceBundle}" var="namePlaceholder"/>--%>
-<%--<fmt:message key="surname.placeholder" bundle="${resourceBundle}" var="surnamePlaceholder"/>--%>
-<%--<fmt:message key="phone.expl" bundle="${resourceBundle}" var="phoneExpl"/>--%>
-<%--<fmt:message key="phone.placeholder" bundle="${resourceBundle}" var="phonePlaceholder"/>--%>
-<%--<fmt:message key="email.placeholder" bundle="${resourceBundle}" var="emailPlaceholder"/>--%>
-<%--<fmt:message key="form.login.exists" bundle="${resourceBundle}" var="loginExists"/>--%>
-<%--<fmt:message key="form.button.register" bundle="${resourceBundle}" var="register"/>--%>
-<%--<fmt:message key="form.button.reset" bundle="${resourceBundle}" var="reset"/>--%>
-<%--<fmt:message key="form.field.required" bundle="${resourceBundle}" var="fieldRequired"/>--%>
-<%--<fmt:message key="form.pass.dont.match" bundle="${resourceBundle}" var="passNotMatch"/>--%>
-<%--<fmt:message key="invalid.login" bundle="${errorBundle}" var="wrongLoginPass"/>--%>
+<fmt:message key="form.edit" bundle="${resourceBundle}" var="edit"/>
+<fmt:message key="user.role" bundle="${resourceBundle}" var="role"/>
 
 <html>
 <head>
@@ -51,25 +34,23 @@
                 <p class="center margin-bottom">${nothingFound}</p>
             </c:when>
             <c:otherwise>
-
                 <c:import url="/jsp/template/pagination.jsp"/>
-
                 <c:forEach items="${requestScope.clientsList}" var="client">
                     <table class="clients-view width100">
                         <tr>
+                            <td class="width20 middle-left">
+                                <strong>${login}</strong>
+                            </td>
+                            <td class="middle-left"><strong>
+                                <input class="width95" type="text" id="login"
+                                       name="login" value="${client.login}" disabled>
+                            </strong></td>
                             <td class="width20 middle-left">
                                     ${id}
                             </td>
                             <td class="middle-left">
                                 <input class="width95" type="text" id="clientId"
                                        name="clientId" value="${client.id}" disabled>
-                            </td>
-                            <td class="width20 middle-left">
-                                    ${login}
-                            </td>
-                            <td class="middle-left">
-                                <input class="width95" type="text" id="login"
-                                       name="login" value="${client.login}" disabled>
                             </td>
                         </tr>
                         <tr>
@@ -117,9 +98,12 @@
                                        value="<fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${parsedDate}"/>"
                                        disabled>
                             </td>
-                            <td>
+                            <td class="width20 middle-left">
+                                    ${role}
                             </td>
-                            <td>
+                            <td class="middle-left">
+                                <input class="width95" type="text" id="role"
+                                       name="role" value="${client.role}" disabled>
                             </td>
                         </tr>
                         <tr>
@@ -127,17 +111,45 @@
                                     ${verified}
                             </td>
                             <td class="middle-left">
-                                <input class="checkbox" type="checkbox" id="isVerified"
-                                       name="isVerified" value="${client.verified}" disabled
-                                       <c:if test="${client.verified = true}">checked</c:if>>
+                                <c:choose>
+                                    <c:when test="${client.verified == true}">
+                                        <input class="checkbox" type="checkbox" id="verified" name="verified"
+                                               value="${client.verified}"
+                                               checked="checked" disabled>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input class="checkbox" type="checkbox" id="verified" name="verified"
+                                               value="${client.verified}" disabled>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                             <td class="width20 middle-left">
                                     ${active}
                             </td>
                             <td class="middle-left">
-                                <input class="checkbox" type="checkbox" id="isActive"
-                                       name="isActive" value="${client.active}" disabled
-                                       <c:if test="${client.active = true}">checked</c:if>>
+                                <c:choose>
+                                    <c:when test="${client.active == true}">
+                                        <input class="checkbox" type="checkbox" id="active" name="active"
+                                               value="${client.active}"
+                                               checked="checked" disabled>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input class="checkbox" type="checkbox" id="active" name="active"
+                                               value="${client.active}" disabled>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <hr>
+                            </td>
+                        </tr>
+                        <tr class="gray">
+                            <td colspan="4" class="middle-center">
+                                <a class="button"
+                                   href="${pageContext.request.contextPath}
+                                       /controller?command=edit_client&clientId=${client.id}">${edit}</a>
                             </td>
                         </tr>
                         <tr>
@@ -147,13 +159,9 @@
                         </tr>
                     </table>
                 </c:forEach>
-
-
             </c:otherwise>
         </c:choose>
-
     </div>
-
 </div>
 </body>
 </html>

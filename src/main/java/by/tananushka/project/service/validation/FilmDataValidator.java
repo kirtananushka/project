@@ -9,7 +9,7 @@ public class FilmDataValidator {
 
 	private static final FilmDataValidator instance = new FilmDataValidator();
 	private static final String CYR_STRING_PATTERN = "^[А-Я][А-я ]{1,255}$";
-	private static final String TITLE_GENRE_PATTERN = "^.{1,255}$";
+	private static final String TITLE_PATTERN = "^.{1,255}$";
 	private static final String NUMBER_PATTERN = "^\\d{1,4}$";
 	private static final String INTEGER_PATTERN = "^\\d{1,10}$";
 	private static final String YEAR_PATTERN = "^\\d{4}$";
@@ -36,7 +36,7 @@ public class FilmDataValidator {
 			return false;
 		}
 		log.debug("String checked: {}.", title);
-		return title.matches(TITLE_GENRE_PATTERN);
+		return title.matches(TITLE_PATTERN);
 	}
 
 	public boolean checkNumber(String number) {
@@ -117,13 +117,4 @@ public class FilmDataValidator {
 		}
 		return isValid;
 	}
-
-	public boolean checkGenre(String genreName) {
-		if (genreName == null) {
-			return false;
-		}
-		log.debug("Genre checked: {}.", genreName);
-		return genreName.matches(TITLE_GENRE_PATTERN);
-	}
-
 }

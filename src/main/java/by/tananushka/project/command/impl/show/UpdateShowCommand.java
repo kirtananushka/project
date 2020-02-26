@@ -41,7 +41,7 @@ public class UpdateShowCommand implements Command {
 								                       .getSessionAttribute(ParamName.PARAM_SHOW_OBJ));
 				content.assignSessionAttribute(ParamName.PARAM_SHOW_OBJ, show);
 				router.setRoute(Router.RouteType.REDIRECT);
-				pageToGo = PageName.VIEW_SHOW_PAGE;
+				pageToGo = PageName.VIEW_SHOW_UPDATED_PAGE;
 				content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 			} catch (ServiceException e) {
 				log.error("Exception while updating show.", e);

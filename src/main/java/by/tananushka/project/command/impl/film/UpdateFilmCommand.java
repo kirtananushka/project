@@ -34,7 +34,7 @@ public class UpdateFilmCommand implements Command {
 							                       .getSessionAttribute(ParamName.PARAM_FILM_OBJ));
 			content.assignSessionAttribute(ParamName.PARAM_FILM_OBJ, film);
 			router.setRoute(Router.RouteType.REDIRECT);
-			pageToGo = PageName.VIEW_FILM_PAGE;
+			pageToGo = PageName.VIEW_FILM_UPDATED_PAGE;
 			content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 		} catch (ServiceException e) {
 			log.error("Exception while updating film.", e);

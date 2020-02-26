@@ -7,7 +7,7 @@ import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
 
-public class RegistrationInitializeCommand implements Command {
+public class RegistrationPrepareCommand implements Command {
 
 	@Override
 	public Router execute(SessionContent content) throws CommandException {

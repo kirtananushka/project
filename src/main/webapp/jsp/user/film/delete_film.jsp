@@ -10,15 +10,6 @@
 <fmt:message key="form.delete" bundle="${resourceBundle}" var="delete"/>
 <fmt:message key="nothing.found" bundle="${errorBundle}" var="nothingFound"/>
 
-<%--<fmt:message key="film.title" bundle="${resourceBundle}" var="filmTitle"/>--%>
-<%--<fmt:message key="form.update" bundle="${resourceBundle}" var="update"/>--%>
-<%--<fmt:message key="form.button.reset" bundle="${resourceBundle}" var="reset"/>--%>
-<%--<fmt:message key="film.genre" bundle="${resourceBundle}" var="filmGenre"/>--%>
-<%--<fmt:message key="film.country" bundle="${resourceBundle}" var="filmCountry"/>--%>
-<%--<fmt:message key="film.age" bundle="${resourceBundle}" var="filmAge"/>--%>
-<%--<fmt:message key="film.year" bundle="${resourceBundle}" var="filmYear"/>--%>
-
-
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexstyle.css">

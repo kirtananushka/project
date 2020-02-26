@@ -2,6 +2,7 @@ package by.tananushka.project.dao;
 
 import by.tananushka.project.dao.impl.ClientDaoImpl;
 import by.tananushka.project.dao.impl.FilmDaoImpl;
+import by.tananushka.project.dao.impl.ManagerDaoImpl;
 import by.tananushka.project.dao.impl.ShowDaoImpl;
 import by.tananushka.project.dao.impl.UserDaoImpl;
 
@@ -10,6 +11,7 @@ public class DaoProvider {
 	private static final DaoProvider instance = new DaoProvider();
 	private final UserDao userDao = UserDaoImpl.getInstance();
 	private final ClientDao clientDao = ClientDaoImpl.getInstance();
+	private final ManagerDao managerDao = ManagerDaoImpl.getInstance();
 	private final FilmDao filmDao = FilmDaoImpl.getInstance();
 	private final ShowDao showDao = ShowDaoImpl.getInstance();
 
@@ -26,6 +28,10 @@ public class DaoProvider {
 
 	public ClientDao getClientDao() {
 		return clientDao;
+	}
+
+	public ManagerDao getManagerDao() {
+		return managerDao;
 	}
 
 	public FilmDao getFilmDao() {

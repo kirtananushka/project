@@ -42,7 +42,7 @@ public class AuthenticationCommand implements Command {
 				router.setRoute(Router.RouteType.REDIRECT);
 				content.assignSessionAttribute(ParamName.PARAM_ERR_AUTH_MESSAGE,
 								ErrorMessageKey.WRONG_LOGIN_OR_PASS);
-				pageToGo = PageName.LOGIN_PAGE;
+				pageToGo = PageName.AUTHENTICATION_PAGE;
 			}
 		} catch (ServiceException e) {
 			log.error("Service exception", e);

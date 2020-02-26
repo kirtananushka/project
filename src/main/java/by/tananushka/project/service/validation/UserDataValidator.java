@@ -1,5 +1,8 @@
 package by.tananushka.project.service.validation;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class UserDataValidator {
 
 	private static final UserDataValidator instance = new UserDataValidator();
@@ -9,6 +12,9 @@ public class UserDataValidator {
 	private static final String EMAIL_PATTERN =
 					"^([\\w-]+\\.)*[\\w-]+@[\\w-]+(\\.[\\w-]+)*\\.[a-z]{2,6}$";
 	private static final String PASS_PATTERN = "^[\\w]{8,20}$";
+	private static final String ID_PATTERN = "^\\d{1,10}$";
+	private static Logger log = LogManager.getLogger();
+
 
 	private UserDataValidator() {
 	}
@@ -21,6 +27,7 @@ public class UserDataValidator {
 		if (login == null) {
 			return false;
 		}
+		log.debug("Login checked: {}.", login);
 		return login.matches(LOGIN_PATTERN);
 	}
 
@@ -28,6 +35,7 @@ public class UserDataValidator {
 		if (name == null) {
 			return false;
 		}
+		log.debug("Name checked: {}.", name);
 		return name.matches(NAME_PATTERN);
 	}
 
@@ -35,6 +43,7 @@ public class UserDataValidator {
 		if (surname == null) {
 			return false;
 		}
+		log.debug("Surname checked: {}.", surname);
 		return surname.matches(NAME_PATTERN);
 	}
 
@@ -42,6 +51,7 @@ public class UserDataValidator {
 		if (phone == null) {
 			return false;
 		}
+		log.debug("Phone checked: {}.", phone);
 		return phone.matches(PHONE_PATTERN);
 	}
 
@@ -49,6 +59,7 @@ public class UserDataValidator {
 		if (email == null) {
 			return false;
 		}
+		log.debug("Email checked: {}.", email);
 		return email.matches(EMAIL_PATTERN);
 	}
 
@@ -56,6 +67,22 @@ public class UserDataValidator {
 		if (password == null) {
 			return false;
 		}
+		log.debug("Password checked: {}.", password);
 		return password.matches(PASS_PATTERN);
+	}
+
+	public boolean checkId(String strId) {
+		if (strId == null || !strId.matches(ID_PATTERN)) {
+			log.error("ID is not valid: {}.", strId);
+			return false;
+		}
+		try {
+			Integer.parseInt(strId);
+			log.debug("ID is valid: {}.", strId);
+			return true;
+		} catch (NumberFormatException e) {
+			log.error("ID is not valid: {}.", strId);
+			return false;
+		}
 	}
 }

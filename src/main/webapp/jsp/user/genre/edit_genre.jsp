@@ -10,6 +10,7 @@
 <fmt:message key="form.back" bundle="${resourceBundle}" var="ok"/>
 <fmt:message key="form.next" bundle="${resourceBundle}" var="next"/>
 <fmt:message key="form.button.reset" bundle="${resourceBundle}" var="reset"/>
+<fmt:message key="nothing.found" bundle="${errorBundle}" var="nothingFound"/>
 
 
 <html>
@@ -23,6 +24,13 @@
 <div class="outer">
     <div class="center-padding grey shadow width50 back-white">
         <div class="padding-top-40">
+            <c:choose>
+            <c:when test="${empty sessionScope.genresMap}">
+                <div class="center-padding grey shadow width50 back-white">
+                    <p class="center margin-bottom">${nothingFound}</p>
+                </div>
+            </c:when>
+            <c:otherwise>
             <form id="editGenreForm" name="editGenreForm"
                   action="${pageContext.request.contextPath}controller"
                   method="post">
@@ -49,6 +57,7 @@
                 </div>
             </form>
         </div>
+        </c:otherwise>
     </div>
 </div>
 </body>

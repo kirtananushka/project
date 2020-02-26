@@ -9,6 +9,7 @@ import by.tananushka.project.dao.DaoProvider;
 import by.tananushka.project.dao.UserDao;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.UserService;
+import by.tananushka.project.service.validation.EscapeCharactersChanger;
 import by.tananushka.project.service.validation.UserDataValidator;
 import by.tananushka.project.util.EmailSender;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
 	private static final UserDataValidator validator = UserDataValidator.getInstance();
+	private static final EscapeCharactersChanger changer = EscapeCharactersChanger.getInstance();
 	private static final UserService instance = new UserServiceImpl();
 	private static Logger log = LogManager.getLogger();
 	private UserDao userDao = DaoProvider.getInstance().getUserDao();
@@ -95,6 +97,8 @@ public class UserServiceImpl implements UserService {
 			isParameterValid = false;
 		}
 		String message = content.getRequestParameter(ParamName.PARAM_MSG_MESSAGE).strip();
+		message = changer.changeCharacters(message);
+		log.debug(message);
 		content.assignSessionAttribute(ParamName.PARAM_MESSAGE_DEFAULT, message);
 		if (isParameterValid) {
 			EmailSender.sendMessage(content);

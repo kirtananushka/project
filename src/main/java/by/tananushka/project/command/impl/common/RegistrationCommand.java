@@ -13,6 +13,8 @@ import by.tananushka.project.service.ServiceProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Optional;
+
 public class RegistrationCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
@@ -25,18 +27,20 @@ public class RegistrationCommand implements Command {
 		String pageToGo = PageName.REGISTRATION_PAGE;
 		content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 		try {
-			Client client = clientService.createClient(content);
-			content.assignSessionAttribute("newUser", client);
-			router.setRoute(Router.RouteType.REDIRECT);
-			pageToGo = PageName.REGISTRATION_SUCCESSFUL_PAGE;
-			content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, null);
-			content.assignSessionAttribute(ParamName.PARAM_LOGIN_DEFAULT, null);
-			content.assignSessionAttribute(ParamName.PARAM_NAME_DEFAULT, null);
-			content.assignSessionAttribute(ParamName.PARAM_SURNAME_DEFAULT, null);
-			content.assignSessionAttribute(ParamName.PARAM_EMAIL_DEFAULT, null);
-			content.assignSessionAttribute(ParamName.PARAM_PHONE_DEFAULT, null);
-			content.assignSessionAttribute(ParamName.PARAM_PASS_DEFAULT, null);
-			content.assignSessionAttribute(ParamName.PARAM_PASS_REPEATED_DEFAULT, null);
+			Optional<Client> clientOptional = clientService.createClient(content);
+			if (clientOptional.isPresent()) {
+				content.assignSessionAttribute(ParamName.PARAM_NEW_USER, clientOptional.get());
+				router.setRoute(Router.RouteType.REDIRECT);
+				pageToGo = PageName.REGISTRATION_SUCCESSFUL_PAGE;
+				content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, null);
+				content.assignSessionAttribute(ParamName.PARAM_LOGIN_DEFAULT, null);
+				content.assignSessionAttribute(ParamName.PARAM_NAME_DEFAULT, null);
+				content.assignSessionAttribute(ParamName.PARAM_SURNAME_DEFAULT, null);
+				content.assignSessionAttribute(ParamName.PARAM_EMAIL_DEFAULT, null);
+				content.assignSessionAttribute(ParamName.PARAM_PHONE_DEFAULT, null);
+				content.assignSessionAttribute(ParamName.PARAM_PASS_DEFAULT, null);
+				content.assignSessionAttribute(ParamName.PARAM_PASS_REPEATED_DEFAULT, null);
+			}
 		} catch (ServiceException e) {
 			log.error("Exception while registration.", e);
 		} catch (Exception e) {

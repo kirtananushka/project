@@ -10,14 +10,17 @@ import by.tananushka.project.command.impl.cinema.PrepareCinemaRestorationCommand
 import by.tananushka.project.command.impl.cinema.PrepareCinemaUpdateCommand;
 import by.tananushka.project.command.impl.cinema.RestoreCinemaCommand;
 import by.tananushka.project.command.impl.cinema.UpdateCinemaCommand;
+import by.tananushka.project.command.impl.client.EditClientCommand;
 import by.tananushka.project.command.impl.client.FindActiveClientsCommand;
+import by.tananushka.project.command.impl.client.FindAllClientsCommand;
+import by.tananushka.project.command.impl.client.UpdateClientCommand;
 import by.tananushka.project.command.impl.common.AuthenticationCommand;
 import by.tananushka.project.command.impl.common.ChangeLocaleCommand;
 import by.tananushka.project.command.impl.common.EmailConfirmationCommand;
 import by.tananushka.project.command.impl.common.LogoutCommand;
 import by.tananushka.project.command.impl.common.NoSuchCommand;
 import by.tananushka.project.command.impl.common.RegistrationCommand;
-import by.tananushka.project.command.impl.common.RegistrationInitializeCommand;
+import by.tananushka.project.command.impl.common.RegistrationPrepareCommand;
 import by.tananushka.project.command.impl.common.SendMessageCommand;
 import by.tananushka.project.command.impl.film.CreateFilmCommand;
 import by.tananushka.project.command.impl.film.DeleteFilmCommand;
@@ -33,6 +36,10 @@ import by.tananushka.project.command.impl.genre.PrepareGenreCreationCommand;
 import by.tananushka.project.command.impl.genre.PrepareGenreEditionCommand;
 import by.tananushka.project.command.impl.genre.PrepareGenreUpdateCommand;
 import by.tananushka.project.command.impl.genre.UpdateGenreCommand;
+import by.tananushka.project.command.impl.manager.EditManagerCommand;
+import by.tananushka.project.command.impl.manager.FindActiveManagersCommand;
+import by.tananushka.project.command.impl.manager.FindAllManagersCommand;
+import by.tananushka.project.command.impl.manager.UpdateManagerCommand;
 import by.tananushka.project.command.impl.show.CreateShowCommand;
 import by.tananushka.project.command.impl.show.DeleteShowCommand;
 import by.tananushka.project.command.impl.show.EditShowCommand;
@@ -60,7 +67,7 @@ public class CommandProvider {
 //		commands.put(CommandName.VIEW_ADMIN_PROFILE, new ViewAdminProfileCommand());
 		commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
 		commands.put(CommandName.REGISTRATION, new RegistrationCommand());
-		commands.put(CommandName.REGISTRATION_INITIALIZE, new RegistrationInitializeCommand());
+		commands.put(CommandName.REGISTRATION_INITIALIZE, new RegistrationPrepareCommand());
 		commands.put(CommandName.LOGOUT, new LogoutCommand());
 		commands.put(CommandName.EMAIL_CONFIRMATION, new EmailConfirmationCommand());
 		commands.put(CommandName.SEND_MESSAGE, new SendMessageCommand());
@@ -95,6 +102,13 @@ public class CommandProvider {
 		commands.put(CommandName.PREPARE_GENRE_UPDATE, new PrepareGenreUpdateCommand());
 		commands.put(CommandName.UPDATE_GENRE, new UpdateGenreCommand());
 		commands.put(CommandName.FIND_ACTIVE_CLIENTS, new FindActiveClientsCommand());
+		commands.put(CommandName.FIND_ALL_CLIENTS, new FindAllClientsCommand());
+		commands.put(CommandName.EDIT_CLIENT, new EditClientCommand());
+		commands.put(CommandName.UPDATE_CLIENT, new UpdateClientCommand());
+		commands.put(CommandName.FIND_ACTIVE_MANAGERS, new FindActiveManagersCommand());
+		commands.put(CommandName.FIND_ALL_MANAGERS, new FindAllManagersCommand());
+		commands.put(CommandName.EDIT_MANAGER, new EditManagerCommand());
+		commands.put(CommandName.UPDATE_MANAGER, new UpdateManagerCommand());
 	}
 
 	public static CommandProvider getInstance() {

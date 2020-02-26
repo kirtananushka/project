@@ -1,5 +1,6 @@
 package by.tananushka.project.controller;
 
+import by.tananushka.project.service.validation.EscapeCharactersChanger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +21,7 @@ import java.io.IOException;
 public class ImageUploader extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private static final EscapeCharactersChanger changer = EscapeCharactersChanger.getInstance();
 	private static final String IMAGE = "image";
 	private static final String UPLOAD_DIR = "E:/IdeaProjects/projectfl/src/main/webapp/image/film/";
 	private static final String PATH = "/image/film/";
@@ -35,8 +37,8 @@ public class ImageUploader extends HttpServlet {
 		String imageName = null;
 		for (Part part : request.getParts()) {
 			if (part.getSubmittedFileName() != null && part.getContentType().contains(IMAGE)) {
-				part.write(UPLOAD_DIR + part.getSubmittedFileName());
-				imageName = part.getSubmittedFileName();
+				part.write(UPLOAD_DIR + changer.deleteCharacters(part.getSubmittedFileName()));
+				imageName = changer.deleteCharacters(part.getSubmittedFileName());
 			}
 		}
 		request.getSession().setAttribute(ParamName.PARAM_IMG, PATH + imageName);

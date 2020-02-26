@@ -25,6 +25,7 @@ public class DeleteFilmCommand implements Command {
 	@Override
 	public Router execute(SessionContent content) throws CommandException {
 		Router router = new Router();
+		router.setRoute(Router.RouteType.FORWARD);
 		router.setPageToGo(PageName.ACCESS_DENIED_PAGE);
 		String role = (String) content.getSessionAttribute(ParamName.PARAM_ROLE);
 		if (role != null &&

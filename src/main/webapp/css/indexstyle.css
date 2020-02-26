@@ -571,7 +571,7 @@ ul.menu li:hover ul {
     position: absolute;
     left: 150px;
     top: 5px;
-    width: 200px;
+    width: 250px;
     z-index: 1000;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -699,7 +699,7 @@ form.authentication .textarea {
 }
 
 form.authentication input.button {
-    width: 250px;
+    /*width: 250px;*/
     align-self: center;
 }
 

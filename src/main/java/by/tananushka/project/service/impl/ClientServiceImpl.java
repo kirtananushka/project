@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientServiceImpl implements ClientService {
 
@@ -43,8 +44,42 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public Client createClient(SessionContent content) throws ServiceException {
+	public List<Client> findAllClients() throws ServiceException {
+		List<Client> clientsList;
+		try {
+			clientsList = clientDao.findAllClients();
+		} catch (DaoException e) {
+			throw new ServiceException("Exception while getting all clients", e);
+		}
+		return clientsList;
+	}
+
+	@Override
+	public Optional<Client> findClientById(String strClientId) throws ServiceException {
+		int clientId;
+		Optional<Client> clientOptional = Optional.empty();
+		if (validator.checkId(strClientId)) {
+			clientId = Integer.parseInt(strClientId);
+			clientOptional = findClientById(clientId);
+		}
+		return clientOptional;
+	}
+
+	@Override
+	public Optional<Client> findClientById(int clientId) throws ServiceException {
+		Optional<Client> clientOptional;
+		try {
+			clientOptional = clientDao.findClientById(clientId);
+		} catch (DaoException e) {
+			throw new ServiceException("Exception while finding client by ID.", e);
+		}
+		return clientOptional;
+	}
+
+	@Override
+	public Optional<Client> createClient(SessionContent content) throws ServiceException {
 		boolean isParameterValid = true;
+		Optional<Client> clientOptional;
 		List<String> errorsList = new ArrayList<>();
 		content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, null);
 		String login = content.getRequestParameter(ParamName.PARAM_LOGIN).strip();
@@ -105,15 +140,72 @@ public class ClientServiceImpl implements ClientService {
 			content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, errorsList);
 			throw new ServiceException("Invalid parameter(s)");
 		}
-		Client newClient;
 		try {
-			newClient = clientDao.createClient(client);
-			EmailSender.sendConfirmation(newClient);
+			clientOptional = clientDao.createClient(client);
+			clientOptional.ifPresent(EmailSender::sendConfirmation);
 		} catch (DaoException e) {
-			log.error("Dao exception");
+			log.error("Exception while creating client");
 			throw new ServiceException(e);
 		}
-		return newClient;
+		return clientOptional;
+	}
+
+	@Override
+	public Optional<Client> updateClient(SessionContent content) throws ServiceException {
+		boolean isParameterValid = true;
+		Optional<Client> clientOptional;
+		List<String> errorsList = new ArrayList<>();
+		content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_CLIENT_MESSAGE, null);
+		String strClientId = content.getRequestParameter(ParamName.PARAM_CLIENT_ID).strip();
+		int clientId = 0;
+		if (!validator.checkId(strClientId)) {
+			errorsList.add(ErrorMessageKey.INVALID_ID);
+			isParameterValid = false;
+		} else {
+			clientId = Integer.parseInt(strClientId);
+		}
+		String name = content.getRequestParameter(ParamName.PARAM_NAME).strip();
+		if (!validator.checkName(name)) {
+			errorsList.add(ErrorMessageKey.INVALID_NAME);
+			isParameterValid = false;
+		}
+		String surname = content.getRequestParameter(ParamName.PARAM_SURNAME).strip();
+		if (!validator.checkSurame(surname)) {
+			errorsList.add(ErrorMessageKey.INVALID_SURNAME);
+			isParameterValid = false;
+		}
+		String phone = content.getRequestParameter(ParamName.PARAM_PHONE).strip();
+		if (!validator.checkPhone(phone)) {
+			errorsList.add(ErrorMessageKey.INVALID_PHONE);
+			isParameterValid = false;
+		}
+		String email = content.getRequestParameter(ParamName.PARAM_EMAIL).strip();
+		if (!validator.checkEmail(email)) {
+			errorsList.add(ErrorMessageKey.INVALID_EMAIL);
+			isParameterValid = false;
+		}
+		String strIsActive = content.getRequestParameter(ParamName.PARAM_ACTIVE);
+		boolean isActive = strIsActive != null;
+		if (isParameterValid) {
+			Client client = new Client();
+			client.setId(clientId);
+			client.setName(name);
+			client.setSurname(surname);
+			client.setPhone(phone);
+			client.setEmail(email);
+			client.setActive(isActive);
+			clientOptional = Optional.of(client);
+		} else {
+			content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_CLIENT_MESSAGE, errorsList);
+			throw new ServiceException("Invalid parameter(s)");
+		}
+		try {
+			clientOptional = clientDao.updateClient(clientOptional.get());
+		} catch (DaoException e) {
+			log.error("Exception while updating client");
+			throw new ServiceException(e);
+		}
+		return clientOptional;
 	}
 
 	@Override

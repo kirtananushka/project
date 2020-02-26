@@ -29,7 +29,7 @@ public class SetImageCommand implements Command {
 		if (role != null &&
 						(role.equals(UserRole.MANAGER.toString()) ||
 										role.equals(UserRole.ADMIN.toString()))) {
-			content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, PageName.VIEW_FILM_PAGE);
+			content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, PageName.VIEW_FILM_UPDATED_PAGE);
 			Film film = (Film) content.getSessionAttribute(ParamName.PARAM_FILM_OBJ);
 			int filmId = film.getId();
 			String img = (String) content.getSessionAttribute(ParamName.PARAM_IMG);
@@ -37,7 +37,7 @@ public class SetImageCommand implements Command {
 				Optional<Film> filmOptional = filmService.updateImage(filmId, img);
 				film = filmOptional.orElse(film);
 				router.setRoute(Router.RouteType.REDIRECT);
-				router.setPageToGo(PageName.VIEW_FILM_PAGE);
+				router.setPageToGo(PageName.VIEW_FILM_UPDATED_PAGE);
 				content.assignSessionAttribute(ParamName.PARAM_FILM_OBJ, film);
 			} catch (ServiceException e) {
 				throw new CommandException("Exception while image updating.", e);

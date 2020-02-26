@@ -13,6 +13,7 @@ import by.tananushka.project.parsing.MoneyParser;
 import by.tananushka.project.parsing.ParsingException;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ShowService;
+import by.tananushka.project.service.validation.EscapeCharactersChanger;
 import by.tananushka.project.service.validation.FilmDataValidator;
 import by.tananushka.project.service.validation.ShowDataValidator;
 import org.apache.logging.log4j.LogManager;
@@ -31,6 +32,7 @@ public class ShowServiceImpl implements ShowService {
 	private static final ShowService instance = new ShowServiceImpl();
 	private static final ShowDataValidator validator = ShowDataValidator.getInstance();
 	private static final FilmDataValidator filmValidator = FilmDataValidator.getInstance();
+	private static final EscapeCharactersChanger changer = EscapeCharactersChanger.getInstance();
 	private static Logger log = LogManager.getLogger();
 	private ShowDao showDao = DaoProvider.getInstance().getShowDao();
 
@@ -263,6 +265,7 @@ public class ShowServiceImpl implements ShowService {
 		Map<String, String> errorsMap = new LinkedHashMap<>();
 		content.assignSessionAttribute(ParamName.PARAM_ERR_CREATE_CINEMA_MESSAGE, null);
 		String cinemaName = content.getRequestParameter(ParamName.PARAM_CINEMA).strip();
+		cinemaName = changer.changeCharacters(cinemaName);
 		if (!validator.checkCinema(cinemaName)) {
 			isParameterValid = false;
 			errorsMap.put(ErrorMessageKey.INVALID_NAME, cinemaName);
@@ -297,6 +300,7 @@ public class ShowServiceImpl implements ShowService {
 		} else {
 			cinemaId = Integer.parseInt(strCinemaId);
 		}
+		cinemaName = changer.changeCharacters(cinemaName);
 		if (!validator.checkCinema(cinemaName)) {
 			isParameterValid = false;
 			errorsMap.put(ErrorMessageKey.INVALID_NAME, cinemaName);

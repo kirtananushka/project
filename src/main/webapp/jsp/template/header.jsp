@@ -12,7 +12,7 @@
 <fmt:message key="title.send.message" bundle="${resourceBundle}" var="sendMessage"/>
 <fmt:message key="film.create" bundle="${resourceBundle}" var="addFilm"/>
 <fmt:message key="show.create" bundle="${resourceBundle}" var="addShow"/>
-<fmt:message key="shows.cinema" bundle="${resourceBundle}" var="cinema"/>
+<fmt:message key="shows.cinemas" bundle="${resourceBundle}" var="cinemas"/>
 <fmt:message key="cinema.create" bundle="${resourceBundle}" var="addCinema"/>
 <fmt:message key="cinema.edit" bundle="${resourceBundle}" var="editCinema"/>
 <fmt:message key="cinema.delete" bundle="${resourceBundle}" var="deleteCinema"/>
@@ -21,6 +21,10 @@
 <fmt:message key="genre.edit" bundle="${resourceBundle}" var="editGenre"/>
 <fmt:message key="clients" bundle="${resourceBundle}" var="clients"/>
 <fmt:message key="clients.active" bundle="${resourceBundle}" var="clientsActive"/>
+<fmt:message key="clients.all" bundle="${resourceBundle}" var="clientsAll"/>
+<fmt:message key="managers" bundle="${resourceBundle}" var="managers"/>
+<fmt:message key="managers.active" bundle="${resourceBundle}" var="managersActive"/>
+<fmt:message key="managers.all" bundle="${resourceBundle}" var="managersAll"/>
 
 <div class="header">
     <div class="locale">
@@ -57,7 +61,7 @@
             </li>
         </c:if>
         <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
-            <li><a>${cinema}</a>
+            <li><a>${cinemas}</a>
                 <ul>
                     <li><a href="${pageContext.request.contextPath}
                     controller?command=create_cinema">${addCinema}</a></li>
@@ -101,6 +105,19 @@
                 <ul>
                     <li><a href="${pageContext.request.contextPath}
                     controller?command=find_active_clients&page=1">${clientsActive}</a></li>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=find_all_clients&page=1">${clientsAll}</a></li>
+                </ul>
+            </li>
+        </c:if>
+        <c:if test="${sessionScope.user.role eq 'ADMIN'}">
+            <li><a href="${pageContext.request.contextPath}
+        controller?command=find_active_managers&page=1">${managers}</a>
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=find_active_managers&page=1">${managersActive}</a></li>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=find_all_managers&page=1">${managersAll}</a></li>
                 </ul>
             </li>
         </c:if>

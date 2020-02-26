@@ -43,7 +43,7 @@ public class CreateShowCommand implements Command {
 					Show show = showOptional.get();
 					content.assignSessionAttribute(ParamName.PARAM_SHOW_OBJ, show);
 					router.setRoute(Router.RouteType.REDIRECT);
-					pageToGo = PageName.VIEW_SHOW_PAGE;
+					pageToGo = PageName.VIEW_SHOW_UPDATED_PAGE;
 					content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 				} else {
 					errorsMap.put(ErrorMessageKey.SHOW_CREATION_FAILED, "");

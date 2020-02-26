@@ -17,10 +17,10 @@ public class ViewProfileCommand implements Command {
 	@Override
 	public Router execute(SessionContent content) {
 		User user = (User) content.getSessionAttribute(ParamName.PARAM_USER);
-		String pageToGo = PageName.LOGIN_PAGE;
+		String pageToGo = PageName.AUTHENTICATION_PAGE;
 		if (user != null) {
 			if (user.getRole().equals(UserRole.ADMIN)) {
-				pageToGo = PageName.VIEW_ADMIN_PROFILE_PAGE;
+				pageToGo = PageName.MAIN_PAGE;
 			}
 		}
 		Router router = new Router();

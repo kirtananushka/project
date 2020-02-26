@@ -34,7 +34,7 @@ public class EmailConfirmationCommand implements Command {
 				content.assignSessionAttribute(ParamName.PARAM_ERR_AUTH_MESSAGE,
 								ErrorMessageKey.EMAIL_VERIFICATION_FAILED);
 				content.assignSessionAttribute(ParamName.PARAM_USER, null);
-				pageToGo = PageName.LOGIN_PAGE;
+				pageToGo = PageName.AUTHENTICATION_PAGE;
 			}
 		} catch (ServiceException e) {
 			log.error("Service exception", e);

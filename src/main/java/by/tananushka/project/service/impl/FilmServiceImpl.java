@@ -9,6 +9,7 @@ import by.tananushka.project.dao.DaoProvider;
 import by.tananushka.project.dao.FilmDao;
 import by.tananushka.project.service.FilmService;
 import by.tananushka.project.service.ServiceException;
+import by.tananushka.project.service.validation.EscapeCharactersChanger;
 import by.tananushka.project.service.validation.FilmDataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +27,7 @@ public class FilmServiceImpl implements FilmService {
 
 	private static final FilmService instance = new FilmServiceImpl();
 	private static final FilmDataValidator validator = FilmDataValidator.getInstance();
+	private static final EscapeCharactersChanger changer = EscapeCharactersChanger.getInstance();
 	private static Logger log = LogManager.getLogger();
 	private FilmDao filmDao = DaoProvider.getInstance().getFilmDao();
 
@@ -76,6 +78,7 @@ public class FilmServiceImpl implements FilmService {
 	public List<Film> findFilmsByGenre(String genre) throws ServiceException {
 		List<Film> filmsList = new ArrayList<>();
 		if (genre.isBlank() || validator.checkString(genre) || validator.checkNumber(genre)) {
+			genre = changer.changeCharacters(genre);
 			log.debug("Genre is valid");
 			try {
 				filmsList = validator.checkNumber(genre) ?
@@ -92,6 +95,7 @@ public class FilmServiceImpl implements FilmService {
 	public List<Film> findActiveFilmsByGenre(String genre) throws ServiceException {
 		List<Film> filmsList = new ArrayList<>();
 		if (genre.isBlank() || validator.checkString(genre) || validator.checkNumber(genre)) {
+			genre = changer.changeCharacters(genre);
 			log.debug("Genre is valid");
 			try {
 				filmsList = validator.checkNumber(genre) ?
@@ -109,6 +113,7 @@ public class FilmServiceImpl implements FilmService {
 		List<Film> filmsList = new ArrayList<>();
 		if (country.isBlank() || validator.checkString(country) || validator.checkNumber(country)) {
 			log.debug("Country is valid");
+			country = changer.changeCharacters(country);
 			try {
 				filmsList = validator.checkNumber(country) ?
 				            filmDao.findFilmsByCountry(Integer.parseInt(country)) :
@@ -124,6 +129,7 @@ public class FilmServiceImpl implements FilmService {
 	public List<Film> findActiveFilmsByCountry(String country) throws ServiceException {
 		List<Film> filmsList = new ArrayList<>();
 		if (country.isBlank() || validator.checkString(country) || validator.checkNumber(country)) {
+			country = changer.changeCharacters(country);
 			log.debug("Country is valid");
 			try {
 				filmsList = validator.checkNumber(country) ?
@@ -314,6 +320,7 @@ public class FilmServiceImpl implements FilmService {
 			filmId = Integer.parseInt(strFilmId);
 		}
 		String title = content.getRequestParameter(ParamName.PARAM_TITLE).strip();
+		title = changer.changeCharacters(title);
 		if (!validator.checkTitle(title)) {
 			errorsMap.put(ErrorMessageKey.INVALID_TITLE, title);
 			isParameterValid = false;
@@ -403,6 +410,7 @@ public class FilmServiceImpl implements FilmService {
 		content.assignSessionAttribute(ParamName.PARAM_ERR_CREATE_FILM_MESSAGE, null);
 		String title = content.getRequestParameter(ParamName.PARAM_TITLE).strip();
 		content.assignSessionAttribute(ParamName.PARAM_TITLE_DEFAULT, title);
+		title = changer.changeCharacters(title);
 		if (!validator.checkTitle(title)) {
 			errorsMap.put(ErrorMessageKey.INVALID_TITLE, title);
 			isParameterValid = false;
@@ -498,7 +506,8 @@ public class FilmServiceImpl implements FilmService {
 		Map<String, String> errorsMap = new LinkedHashMap<>();
 		content.assignSessionAttribute(ParamName.PARAM_ERR_CREATE_GENRE_MESSAGE, null);
 		String genreName = content.getRequestParameter(ParamName.PARAM_GENRE).strip();
-		if (!validator.checkGenre(genreName)) {
+		genreName = changer.changeCharacters(genreName);
+		if (!validator.checkString(genreName)) {
 			isParameterValid = false;
 			errorsMap.put(ErrorMessageKey.INVALID_NAME, genreName);
 		}
@@ -532,7 +541,8 @@ public class FilmServiceImpl implements FilmService {
 		} else {
 			genreId = Integer.parseInt(strGenreId);
 		}
-		if (!validator.checkGenre(genreName)) {
+		genreName = changer.changeCharacters(genreName);
+		if (!validator.checkString(genreName)) {
 			isParameterValid = false;
 			errorsMap.put(ErrorMessageKey.INVALID_NAME, genreName);
 		}
