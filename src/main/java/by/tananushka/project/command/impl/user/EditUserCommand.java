@@ -1,6 +1,6 @@
-package by.tananushka.project.command.impl.manager;
+package by.tananushka.project.command.impl.user;
 
-import by.tananushka.project.bean.Manager;
+import by.tananushka.project.bean.User;
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.Command;
 import by.tananushka.project.command.CommandException;
@@ -8,18 +8,18 @@ import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
-import by.tananushka.project.service.ManagerService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
+import by.tananushka.project.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
-public class EditManagerCommand implements Command {
+public class EditUserCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
-	private ManagerService managerService = ServiceProvider.getInstance().getManagerService();
+	private UserService userService = ServiceProvider.getInstance().getUserService();
 
 	@Override
 	public Router execute(SessionContent content) throws CommandException {
@@ -27,24 +27,22 @@ public class EditManagerCommand implements Command {
 		router.setRoute(Router.RouteType.FORWARD);
 		router.setPageToGo(PageName.ACCESS_DENIED_PAGE);
 		String role = (String) content.getSessionAttribute(ParamName.PARAM_ROLE);
-		if (role != null &&
-						(role.equals(UserRole.MANAGER.toString()) ||
-										role.equals(UserRole.ADMIN.toString()))) {
-			router.setPageToGo(PageName.EDIT_MANAGER_PAGE);
-			content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, PageName.EDIT_MANAGER_PAGE);
-			String managerId = content.getRequestParameter(ParamName.PARAM_MANAGER_ID);
+		if (role != null && role.equals(UserRole.ADMIN.toString())) {
+			router.setPageToGo(PageName.EDIT_USER_PAGE);
+			content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, PageName.EDIT_USER_PAGE);
+			String userId = content.getRequestParameter(ParamName.PARAM_USER_ID);
 			try {
-				Optional<Manager> managerOptional = managerService.findManagerById(managerId);
-				if (managerOptional.isPresent()) {
-					Manager manager = managerOptional.get();
-					content.assignSessionAttribute(ParamName.PARAM_MANAGER, manager);
+				Optional<User> userOptional = userService.findUserById(userId);
+				if (userOptional.isPresent()) {
+					User user = userOptional.get();
+					content.assignSessionAttribute(ParamName.PARAM_USER, user);
 				}
 				if (content.getSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN) == null) {
 					content.assignSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN,
 									PageName.MAIN_PAGE);
 				}
 			} catch (ServiceException e) {
-				throw new CommandException("Exception while finding manager by id.", e);
+				throw new CommandException("Exception while finding user by id.", e);
 			}
 		}
 		return router;

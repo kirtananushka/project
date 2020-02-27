@@ -8,6 +8,7 @@ public final class PageName {
 	public static final String AVAILABLE_SHOWS_PAGE = "shows";
 	public static final String CLIENTS_PAGE = "manager/clients";
 	public static final String ALL_CLIENTS_PAGE = "manager/all_clients";
+	public static final String ALL_USERS_PAGE = "admin/all_users";
 	public static final String CONFIRMATION_SUCCESSFUL_PAGE = "confirmation_successful";
 	public static final String CONTROLLER = "/controller";
 	public static final String CONTROLLER_COMMAND = "/controller?command";
@@ -46,11 +47,14 @@ public final class PageName {
 	public static final String VIEW_FILM_UPDATED_PAGE = "manager/film_updated";
 	public static final String VIEW_SHOW_UPDATED_PAGE = "manager/show_updated";
 	public static final String EDIT_CLIENT_PAGE = "manager/edit_client";
+	public static final String EDIT_USER_PAGE = "admin/edit_user";
 	public static final String VIEW_CLIENT_UPDATED_PAGE = "manager/client_updated";
 	public static final String MANAGERS_PAGE = "admin/managers";
 	public static final String ALL_MANAGERS_PAGE = "admin/all_managers";
 	public static final String EDIT_MANAGER_PAGE = "admin/edit_manager";
 	public static final String VIEW_MANAGER_UPDATED_PAGE = "admin/manager_updated";
+	public static final String VIEW_USER_UPDATED_PAGE = "admin/user_updated";
+//	public static final String APPOINT_MANAGER_PAGE = "admin/appoint_manager";
 
 	private PageName() {
 	}

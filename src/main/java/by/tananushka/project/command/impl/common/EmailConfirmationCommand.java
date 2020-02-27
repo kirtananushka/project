@@ -29,11 +29,11 @@ public class EmailConfirmationCommand implements Command {
 				pageToGo = PageName.CONFIRMATION_SUCCESSFUL_PAGE;
 				content.assignSessionAttribute(ParamName.PARAM_ERR_AUTH_MESSAGE,
 								null);
-				content.assignSessionAttribute(ParamName.PARAM_USER, null);
+				content.assignSessionAttribute(ParamName.PARAM_USER_AUTHORIZATED, null);
 			} else {
 				content.assignSessionAttribute(ParamName.PARAM_ERR_AUTH_MESSAGE,
 								ErrorMessageKey.EMAIL_VERIFICATION_FAILED);
-				content.assignSessionAttribute(ParamName.PARAM_USER, null);
+				content.assignSessionAttribute(ParamName.PARAM_USER_AUTHORIZATED, null);
 				pageToGo = PageName.AUTHENTICATION_PAGE;
 			}
 		} catch (ServiceException e) {

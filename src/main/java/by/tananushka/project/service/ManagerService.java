@@ -8,10 +8,6 @@ import java.util.Optional;
 
 public interface ManagerService {
 
-	Optional<Manager> createManager(SessionContent content) throws ServiceException;
-
-	Optional<Manager> updateManager(SessionContent content) throws ServiceException;
-
 	List<Manager> findActiveManagers() throws ServiceException;
 
 	List<Manager> findAllManagers() throws ServiceException;
@@ -19,4 +15,8 @@ public interface ManagerService {
 	Optional<Manager> findManagerById(String strManagerId) throws ServiceException;
 
 	Optional<Manager> findManagerById(int managerId) throws ServiceException;
+
+	Optional<Manager> appointManager(SessionContent content) throws ServiceException;
+
+	Optional<Manager> updateManager(SessionContent content) throws ServiceException;
 }

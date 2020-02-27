@@ -113,7 +113,6 @@ public class ClientDaoImpl implements ClientDao {
 
 	@Override
 	public Optional<Client> updateClient(Client client) throws DaoException {
-		ResultSet resultSet = null;
 		Optional<Client> clientOptional;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement userStatement = connection
@@ -139,8 +138,6 @@ public class ClientDaoImpl implements ClientDao {
 			}
 		} catch (SQLException e) {
 			throw new DaoException("SQL exception while client updating.", e);
-		} finally {
-			closeResultSet(resultSet);
 		}
 		clientOptional = findClientById(client.getId());
 		return clientOptional;

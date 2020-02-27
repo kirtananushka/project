@@ -8,10 +8,12 @@
 <fmt:message key="menu.main" bundle="${resourceBundle}" var="menuMain"/>
 <fmt:message key="films" bundle="${resourceBundle}" var="films"/>
 <fmt:message key="films.active" bundle="${resourceBundle}" var="filmsActive"/>
+<fmt:message key="film.edit" bundle="${resourceBundle}" var="editFilm"/>
 <fmt:message key="shows.menu" bundle="${resourceBundle}" var="shows"/>
 <fmt:message key="title.send.message" bundle="${resourceBundle}" var="sendMessage"/>
 <fmt:message key="film.create" bundle="${resourceBundle}" var="addFilm"/>
 <fmt:message key="show.create" bundle="${resourceBundle}" var="addShow"/>
+<fmt:message key="show.edit" bundle="${resourceBundle}" var="editShow"/>
 <fmt:message key="shows.cinemas" bundle="${resourceBundle}" var="cinemas"/>
 <fmt:message key="cinema.create" bundle="${resourceBundle}" var="addCinema"/>
 <fmt:message key="cinema.edit" bundle="${resourceBundle}" var="editCinema"/>
@@ -25,6 +27,7 @@
 <fmt:message key="managers" bundle="${resourceBundle}" var="managers"/>
 <fmt:message key="managers.active" bundle="${resourceBundle}" var="managersActive"/>
 <fmt:message key="managers.all" bundle="${resourceBundle}" var="managersAll"/>
+<fmt:message key="users" bundle="${resourceBundle}" var="users"/>
 
 <div class="header">
     <div class="locale">
@@ -38,29 +41,8 @@
 
     <ul class="menu">
         <li><a href="${pageContext.request.contextPath}\">${menuMain}</a></li>
-        <%--        <c:choose>--%>
-        <%--            <c:when test="${sessionScope.user != null}">--%>
-        <%--                <h1>${hi}${sessionScope.user.login}!</h1>--%>
-        <%--            </c:when>--%>
-        <%--            <c:otherwise>--%>
-        <%--                <h1>${title}</h1>--%>
-        <%--            </c:otherwise>--%>
-        <%--        </c:choose>--%>
-        <c:if test="${sessionScope.user.role eq 'ADMIN'}">
-            <li><a>Admin</a>
-                <ul>
-                    <li><a href="${pageContext.request.contextPath}controller?command=create_genre">${addGenre}</a></li>
-                </ul>
-            </li>
-        </c:if>
-        <c:if test="${sessionScope.user.role eq 'MANAGER'}">
-            <li><a href="${pageContext.request.contextPath}\">Manager</a>
-                <ul>
-                    <li><a href="${pageContext.request.contextPath}controller?command=create_genre">${addGenre}</a></li>
-                </ul>
-            </li>
-        </c:if>
-        <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+
+        <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN' or sessionScope.userAuthorizated.role eq 'MANAGER'}">
             <li><a>${cinemas}</a>
                 <ul>
                     <li><a href="${pageContext.request.contextPath}
@@ -74,14 +56,17 @@
                 </ul>
             </li>
         </c:if>
+
         <li><a href="${pageContext.request.contextPath}
         controller?command=films_available&page=1">${films}</a>
-            <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+            <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN' or sessionScope.userAuthorizated.role eq 'MANAGER'}">
                 <ul>
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=films_active&page=1">${filmsActive}</a></li>
                     <li><a href="${pageContext.request.contextPath}
                     controller?command=create_film">${addFilm}</a></li>
                     <li><a href="${pageContext.request.contextPath}
-                    controller?command=films_active&page=1">${filmsActive}</a></li>
+                    controller?command=films_available&page=1">${editFilm}</a></li>
                     <li><a href="${pageContext.request.contextPath}
                     controller?command=create_genre">${addGenre}</a></li>
                     <li><a href="${pageContext.request.contextPath}
@@ -89,19 +74,22 @@
                 </ul>
             </c:if>
         </li>
+
         <li><a href="${pageContext.request.contextPath}
         controller?command=shows_available&page=1">${shows}</a>
-            <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+            <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN' or sessionScope.userAuthorizated.role eq 'MANAGER'}">
                 <ul>
                     <li><a href="${pageContext.request.contextPath}
                     controller?command=create_show">${addShow}</a></li>
-
+                    <li><a href="${pageContext.request.contextPath}
+                    controller?command=shows_available&page=1">${editShow}</a></li>
                 </ul>
             </c:if>
         </li>
-        <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+
+        <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN' or sessionScope.userAuthorizated.role eq 'MANAGER'}">
             <li><a href="${pageContext.request.contextPath}
-        controller?command=find_active_clients&page=1">${clients}</a>
+            controller?command=find_active_clients&page=1">${clients}</a>
                 <ul>
                     <li><a href="${pageContext.request.contextPath}
                     controller?command=find_active_clients&page=1">${clientsActive}</a></li>
@@ -110,15 +98,22 @@
                 </ul>
             </li>
         </c:if>
-        <c:if test="${sessionScope.user.role eq 'ADMIN'}">
+
+        <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN'}">
             <li><a href="${pageContext.request.contextPath}
-        controller?command=find_active_managers&page=1">${managers}</a>
+            controller?command=find_active_managers&page=1">${managers}</a>
                 <ul>
                     <li><a href="${pageContext.request.contextPath}
                     controller?command=find_active_managers&page=1">${managersActive}</a></li>
                     <li><a href="${pageContext.request.contextPath}
                     controller?command=find_all_managers&page=1">${managersAll}</a></li>
                 </ul>
+            </li>
+        </c:if>
+
+        <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN'}">
+            <li><a href="${pageContext.request.contextPath}
+            controller?command=find_all_users&page=1">${users}</a>
             </li>
         </c:if>
         <li><a href="${pageContext.request.contextPath}send_message">${sendMessage}</a></li>

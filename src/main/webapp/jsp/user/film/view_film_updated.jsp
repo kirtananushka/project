@@ -63,7 +63,7 @@
                     </table>
                     <div class="centerOnly">
                         <a class="button" href="${sessionScope.pageToReturn}">${ok}</a>
-                        <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+                        <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN' or sessionScope.userAuthorizated.role eq 'MANAGER'}">
                             <a class="button" href="${pageContext.request.contextPath}
                                        /controller?command=edit_film&filmId=${sessionScope.filmObj.id}">${edit}</a>
                         </c:if>

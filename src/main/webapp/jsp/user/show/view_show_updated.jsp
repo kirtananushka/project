@@ -84,7 +84,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+                                <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN' or sessionScope.userAuthorizated.role eq 'MANAGER'}">
                                     <table class="width100">
                                         <tr>
                                             <td class="middle-left width35">${filmId}:
@@ -125,7 +125,7 @@
                 </table>
                 <div class="centerOnly">
                     <a class="button" href="${sessionScope.pageToReturn}">${ok}</a>
-                    <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+                    <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN' or sessionScope.userAuthorizated.role eq 'MANAGER'}">
                         <a class="button" href="${pageContext.request.contextPath}
                                        /controller?command=edit_show&showId=${sessionScope.showObj.id}">${edit}</a></td>
                     </c:if>

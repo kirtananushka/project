@@ -45,7 +45,7 @@ public class MenuRightTag extends TagSupport {
 		String valProfile = resourceBundle.getString(VALUE_PROFILE);
 		String valClient = resourceBundle.getString(VALUE_CLIENT);
 		String valGuest = resourceBundle.getString(VALUE_GUEST);
-		User user = (User) session.getAttribute(ParamName.PARAM_USER);
+		User user = (User) session.getAttribute(ParamName.PARAM_USER_AUTHORIZATED);
 		StringBuilder sb = new StringBuilder();
 		sb.append("<div class=\"header-login\">\n");
 		sb.append("<div class=\"header-user\">\n");

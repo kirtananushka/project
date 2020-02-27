@@ -23,7 +23,7 @@ public class AuthenticationCommand implements Command {
 	@Override
 	public Router execute(SessionContent content) {
 		Router router = new Router();
-		content.assignSessionAttribute(ParamName.PARAM_USER, null);
+		content.assignSessionAttribute(ParamName.PARAM_USER_AUTHORIZATED, null);
 		String login;
 		String password;
 		login = content.getRequestParameter(ParamName.PARAM_LOGIN);
@@ -34,7 +34,7 @@ public class AuthenticationCommand implements Command {
 			if (userOptional.isPresent()) {
 				router.setRoute(Router.RouteType.REDIRECT);
 				User user = userOptional.get();
-				content.assignSessionAttribute(ParamName.PARAM_USER, user);
+				content.assignSessionAttribute(ParamName.PARAM_USER_AUTHORIZATED, user);
 				content.assignSessionAttribute(ParamName.PARAM_ROLE, user.getRole().toString());
 				pageToGo = PageName.MAIN_PAGE;
 				content.assignSessionAttribute(ParamName.PARAM_ERR_AUTH_MESSAGE, null);

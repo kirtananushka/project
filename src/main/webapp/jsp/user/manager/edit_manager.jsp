@@ -42,7 +42,8 @@
                   action="${pageContext.request.contextPath}controller"
                   method="post">
                 <input type="hidden" name="command" value="update_manager">
-                <input type="hidden" name="managerId" value="${requestScope.manager.id}">
+                <input type="hidden" name="id" value="${sessionScope.manager.id}">
+                <input type="hidden" name="role" value="${sessionScope.manager.role}">
                 <p class="noteRed">
                     <c:if test="${sessionScope.errUpdateManagerMessage != null}">
                         <c:forEach var="errorMessages" items="${sessionScope.errUpdateManagerMessage}">
@@ -52,19 +53,19 @@
                 </p>
                 <label id="idLabel" class="" for="managerId">${managerId}:</label>
                 <input class="inputField" type="text" id="managerId"
-                       name="managerId" value="${requestScope.manager.id}"
+                       name="id" value="${sessionScope.manager.id}"
                        disabled title=${managerId}>
                 <br>
 
                 <label id="roleLabel" class="" for="role">${role}:</label>
                 <input class="inputField" type="text" id="role"
-                       name="role" value="${requestScope.manager.role}"
+                       name="role" value="${sessionScope.manager.role}"
                        disabled title=${role}>
                 <br>
 
                 <label id="loginLabel" class="" for="login">${login}:</label>
                 <input class="inputField" type="text" id="login"
-                       name="login" value="${requestScope.manager.login}"
+                       name="login" value="${sessionScope.manager.login}"
                        disabled title=${login}>
                 <br>
 
@@ -72,7 +73,7 @@
                 <input class="inputField" type="text" id="name"
                        name="name" pattern="[\p{L} -]{1,255}"
                        placeholder=${namePlaceholder}
-                               value="${requestScope.manager.name}" required
+                               value="${sessionScope.manager.name}" required
                        title=${name}>
                 <label class="explanation">${nameExpl}</label>
                 <br>
@@ -82,7 +83,7 @@
                        name="surname"
                        pattern="[\p{L} -]{1,255}"
                        placeholder=${surnamePlaceholder}
-                               value="${requestScope.manager.surname}" required
+                               value="${sessionScope.manager.surname}" required
                        title=${surname}>
                 <label class="explanation">${nameExpl}</label>
                 <br>
@@ -92,7 +93,7 @@
                        name="phone"
                        pattern="375\d{9}"
                        placeholder=${phonePlaceholder}
-                               value="${requestScope.manager.phone}" required
+                               value="${sessionScope.manager.phone}" required
                        title=${phone}>
                 <label class="explanation">${phoneExpl}</label>
                 <br>
@@ -102,12 +103,12 @@
                        name="email"
                        pattern="([\w-]+\.)*[\w-]+@[\w-]+(\.[\w-]+)*\.[a-z]{2,6}"
                        placeholder=${emailPlaceholder}
-                               value="${requestScope.manager.email}" required
+                               value="${sessionScope.manager.email}" required
                        title=${email}>
                 <br>
 
                 <label for="registrationDate">${registrationDate}: </label>
-                <fmt:parseDate value="${requestScope.manager.registrationDate}"
+                <fmt:parseDate value="${sessionScope.manager.registrationDate}"
                                pattern="yyyy-MM-dd'T'HH:mm"
                                var="parsedDate" type="both"/>
                 <input class="inputField" type="text" id="registrationDate"
@@ -118,28 +119,28 @@
 
                 <label for="verified">${verified}:</label>
                 <c:choose>
-                    <c:when test="${requestScope.manager.verified == true}">
+                    <c:when test="${sessionScope.manager.verified == true}">
                         <input class="checkbox" type="checkbox" id="verified" name="verified"
-                               value="${requestScope.manager.verified}"
+                               value="${sessionScope.manager.verified}"
                                checked="checked" disabled>
                     </c:when>
                     <c:otherwise>
                         <input class="checkbox" type="checkbox" id="verified" name="verified"
-                               value="${requestScope.manager.verified}" disabled>
+                               value="${sessionScope.manager.verified}" disabled>
                     </c:otherwise>
                 </c:choose>
                 <br>
 
                 <label for="active">${active}: *</label>
                 <c:choose>
-                    <c:when test="${requestScope.manager.active == true}">
+                    <c:when test="${sessionScope.manager.active == true}">
                         <input class="checkbox" type="checkbox" id="active" name="active"
-                               value="${requestScope.manager.active}"
+                               value="${sessionScope.manager.active}"
                                checked="checked">
                     </c:when>
                     <c:otherwise>
                         <input class="checkbox" type="checkbox" id="active" name="active"
-                               value="${requestScope.manager.active}">
+                               value="${sessionScope.manager.active}">
                     </c:otherwise>
                 </c:choose>
 

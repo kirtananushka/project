@@ -6,8 +6,10 @@
 <fmt:setBundle basename="bundle/err" var="errorBundle"/>
 
 <fmt:message key="nothing.found" bundle="${errorBundle}" var="nothingFound"/>
-<fmt:message key="managers.active" bundle="${resourceBundle}" var="title"/>
-<fmt:message key="manager.id" bundle="${resourceBundle}" var="id"/>
+
+<fmt:message key="users.all" bundle="${resourceBundle}" var="title"/>
+<fmt:message key="user.id" bundle="${resourceBundle}" var="id"/>
+
 <fmt:message key="login" bundle="${resourceBundle}" var="login"/>
 <fmt:message key="name" bundle="${resourceBundle}" var="name"/>
 <fmt:message key="surname" bundle="${resourceBundle}" var="surname"/>
@@ -30,12 +32,12 @@
 <div class="outer">
     <div class="center-padding grey shadow width50 back-white padding-top-40">
         <c:choose>
-            <c:when test="${empty requestScope.managersList}">
+            <c:when test="${empty requestScope.usersList}">
                 <p class="center margin-bottom">${nothingFound}</p>
             </c:when>
             <c:otherwise>
                 <c:import url="/jsp/template/pagination.jsp"/>
-                <c:forEach items="${requestScope.managersList}" var="manager">
+                <c:forEach items="${requestScope.usersList}" var="user">
                     <table class="table-view width100">
                         <tr>
                             <td class="width20 middle-left">
@@ -43,14 +45,14 @@
                             </td>
                             <td class="middle-left"><strong>
                                 <input class="width95" type="text" id="login"
-                                       name="login" value="${manager.login}" disabled>
+                                       name="login" value="${user.login}" disabled>
                             </strong></td>
                             <td class="width20 middle-left">
                                     ${id}
                             </td>
                             <td class="middle-left">
-                                <input class="width95" type="text" id="managerId"
-                                       name="id" value="${manager.id}" disabled>
+                                <input class="width95" type="text" id="userId"
+                                       name="id" value="${user.id}" disabled>
                             </td>
                         </tr>
                         <tr>
@@ -59,14 +61,14 @@
                             </td>
                             <td class="middle-left">
                                 <input class="width95" type="text" id="name"
-                                       name="name" value="${manager.name}" disabled>
+                                       name="name" value="${user.name}" disabled>
                             </td>
                             <td class="width20 middle-left">
                                     ${surname}
                             </td>
                             <td class="middle-left">
                                 <input class="width95" type="text" id="surname"
-                                       name="surname" value="${manager.surname}" disabled>
+                                       name="surname" value="${user.surname}" disabled>
                             </td>
                         </tr>
                         <tr>
@@ -75,14 +77,16 @@
                             </td>
                             <td class="middle-left">
                                 <input class="width95" type="text" id="email"
-                                       name="email" value="${manager.email}" disabled>
+                                       name="email" value="${user.email}" disabled>
                             </td>
                             <td class="width20 middle-left">
                                     ${phone}
                             </td>
                             <td class="middle-left">
-                                <input class="width95" type="text" id="phone"
-                                       name="phone" value="${manager.phone}" disabled>
+                                <c:if test="${user.role != 'ADMIN'}">
+                                    <input class="width95" type="text" id="phone"
+                                           name="phone" value="${user.phone}" disabled>
+                                </c:if>
                             </td>
                         </tr>
                         <tr>
@@ -90,7 +94,7 @@
                                     ${registrationDate}
                             </td>
                             <td class="middle-left">
-                                <fmt:parseDate value="${manager.registrationDate}"
+                                <fmt:parseDate value="${user.registrationDate}"
                                                pattern="yyyy-MM-dd'T'HH:mm"
                                                var="parsedDate" type="both"/>
                                 <input class="width95" type="text" id="registrationDate"
@@ -103,7 +107,7 @@
                             </td>
                             <td class="middle-left">
                                 <input class="width95" type="text" id="role"
-                                       name="role" value="${manager.role}" disabled>
+                                       name="role" value="${user.role}" disabled>
                             </td>
                         </tr>
                         <tr>
@@ -112,14 +116,14 @@
                             </td>
                             <td class="middle-left">
                                 <c:choose>
-                                    <c:when test="${manager.verified == true}">
+                                    <c:when test="${user.verified == true}">
                                         <input class="checkbox" type="checkbox" id="verified" name="verified"
-                                               value="${manager.verified}"
+                                               value="${user.verified}"
                                                checked="checked" disabled>
                                     </c:when>
                                     <c:otherwise>
                                         <input class="checkbox" type="checkbox" id="verified" name="verified"
-                                               value="${manager.verified}" disabled>
+                                               value="${user.verified}" disabled>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
@@ -128,14 +132,14 @@
                             </td>
                             <td class="middle-left">
                                 <c:choose>
-                                    <c:when test="${manager.active == true}">
+                                    <c:when test="${user.active == true}">
                                         <input class="checkbox" type="checkbox" id="active" name="active"
-                                               value="${manager.active}"
+                                               value="${user.active}"
                                                checked="checked" disabled>
                                     </c:when>
                                     <c:otherwise>
                                         <input class="checkbox" type="checkbox" id="active" name="active"
-                                               value="${manager.active}" disabled>
+                                               value="${user.active}" disabled>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
@@ -149,7 +153,7 @@
                             <td colspan="4" class="middle-center">
                                 <a class="button"
                                    href="${pageContext.request.contextPath}
-                                       /controller?command=edit_manager&id=${manager.id}">${edit}</a>
+                                       /controller?command=edit_user&id=${user.id}">${edit}</a>
                             </td>
                         </tr>
                         <tr>

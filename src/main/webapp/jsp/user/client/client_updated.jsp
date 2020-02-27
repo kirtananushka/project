@@ -34,7 +34,7 @@
                   action="${pageContext.request.contextPath}controller"
                   method="post">
                 <input type="hidden" name="command" value="edit_client">
-                <input type="hidden" name="clientId" value="${sessionScope.clientUpd.id}">
+                <input type="hidden" name="id" value="${sessionScope.clientUpd.id}">
                 <p class="noteRed">
                     <c:if test="${sessionScope.errRegMessage != null}">
                         <c:forEach var="errorMessages" items="${sessionScope.errRegMessage}">
@@ -44,7 +44,7 @@
                 </p>
                 <label id="idLabel" class="" for="clientId">${clientId}:</label>
                 <input class="inputField" type="text" id="clientId"
-                       name="clientId" value="${sessionScope.clientUpd.id}"
+                       name="id" value="${sessionScope.clientUpd.id}"
                        disabled title=${clientId}>
                 <br>
 

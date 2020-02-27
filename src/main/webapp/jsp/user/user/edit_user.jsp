@@ -6,7 +6,7 @@
 <fmt:setBundle basename="bundle/err" var="errorBundle"/>
 
 <fmt:message key="form.edit" bundle="${resourceBundle}" var="title"/>
-<fmt:message key="client.id" bundle="${resourceBundle}" var="clientId"/>
+<fmt:message key="user.id" bundle="${resourceBundle}" var="userId"/>
 <fmt:message key="login" bundle="${resourceBundle}" var="login"/>
 <fmt:message key="name" bundle="${resourceBundle}" var="name"/>
 <fmt:message key="surname" bundle="${resourceBundle}" var="surname"/>
@@ -24,13 +24,15 @@
 <fmt:message key="verified" bundle="${resourceBundle}" var="verified"/>
 <fmt:message key="active" bundle="${resourceBundle}" var="active"/>
 <fmt:message key="user.role" bundle="${resourceBundle}" var="role"/>
+<fmt:message key="form.back" bundle="${resourceBundle}" var="ok"/>
+<fmt:message key="appoint.manager" bundle="${resourceBundle}" var="appointManager"/>
 
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexstyle.css">
     <title>${title}</title>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script defer src="${pageContext.request.contextPath}js/checkValidationWhileClientUpdating.js"></script>
+    <script defer src="${pageContext.request.contextPath}js/checkValidationWhileUserUpdating.js"></script>
 </head>
 <body>
 <c:import url="/jsp/template/header.jsp"/>
@@ -38,33 +40,38 @@
 <div class="outer">
     <div class="center">
         <div class="center grey shadow back-white">
-            <form id="regForm" name="regForm" class="authentication registration"
+            <form id="editForm" name="editForm" class="authentication registration"
                   action="${pageContext.request.contextPath}controller"
                   method="post">
-                <input type="hidden" name="command" value="update_client">
-                <input type="hidden" name="id" value="${sessionScope.client.id}">
+                <input type="hidden" name="command" value="update_user">
+                <input type="hidden" name="id" value="${sessionScope.user.id}">
+                <input type="hidden" name="role" value="${sessionScope.user.role}">
                 <p class="noteRed">
-                    <c:if test="${sessionScope.errUpdateClientMessage != null}">
-                        <c:forEach var="errorMessages" items="${sessionScope.errUpdateClientMessage}">
+                    <c:if test="${sessionScope.errUpdateUserMessage != null}">
+                        <c:forEach var="errorMessages" items="${sessionScope.errUpdateUserMessage}">
                             <fmt:message key="${errorMessages}" bundle="${errorBundle}"/><br>
                         </c:forEach>
                     </c:if>
                 </p>
-                <label id="idLabel" class="" for="clientId">${clientId}:</label>
-                <input class="inputField" type="text" id="clientId"
-                       name="id" value="${sessionScope.client.id}"
-                       disabled title=${clientId}>
+                <label id="idLabel" class="" for="userId">${userId}:</label>
+                <input class="inputField" type="text" id="userId"
+                       name="id" value="${sessionScope.user.id}"
+                       disabled title=${userId}>
                 <br>
 
                 <label id="roleLabel" class="" for="role">${role}:</label>
                 <input class="inputField" type="text" id="role"
-                       name="role" value="${sessionScope.client.role}"
+                       name="role" value="${sessionScope.user.role}"
                        disabled title=${role}>
+                <c:if test="${sessionScope.user.role == 'CLIENT'}">
+                    <a class="button" href="${pageContext.request.contextPath}
+                /controller?command=appoint_manager&id=${sessionScope.user.id}">${appointManager}</a>
+                </c:if>
                 <br>
 
                 <label id="loginLabel" class="" for="login">${login}:</label>
                 <input class="inputField" type="text" id="login"
-                       name="login" value="${sessionScope.client.login}"
+                       name="login" value="${sessionScope.user.login}"
                        disabled title=${login}>
                 <br>
 
@@ -72,7 +79,7 @@
                 <input class="inputField" type="text" id="name"
                        name="name" pattern="[\p{L} -]{1,255}"
                        placeholder=${namePlaceholder}
-                               value="${sessionScope.client.name}" required
+                               value="${sessionScope.user.name}" required
                        title=${name}>
                 <label class="explanation">${nameExpl}</label>
                 <br>
@@ -82,32 +89,34 @@
                        name="surname"
                        pattern="[\p{L} -]{1,255}"
                        placeholder=${surnamePlaceholder}
-                               value="${sessionScope.client.surname}" required
+                               value="${sessionScope.user.surname}" required
                        title=${surname}>
                 <label class="explanation">${nameExpl}</label>
                 <br>
 
-                <label for="phone">${phone}: *</label>
-                <input class="inputField" type="tel" id="phone"
-                       name="phone"
-                       pattern="375\d{9}"
-                       placeholder=${phonePlaceholder}
-                               value="${sessionScope.client.phone}" required
-                       title=${phone}>
-                <label class="explanation">${phoneExpl}</label>
-                <br>
+                <c:if test="${sessionScope.user.role != 'ADMIN'}">
+                    <label for="phone">${phone}: *</label>
+                    <input class="inputField" type="tel" id="phone"
+                           name="phone"
+                           pattern="375\d{9}"
+                           placeholder=${phonePlaceholder}
+                                   value="${sessionScope.user.phone}" required
+                           title=${phone}>
+                    <label class="explanation">${phoneExpl}</label>
+                    <br>
+                </c:if>
 
                 <label for="email">${email}: *</label>
                 <input class="inputField" type="text" id="email"
                        name="email"
                        pattern="([\w-]+\.)*[\w-]+@[\w-]+(\.[\w-]+)*\.[a-z]{2,6}"
                        placeholder=${emailPlaceholder}
-                               value="${sessionScope.client.email}" required
+                               value="${sessionScope.user.email}" required
                        title=${email}>
                 <br>
 
                 <label for="registrationDate">${registrationDate}: </label>
-                <fmt:parseDate value="${sessionScope.client.registrationDate}"
+                <fmt:parseDate value="${sessionScope.user.registrationDate}"
                                pattern="yyyy-MM-dd'T'HH:mm"
                                var="parsedDate" type="both"/>
                 <input class="inputField" type="text" id="registrationDate"
@@ -118,33 +127,42 @@
 
                 <label for="verified">${verified}:</label>
                 <c:choose>
-                    <c:when test="${sessionScope.client.verified == true}">
+                    <c:when test="${sessionScope.user.verified == true}">
                         <input class="checkbox" type="checkbox" id="verified" name="verified"
-                               value="${sessionScope.client.verified}"
+                               value="${sessionScope.user.verified}"
                                checked="checked" disabled>
                     </c:when>
                     <c:otherwise>
                         <input class="checkbox" type="checkbox" id="verified" name="verified"
-                               value="${sessionScope.client.verified}" disabled>
+                               value="${sessionScope.user.verified}" disabled>
                     </c:otherwise>
                 </c:choose>
                 <br>
 
+
                 <label for="active">${active}: *</label>
                 <c:choose>
-                    <c:when test="${sessionScope.client.active == true}">
+                    <c:when test="${sessionScope.user.active == true
+                     and sessionScope.user.role != 'ADMIN'}">
                         <input class="checkbox" type="checkbox" id="active" name="active"
-                               value="${sessionScope.client.active}"
+                               value="${sessionScope.user.active}"
                                checked="checked">
+                    </c:when>
+                    <c:when test="${sessionScope.user.active == true
+                     and sessionScope.user.role == 'ADMIN'}">
+                        <input class="checkbox" type="checkbox" id="active" name="active"
+                               value="${sessionScope.user.active}"
+                               checked="checked" disabled>
                     </c:when>
                     <c:otherwise>
                         <input class="checkbox" type="checkbox" id="active" name="active"
-                               value="${sessionScope.client.active}">
+                               value="${sessionScope.user.active}">
                     </c:otherwise>
                 </c:choose>
 
                 <p class="noteSmall">${fieldRequired}</p>
                 <div class="centerOnly">
+                    <a class="button" href="${sessionScope.pageToReturn}">${ok}</a>
                     <input id="submit" name="submit" class="button" type="submit" value=${register}>
                 </div>
             </form>

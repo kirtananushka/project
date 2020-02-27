@@ -19,6 +19,10 @@ public class SqlColumnsName {
 	public static final String MANAGER_SURNAME = "manager_surname";
 	public static final String MANAGER_PHONE = "manager_phone";
 	public static final String MANAGER_EMAIL = "manager_email";
+	public static final String ADMIN_ID = "admin_id";
+	public static final String ADMIN_NAME = "admin_name";
+	public static final String ADMIN_SURNAME = "admin_surname";
+	public static final String ADMIN_EMAIL = "admin_email";
 	public static final String FILM_ID = "film_id";
 	public static final String FILM_TITLE = "film_title";
 	public static final String FILM_AGE = "film_age";

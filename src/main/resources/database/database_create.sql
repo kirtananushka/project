@@ -90,14 +90,13 @@ CREATE TABLE admins
     admin_id      INT          NOT NULL,
     admin_name    VARCHAR(255) NOT NULL,
     admin_surname VARCHAR(255) NOT NULL,
-    admin_phone   VARCHAR(12)  NOT NULL,
     admin_email   VARCHAR(255) NOT NULL,
     PRIMARY KEY (admin_id),
     FOREIGN KEY (admin_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
-INSERT INTO admins (admin_id, admin_name, admin_surname, admin_phone, admin_email)
-VALUES (1, 'Кир', 'Тананушко', '375293249073', 'irrisorrimus@mail.ru');
+INSERT INTO admins (admin_id, admin_name, admin_surname, admin_email)
+VALUES (1, 'Кир', 'Тананушко', 'irrisorrimus@mail.ru');
 
 CREATE TABLE managers
 (

@@ -89,7 +89,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <c:if test="${sessionScope.user.role eq 'ADMIN' or sessionScope.user.role eq 'MANAGER'}">
+                                <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN' or sessionScope.userAuthorizated.role eq 'MANAGER'}">
                                     <table class="width100">
                                         <tr class="gray">
                                             <td class="middle-center">${filmId}: ${film.id}</td>

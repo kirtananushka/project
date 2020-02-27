@@ -36,6 +36,7 @@ import by.tananushka.project.command.impl.genre.PrepareGenreCreationCommand;
 import by.tananushka.project.command.impl.genre.PrepareGenreEditionCommand;
 import by.tananushka.project.command.impl.genre.PrepareGenreUpdateCommand;
 import by.tananushka.project.command.impl.genre.UpdateGenreCommand;
+import by.tananushka.project.command.impl.manager.AppointManagerCommand;
 import by.tananushka.project.command.impl.manager.EditManagerCommand;
 import by.tananushka.project.command.impl.manager.FindActiveManagersCommand;
 import by.tananushka.project.command.impl.manager.FindAllManagersCommand;
@@ -47,6 +48,9 @@ import by.tananushka.project.command.impl.show.FindShowToDeleteCommand;
 import by.tananushka.project.command.impl.show.FindShowsCommand;
 import by.tananushka.project.command.impl.show.PrepareShowCreationCommand;
 import by.tananushka.project.command.impl.show.UpdateShowCommand;
+import by.tananushka.project.command.impl.user.EditUserCommand;
+import by.tananushka.project.command.impl.user.FindAllUsersCommand;
+import by.tananushka.project.command.impl.user.UpdateUserCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -109,6 +113,10 @@ public class CommandProvider {
 		commands.put(CommandName.FIND_ALL_MANAGERS, new FindAllManagersCommand());
 		commands.put(CommandName.EDIT_MANAGER, new EditManagerCommand());
 		commands.put(CommandName.UPDATE_MANAGER, new UpdateManagerCommand());
+		commands.put(CommandName.FIND_ALL_USERS, new FindAllUsersCommand());
+		commands.put(CommandName.EDIT_USER, new EditUserCommand());
+		commands.put(CommandName.UPDATE_USER, new UpdateUserCommand());
+		commands.put(CommandName.APPOINT_MANAGER, new AppointManagerCommand());
 	}
 
 	public static CommandProvider getInstance() {

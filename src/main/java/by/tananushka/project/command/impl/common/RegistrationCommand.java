@@ -40,6 +40,10 @@ public class RegistrationCommand implements Command {
 				content.assignSessionAttribute(ParamName.PARAM_PHONE_DEFAULT, null);
 				content.assignSessionAttribute(ParamName.PARAM_PASS_DEFAULT, null);
 				content.assignSessionAttribute(ParamName.PARAM_PASS_REPEATED_DEFAULT, null);
+				if (content.getSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN) == null) {
+					content.assignSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN,
+									PageName.MAIN_PAGE);
+				}
 			}
 		} catch (ServiceException e) {
 			log.error("Exception while registration.", e);

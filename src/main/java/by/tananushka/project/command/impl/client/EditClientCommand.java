@@ -37,7 +37,7 @@ public class EditClientCommand implements Command {
 				Optional<Client> clientOptional = clientService.findClientById(clientId);
 				if (clientOptional.isPresent()) {
 					Client client = clientOptional.get();
-					content.assignRequestAttribute(ParamName.PARAM_CLIENT, client);
+					content.assignSessionAttribute(ParamName.PARAM_CLIENT, client);
 				}
 				if (content.getSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN) == null) {
 					content.assignSessionAttribute(ParamName.PARAM_PAGE_TO_RETURN,

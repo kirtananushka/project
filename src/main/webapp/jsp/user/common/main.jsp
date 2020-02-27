@@ -15,8 +15,8 @@
 <body>
 <c:import url="/jsp/template/header.jsp"/>
 <c:choose>
-    <c:when test="${sessionScope.user != null}">
-        <h1>${hi}${sessionScope.user.login}!</h1>
+    <c:when test="${sessionScope.userAuthorizated != null}">
+        <h1>${hi}${sessionScope.userAuthorizated.login}!</h1>
     </c:when>
     <c:otherwise>
         <h1>${title}</h1>

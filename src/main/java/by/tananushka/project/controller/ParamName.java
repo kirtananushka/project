@@ -3,6 +3,7 @@ package by.tananushka.project.controller;
 public final class ParamName {
 
 	public static final String PARAM_ACTIVE = "active";
+	public static final String PARAM_ADMIN_ID = "id";
 	public static final String PARAM_AGE = "age";
 	public static final String PARAM_AGES_LIST = "agesList";
 	public static final String PARAM_AGES_MAP = "agesMap";
@@ -11,20 +12,15 @@ public final class ParamName {
 	public static final String PARAM_CINEMA_ID = "cinemaNameId";
 	public static final String PARAM_CINEMAS_MAP = "cinemasMap";
 	public static final String PARAM_CLIENT = "client";
+	public static final String PARAM_CLIENT_ID = "id";
 	public static final String PARAM_CLIENT_UPD = "clientUpd";
-	public static final String PARAM_MANAGER_UPD = "managerUpd";
-	public static final String PARAM_CLIENT_ID = "clientId";
-	public static final String PARAM_MANAGER_ID = "managerId";
-	public static final String PARAM_MANAGER = "manager";
 	public static final String PARAM_CLIENTS_LIST = "clientsList";
-	public static final String PARAM_MANAGERS_LIST = "managersList";
 	public static final String PARAM_COMMAND = "command";
 	public static final String PARAM_COMMAND_VALUE = "commandValue";
 	public static final String PARAM_CONFIRMATION_TEXT_1 = "mail.confirmation.text1";
 	public static final String PARAM_CONFIRMATION_TEXT_2 = "mail.confirmation.text2";
 	public static final String PARAM_CONFIRMATION_TEXT_3 = "mail.confirmation.text3";
 	public static final String PARAM_CONFIRMATION_TEXT_4 = "mail.confirmation.text4";
-	public static final String PARAM_CONFIRMATION_TEXT_5 = "mail.confirmation.text5";
 	public static final String PARAM_CONTENT_TYPE = "text/html; charset=UTF-8";
 	public static final String PARAM_COPECK = "copeck";
 	public static final String PARAM_COUNTRIES_ARR = "countries[]";
@@ -53,12 +49,15 @@ public final class ParamName {
 	public static final String PARAM_ERR_REG_MESSAGE = "errRegMessage";
 	public static final String PARAM_ERR_RESTORE_CINEMA_MESSAGE = "errRestoreCinemaMessage";
 	public static final String PARAM_ERR_SEND_MESSAGE = "errSendMessage";
+	public static final String PARAM_ERR_UPDATE_ADMIN_MESSAGE = "errUpdateAdminMessage";
 	public static final String PARAM_ERR_UPDATE_CINEMA_MESSAGE = "errUpdateCinemaMessage";
+	public static final String PARAM_ERR_UPDATE_CLIENT_MESSAGE = "errUpdateClientMessage";
 	public static final String PARAM_ERR_UPDATE_FILM_MESSAGE = "errUpdateFilmMessage";
 	public static final String PARAM_ERR_UPDATE_GENRE_MESSAGE = "errUpdateGenreMessage";
-	public static final String PARAM_ERR_UPDATE_SHOW_MESSAGE = "errUpdateShowMessage";
-	public static final String PARAM_ERR_UPDATE_CLIENT_MESSAGE = "errUpdateClientMessage";
 	public static final String PARAM_ERR_UPDATE_MANAGER_MESSAGE = "errUpdateManagerMessage";
+	public static final String PARAM_ERR_UPDATE_SHOW_MESSAGE = "errUpdateShowMessage";
+	public static final String PARAM_ERR_UPDATE_USER_MESSAGE = "errUpdateUserMessage";
+	//	public static final String PARAM_ERR_MANAGER_APPOINTMENT_MESSAGE = "errManagerAppointmentMessage";
 	public static final String PARAM_ERROR = "error";
 	public static final String PARAM_FILM_ID = "filmId";
 	public static final String PARAM_FILM_OBJ = "filmObj";
@@ -74,6 +73,7 @@ public final class ParamName {
 	public static final String PARAM_HUNDRED_LIST = "hundredList";
 	public static final String PARAM_IMAGE_DEFAULT = "imgDefault";
 	public static final String PARAM_IMG = "img";
+	public static final String PARAM_ID = "id";
 	public static final String PARAM_ITEM = "item";
 	public static final String PARAM_LOCALE = "locale";
 	public static final String PARAM_LOGIN = "login";
@@ -84,6 +84,10 @@ public final class ParamName {
 	public static final String PARAM_MAIL_PASS = "mail.password";
 	public static final String PARAM_MAIL_USERNAME = "mail.username";
 	public static final String PARAM_MAIL_USERNAME_MSG = "mail.username.messages";
+	public static final String PARAM_MANAGER = "manager";
+	public static final String PARAM_MANAGER_ID = "id";
+	public static final String PARAM_MANAGER_UPD = "managerUpd";
+	public static final String PARAM_MANAGERS_LIST = "managersList";
 	public static final String PARAM_MESSAGE_DEFAULT = "defMessage";
 	public static final String PARAM_MINUTE = "minute";
 	public static final String PARAM_MINUTES = "minutesList";
@@ -135,7 +139,10 @@ public final class ParamName {
 	public static final String PARAM_UNSEL_COUNTRIES_MAP = "unselectedCountriesMap";
 	public static final String PARAM_UNSEL_GENRES_MAP = "unselectedGenresMap";
 	public static final String PARAM_USER = "user";
-	public static final String PARAM_USER_ID = "userId";
+	public static final String PARAM_USER_AUTHORIZATED = "userAuthorizated";
+	public static final String PARAM_USER_ID = "id";
+	public static final String PARAM_USER_UPD = "userUpd";
+	public static final String PARAM_USERS_LIST = "usersList";
 	public static final String PARAM_UTF_8 = "UTF-8";
 	public static final String PARAM_VERIFIED = "verified";
 	public static final String PARAM_YEAR = "year";

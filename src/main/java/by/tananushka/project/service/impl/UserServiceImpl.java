@@ -1,12 +1,19 @@
 package by.tananushka.project.service.impl;
 
+import by.tananushka.project.bean.Admin;
+import by.tananushka.project.bean.Client;
+import by.tananushka.project.bean.Manager;
 import by.tananushka.project.bean.User;
+import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.ErrorMessageKey;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.dao.DaoException;
 import by.tananushka.project.dao.DaoProvider;
 import by.tananushka.project.dao.UserDao;
+import by.tananushka.project.dao.impl.AdminDaoImpl;
+import by.tananushka.project.dao.impl.ClientDaoImpl;
+import by.tananushka.project.dao.impl.ManagerDaoImpl;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.UserService;
 import by.tananushka.project.service.validation.EscapeCharactersChanger;
@@ -50,6 +57,131 @@ public class UserServiceImpl implements UserService {
 		} catch (DaoException e) {
 			throw new ServiceException("Exception while authentication.", e);
 		}
+		return userOptional;
+	}
+
+	@Override
+	public Optional<User> findUserById(String strUserId) throws ServiceException {
+		int userId;
+		Optional<User> userOptional = Optional.empty();
+		if (validator.checkId(strUserId)) {
+			userId = Integer.parseInt(strUserId);
+			userOptional = findUserById(userId);
+		}
+		return userOptional;
+	}
+
+	@Override
+	public Optional<User> findUserById(int userId) throws ServiceException {
+		Optional<User> userOptional = Optional.empty();
+		try {
+			Optional<UserRole> userRoleOptional = userDao.findRoleById(userId);
+			if (userRoleOptional.isPresent()) {
+				UserRole userRole = userRoleOptional.get();
+				switch (userRole) {
+					case ADMIN:
+						Optional<Admin> adminOptional = AdminDaoImpl.getInstance().findAdmin();
+						if (adminOptional.isPresent()) {
+							userOptional = Optional.of(adminOptional.get());
+						}
+						break;
+					case MANAGER:
+						Optional<Manager> managerOptional =
+										ManagerDaoImpl.getInstance().findManagerById(userId);
+						if (managerOptional.isPresent()) {
+							userOptional = Optional.of(managerOptional.get());
+						}
+						break;
+					case CLIENT:
+						Optional<Client> clientOptional =
+										ClientDaoImpl.getInstance().findClientById(userId);
+						if (clientOptional.isPresent()) {
+							userOptional = Optional.of(clientOptional.get());
+						}
+						break;
+					default:
+						userOptional = Optional.empty();
+						break;
+				}
+			}
+		} catch (DaoException e) {
+			throw new ServiceException("Exception while finding user by ID.", e);
+		}
+		return userOptional;
+	}
+
+	@Override
+	public List<List<? extends User>> findAllUsers() throws ServiceException {
+		List<List<? extends User>> usersList;
+		try {
+			usersList = userDao.findAllUsers();
+		} catch (DaoException e) {
+			throw new ServiceException("Exception while getting all users", e);
+		}
+		return usersList;
+	}
+
+	@Override
+	public Optional<User> updateUser(SessionContent content) throws ServiceException {
+		boolean isParameterValid = true;
+		Optional<User> userOptional = Optional.empty();
+		List<String> errorsList = new ArrayList<>();
+		List<String> errorsListFromContent = null;
+		content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_USER_MESSAGE, null);
+		String role = content.getRequestParameter(ParamName.PARAM_ROLE).strip();
+		UserRole userRole = null;
+		if (validator.checkRole(role)) {
+			userRole = UserRole.valueOf(role);
+		} else {
+			errorsList.add(ErrorMessageKey.INVALID_ROLE);
+			isParameterValid = false;
+		}
+		if (isParameterValid) {
+			switch (userRole) {
+				case ADMIN:
+					Optional<Admin> adminOptional = AdminServiceImpl.getInstance().updateAdmin(content);
+					if (adminOptional.isPresent()) {
+						userOptional = Optional.of(adminOptional.get());
+					}
+					errorsListFromContent = (List<String>) content
+									.getSessionAttribute(ParamName.PARAM_ERR_UPDATE_ADMIN_MESSAGE);
+					if (errorsListFromContent != null) {
+						errorsList.addAll(errorsListFromContent);
+					}
+					break;
+				case MANAGER:
+					Optional<Manager> managerOptional =
+									ManagerServiceImpl.getInstance().updateManager(content);
+					if (managerOptional.isPresent()) {
+						userOptional = Optional.of(managerOptional.get());
+					}
+					errorsListFromContent = (List<String>) content
+									.getSessionAttribute(ParamName.PARAM_ERR_UPDATE_MANAGER_MESSAGE);
+					if (errorsListFromContent != null) {
+						errorsList.addAll(errorsListFromContent);
+					}
+					break;
+				case CLIENT:
+					Optional<Client> clientOptional =
+									ClientServiceImpl.getInstance().updateClient(content);
+					if (clientOptional.isPresent()) {
+						userOptional = Optional.of(clientOptional.get());
+					}
+					errorsListFromContent = (List<String>) content
+									.getSessionAttribute(ParamName.PARAM_ERR_UPDATE_CLIENT_MESSAGE);
+					if (errorsListFromContent != null) {
+						errorsList.addAll(errorsListFromContent);
+					}
+					break;
+				default:
+					userOptional = Optional.empty();
+					break;
+			}
+		} else {
+			content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_USER_MESSAGE, errorsList);
+			throw new ServiceException("Invalid parameter(s)");
+		}
+		content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_USER_MESSAGE, errorsList);
 		return userOptional;
 	}
 

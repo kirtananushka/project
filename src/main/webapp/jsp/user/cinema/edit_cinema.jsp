@@ -24,7 +24,7 @@
 <div class="outer">
     <div class="center-padding grey shadow width50 back-white">
         <c:choose>
-            <c:when test="${empty sessionScope.cinemasList}">
+            <c:when test="${empty sessionScope.cinemasMap}">
                 <div class="center-padding grey shadow width50 back-white">
                     <p class="center margin-bottom">${nothingFound}</p>
                 </div>

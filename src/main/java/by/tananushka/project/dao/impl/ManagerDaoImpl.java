@@ -1,5 +1,6 @@
 package by.tananushka.project.dao.impl;
 
+import by.tananushka.project.bean.Client;
 import by.tananushka.project.bean.Manager;
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.dao.DaoException;
@@ -30,6 +31,11 @@ public class ManagerDaoImpl implements ManagerDao {
 	private static final String UPDATE_MANAGER =
 					"UPDATE managers SET manager_name = ?, manager_surname = ?,\n"
 									+ "manager_phone = ?, manager_email = ? WHERE manager_id = ?;";
+	private static final String SET_MANAGER =
+					"UPDATE users SET user_role = 'MANAGER' WHERE user_id = ?;";
+	private static final String INSERT_MANAGER =
+					"INSERT INTO managers (manager_id, manager_name, manager_surname,\n"
+									+ "manager_phone, manager_email) VALUES (?, ?, ?, ?, ?);";
 	private static final String FIND_ACTIVE_MANAGERS =
 					"SELECT manager_id, user_login, manager_name, manager_surname, manager_phone,\n"
 									+ "manager_email, user_verification, user_active, user_registration_date,\n"
@@ -46,6 +52,8 @@ public class ManagerDaoImpl implements ManagerDao {
 									+ "user_role\n"
 									+ "FROM managers INNER JOIN users ON manager_id = user_id\n"
 									+ "WHERE manager_id = ?;";
+	private static final String DELETE_CLIENT =
+					"DELETE FROM clients WHERE client_id = ?;";
 	private static ManagerDao managerDao = new ManagerDaoImpl();
 	private static Logger log = LogManager.getLogger();
 	private final Calendar timezone = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"));
@@ -58,15 +66,7 @@ public class ManagerDaoImpl implements ManagerDao {
 	}
 
 	@Override
-	public Optional<Manager> createManager(Manager manager) throws DaoException {
-		Optional<Manager> managerOptional = Optional.empty();
-// FIXME: 26.02.2020
-		return managerOptional;
-	}
-
-	@Override
 	public Optional<Manager> updateManager(Manager manager) throws DaoException {
-		ResultSet resultSet = null;
 		Optional<Manager> managerOptional;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement userStatement = connection
@@ -92,8 +92,6 @@ public class ManagerDaoImpl implements ManagerDao {
 			}
 		} catch (SQLException e) {
 			throw new DaoException("SQL exception while manager updating.", e);
-		} finally {
-			closeResultSet(resultSet);
 		}
 		managerOptional = findManagerById(manager.getId());
 		return managerOptional;
@@ -151,6 +149,43 @@ public class ManagerDaoImpl implements ManagerDao {
 		} finally {
 			closeResultSet(resultSet);
 		}
+		return managerOptional;
+	}
+
+	@Override
+	public Optional<Manager> appointManager(int clientId) throws DaoException {
+		Optional<Manager> managerOptional;
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+		     PreparedStatement insertStatement = connection.prepareStatement(INSERT_MANAGER);
+		     PreparedStatement setRoleStatement = connection.prepareStatement(SET_MANAGER);
+		     PreparedStatement deleteStatement = connection.prepareStatement(DELETE_CLIENT)) {
+			try {
+				connection.setAutoCommit(false);
+				Optional<Client> clientOptional = ClientDaoImpl.getInstance().findClientById(clientId);
+				if (clientOptional.isPresent()) {
+					Client client = clientOptional.get();
+					insertStatement.setInt(1, clientId);
+					insertStatement.setString(2, client.getName());
+					insertStatement.setString(3, client.getSurname());
+					insertStatement.setString(4, client.getPhone());
+					insertStatement.setString(5, client.getEmail());
+					insertStatement.execute();
+					setRoleStatement.setInt(1, clientId);
+					setRoleStatement.execute();
+					deleteStatement.setInt(1, clientId);
+					deleteStatement.execute();
+					connection.commit();
+				}
+			} catch (SQLException e) {
+				connection.rollback();
+				throw new DaoException("Transaction failed; not committed.", e);
+			} finally {
+				connection.setAutoCommit(true);
+			}
+		} catch (SQLException e) {
+			throw new DaoException("SQL exception while manager appointment.", e);
+		}
+		managerOptional = findManagerById(clientId);
 		return managerOptional;
 	}
 

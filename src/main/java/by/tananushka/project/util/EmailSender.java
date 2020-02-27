@@ -96,13 +96,11 @@ public class EmailSender {
 		String message2 = properties.getProperty(ParamName.PARAM_CONFIRMATION_TEXT_2);
 		String message3 = properties.getProperty(ParamName.PARAM_CONFIRMATION_TEXT_3);
 		String message4 = properties.getProperty(ParamName.PARAM_CONFIRMATION_TEXT_4);
-		String message5 = properties.getProperty(ParamName.PARAM_CONFIRMATION_TEXT_5);
 		StringBuilder messageText = new StringBuilder();
 		messageText.append(String.format(message1, client.getName(), client.getSurname()));
 		messageText.append(message2);
 		messageText.append(String.format(message3, client.getLogin()));
-		messageText.append(String.format(message4, client.getPassword()));
-		messageText.append(String.format(message5, client.getId()));
+		messageText.append(String.format(message4, client.getId()));
 		return messageText.toString();
 	}
 }

@@ -76,9 +76,21 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public Optional<Manager> createManager(SessionContent content) throws ServiceException {
-		boolean isParameterValid = true;
-		Optional<Manager> managerOptional = Optional.empty();
+	public Optional<Manager> appointManager(SessionContent content) throws ServiceException {
+		Optional<Manager> managerOptional;
+		String strManagerId = content.getRequestParameter(ParamName.PARAM_MANAGER_ID).strip();
+		if (validator.checkId(strManagerId)) {
+			int managerId = Integer.parseInt(strManagerId);
+			try {
+				managerOptional = managerDao.appointManager(managerId);
+			} catch (DaoException e) {
+				log.error("Invalid ID {}.", strManagerId);
+				throw new ServiceException("Invalid id.", e);
+			}
+		} else {
+			log.error("Exception while appointment of manager.");
+			throw new ServiceException("Exception while appointment of manager.");
+		}
 		return managerOptional;
 	}
 
@@ -90,11 +102,11 @@ public class ManagerServiceImpl implements ManagerService {
 		content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_MANAGER_MESSAGE, null);
 		String strManagerId = content.getRequestParameter(ParamName.PARAM_MANAGER_ID).strip();
 		int managerId = 0;
-		if (!validator.checkId(strManagerId)) {
+		if (validator.checkId(strManagerId)) {
+			managerId = Integer.parseInt(strManagerId);
+		} else {
 			errorsList.add(ErrorMessageKey.INVALID_ID);
 			isParameterValid = false;
-		} else {
-			managerId = Integer.parseInt(strManagerId);
 		}
 		String name = content.getRequestParameter(ParamName.PARAM_NAME).strip();
 		if (!validator.checkName(name)) {
@@ -129,13 +141,13 @@ public class ManagerServiceImpl implements ManagerService {
 			managerOptional = Optional.of(manager);
 		} else {
 			content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_MANAGER_MESSAGE, errorsList);
-			throw new ServiceException("Invalid parameter(s)");
+			throw new ServiceException("Invalid parameter(s).");
 		}
 		try {
 			managerOptional = managerDao.updateManager(managerOptional.get());
 		} catch (DaoException e) {
-			log.error("Exception while updating manager");
-			throw new ServiceException(e);
+			log.error("Exception while updating manager.");
+			throw new ServiceException("Exception while updating manager.", e);
 		}
 		return managerOptional;
 	}

@@ -310,7 +310,7 @@
         <url-pattern>/deletion_successful</url-pattern>
     </servlet-mapping>
 
-    <!--    clients-->
+    <!--    client-->
 
     <servlet>
         <servlet-name>clients_page</servlet-name>
@@ -348,7 +348,7 @@
         <url-pattern>/manager/client_updated</url-pattern>
     </servlet-mapping>
 
-    <!--    managers-->
+    <!--    manager-->
 
     <servlet>
         <servlet-name>managers_page</servlet-name>
@@ -385,4 +385,44 @@
         <servlet-name>view_manager_updated_page</servlet-name>
         <url-pattern>/admin/manager_updated</url-pattern>
     </servlet-mapping>
+
+    <!--    user-->
+
+    <servlet>
+        <servlet-name>all_users_page</servlet-name>
+        <jsp-file>/jsp/user/user/all_users.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>all_users_page</servlet-name>
+        <url-pattern>/admin/all_users</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>edit_user_page</servlet-name>
+        <jsp-file>/jsp/user/user/edit_user.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>edit_user_page</servlet-name>
+        <url-pattern>/admin/edit_user</url-pattern>
+    </servlet-mapping>
+
+    <!--    <servlet>-->
+    <!--        <servlet-name>appoint_manager_page</servlet-name>-->
+    <!--        <jsp-file>/jsp/user/user/appoint_manager.jsp</jsp-file>-->
+    <!--    </servlet>-->
+    <!--    <servlet-mapping>-->
+    <!--        <servlet-name>appoint_manager_page</servlet-name>-->
+    <!--        <url-pattern>/admin/appoint_manager</url-pattern>-->
+    <!--    </servlet-mapping>-->
+
+    <servlet>
+        <servlet-name>view_user_updated_page</servlet-name>
+        <jsp-file>/jsp/user/user/user_updated.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>view_user_updated_page</servlet-name>
+        <url-pattern>/admin/user_updated</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

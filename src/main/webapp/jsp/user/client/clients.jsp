@@ -36,7 +36,7 @@
             <c:otherwise>
                 <c:import url="/jsp/template/pagination.jsp"/>
                 <c:forEach items="${requestScope.clientsList}" var="client">
-                    <table class="clients-view width100">
+                    <table class="table-view width100">
                         <tr>
                             <td class="width20 middle-left">
                                 <strong>${login}</strong>
@@ -50,7 +50,7 @@
                             </td>
                             <td class="middle-left">
                                 <input class="width95" type="text" id="clientId"
-                                       name="clientId" value="${client.id}" disabled>
+                                       name="id" value="${client.id}" disabled>
                             </td>
                         </tr>
                         <tr>
@@ -149,7 +149,7 @@
                             <td colspan="4" class="middle-center">
                                 <a class="button"
                                    href="${pageContext.request.contextPath}
-                                       /controller?command=edit_client&clientId=${client.id}">${edit}</a>
+                                       /controller?command=edit_client&id=${client.id}">${edit}</a>
                             </td>
                         </tr>
                         <tr>

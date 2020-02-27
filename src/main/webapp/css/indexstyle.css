@@ -811,7 +811,7 @@ td.middle-left {
     text-align: left;
 }
 
-table.clients-view input {
+table.table-view input {
     background-color: #eee !important;
     border: none !important;
     margin: 0 !important;

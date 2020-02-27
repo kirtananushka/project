@@ -16,7 +16,7 @@ public class ViewProfileCommand implements Command {
 
 	@Override
 	public Router execute(SessionContent content) {
-		User user = (User) content.getSessionAttribute(ParamName.PARAM_USER);
+		User user = (User) content.getSessionAttribute(ParamName.PARAM_USER_AUTHORIZATED);
 		String pageToGo = PageName.AUTHENTICATION_PAGE;
 		if (user != null) {
 			if (user.getRole().equals(UserRole.ADMIN)) {

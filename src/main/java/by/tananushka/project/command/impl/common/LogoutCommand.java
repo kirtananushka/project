@@ -11,7 +11,7 @@ public class LogoutCommand implements Command {
 
 	@Override
 	public Router execute(SessionContent content) throws CommandException {
-		content.assignSessionAttribute(ParamName.PARAM_USER, null);
+		content.assignSessionAttribute(ParamName.PARAM_USER_AUTHORIZATED, null);
 		content.assignSessionAttribute(ParamName.PARAM_ROLE, null);
 		Router router = new Router();
 		router.setPageToGo(PageName.MAIN_PAGE);

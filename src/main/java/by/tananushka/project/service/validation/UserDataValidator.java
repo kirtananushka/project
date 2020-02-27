@@ -1,5 +1,6 @@
 package by.tananushka.project.service.validation;
 
+import by.tananushka.project.bean.UserRole;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +15,6 @@ public class UserDataValidator {
 	private static final String PASS_PATTERN = "^[\\w]{8,20}$";
 	private static final String ID_PATTERN = "^\\d{1,10}$";
 	private static Logger log = LogManager.getLogger();
-
 
 	private UserDataValidator() {
 	}
@@ -84,5 +84,17 @@ public class UserDataValidator {
 			log.error("ID is not valid: {}.", strId);
 			return false;
 		}
+	}
+
+	public boolean checkRole(String role) {
+		if (role == null) {
+			return false;
+		}
+		for (UserRole el : UserRole.values()) {
+			if (el.name().equals(role)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

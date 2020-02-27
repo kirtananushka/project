@@ -14,11 +14,13 @@ public class ErrorMessageKey {
 	public static final String INVALID_PHONE = "invalid.phone";
 	public static final String INVALID_EMAIL = "invalid.email";
 	public static final String INVALID_TITLE = "invalid.title";
+	public static final String INVALID_ROLE = "invalid.role";
 	public static final String TITLE_EXISTS = "title.exists";
 	public static final String INVALID_ID = "invalid.id";
 	public static final String INVALID_YEAR = "invalid.year";
 	public static final String INVALID_AGE = "invalid.age";
 	public static final String UPDATE_FAILED = "update.failed";
+	public static final String MANAGER_APPOINTMENT_FAILED = "appointment.failed";
 	public static final String DELETION_FAILED = "delete.failed";
 	public static final String GENRES_NOT_VALID = "genres.not.valid";
 	public static final String COUNTRIES_NOT_VALID = "countries.not.valid";
