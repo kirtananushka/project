@@ -132,10 +132,10 @@ public class ClientServiceImpl implements ClientService {
 			client = new Client();
 			client.setLogin(login);
 			client.setPassword(password);
+			client.setEmail(email);
 			client.setName(name);
 			client.setSurname(surname);
 			client.setPhone(phone);
-			client.setEmail(email);
 		} else {
 			content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, errorsList);
 			throw new ServiceException("Invalid parameter(s)");
@@ -189,10 +189,10 @@ public class ClientServiceImpl implements ClientService {
 		if (isParameterValid) {
 			Client client = new Client();
 			client.setId(clientId);
+			client.setEmail(email);
 			client.setName(name);
 			client.setSurname(surname);
 			client.setPhone(phone);
-			client.setEmail(email);
 			client.setActive(isActive);
 			clientOptional = Optional.of(client);
 		} else {

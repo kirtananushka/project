@@ -16,7 +16,9 @@ public interface UserDao extends AbstractDao {
 
 	boolean emailConfirmation(int userId) throws DaoException;
 
-	Optional<String> findEmailByLogin(String login) throws DaoException;
+	boolean checkLoginAndEmail(String login, String email) throws DaoException;
+
+	boolean setNewPassword(String login, String password) throws DaoException;
 
 
 }

@@ -91,6 +91,9 @@ div.padding-top-40 {
     padding-top: 40px;
 }
 
+div.margin-top-40 {
+    margin-top: 40px;
+}
 
 div.red {
     border: 1px solid red;
@@ -202,6 +205,18 @@ p.noteRed {
 p.noteSmall {
     font-size: 0.7em;
     text-align: center;
+}
+
+a.forgot-password {
+    margin-top: 25px;
+    text-decoration: underline;
+    font-size: 0.8em;
+    text-align: center;
+    color: silver;
+}
+
+a.forgot-password:hover {
+    color: #b2293a;
 }
 
 p.center {

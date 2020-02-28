@@ -58,6 +58,7 @@
             </form>
         </div>
         </c:otherwise>
+        </c:choose>
     </div>
 </div>
 </body>

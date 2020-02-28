@@ -11,6 +11,7 @@ import by.tananushka.project.parsing.DateParser;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.ShowService;
+import by.tananushka.project.util.PagesCalculator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +30,7 @@ public class FindShowsCommand implements Command {
 	private static Logger log = LogManager.getLogger();
 	private ShowService showService = ServiceProvider.getInstance().getShowService();
 	private DateParser dateParser = DateParser.getInstance();
+	private PagesCalculator pagesCalculator = PagesCalculator.getInstance();
 
 	@Override
 	public Router execute(SessionContent content) throws CommandException {
@@ -53,11 +55,12 @@ public class FindShowsCommand implements Command {
 			                                     .collect(Collectors.toList());
 			Map<Integer, String> cinemasMap = showService.findCinemas();
 			int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
-			int showsFrom = pageNumber - 1;
+			int showsFrom = pageNumber - pagesCalculator.getSingleItemsPerPage();
 			int totalPages = showsMap.size();
 			List<String> cinemaNames = new ArrayList<>(showsMap.keySet())
 							.stream().skip(showsFrom)
-							.limit(1).collect(Collectors.toList());
+							.limit(pagesCalculator.getSingleItemsPerPage())
+							.collect(Collectors.toList());
 			Map<String, List<Show>> showsForPageMap = new LinkedHashMap<>();
 			for (String cinemaName : cinemaNames) {
 				List<Show> shows = showsMap.get(cinemaName);

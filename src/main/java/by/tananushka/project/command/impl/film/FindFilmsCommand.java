@@ -10,6 +10,7 @@ import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.service.FilmService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
+import by.tananushka.project.util.PagesCalculator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,6 +29,7 @@ public class FindFilmsCommand implements Command {
 	private static final String SELECT_VALUE_DEFAULT = "film.%s";
 	private static Logger log = LogManager.getLogger();
 	private FilmService filmService = ServiceProvider.getInstance().getFilmService();
+	private PagesCalculator pagesCalculator = PagesCalculator.getInstance();
 
 	@Override
 	public Router execute(SessionContent content) throws CommandException {
@@ -65,11 +67,14 @@ public class FindFilmsCommand implements Command {
 					paramSelect = ParamName.PARAM_GENRE;
 			}
 			int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
-			int filmsFrom = 5 * (pageNumber - 1);
+			int filmsFrom = pagesCalculator.calculateItemsFrom(pageNumber);
 			int filmsNumber = filmsList.size();
-			int totalPages = (filmsNumber + 4) / 5;
+			int totalPages = pagesCalculator.calculateTotalPages(filmsNumber);
 			List<Film> filmsForPageList =
-							filmsList.stream().skip(filmsFrom).limit(5).collect(Collectors.toList());
+							filmsList.stream()
+							         .skip(filmsFrom)
+							         .limit(pagesCalculator.getItemsPerPage())
+							         .collect(Collectors.toList());
 			String select = String.format(SELECT, paramSelect).strip();
 			String item = String.format(ITEM, paramItem).strip();
 			String pageURL;

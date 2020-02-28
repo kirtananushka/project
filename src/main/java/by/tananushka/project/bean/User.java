@@ -8,6 +8,7 @@ public class User extends Entity {
 	private int id;
 	private String login;
 	private String password;
+	private String email;
 	private UserRole role;
 	private boolean isActive;
 	private boolean isVerified;
@@ -38,6 +39,14 @@ public class User extends Entity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public UserRole getRole() {
@@ -96,6 +105,9 @@ public class User extends Entity {
 		if (password != null ? !password.equals(user.password) : user.password != null) {
 			return false;
 		}
+		if (email != null ? !email.equals(user.email) : user.email != null) {
+			return false;
+		}
 		if (role != user.role) {
 			return false;
 		}
@@ -108,6 +120,7 @@ public class User extends Entity {
 		int result = id;
 		result = 31 * result + (login != null ? login.hashCode() : 0);
 		result = 31 * result + (password != null ? password.hashCode() : 0);
+		result = 31 * result + (email != null ? email.hashCode() : 0);
 		result = 31 * result + (role != null ? role.hashCode() : 0);
 		result = 31 * result + (isActive ? 1 : 0);
 		result = 31 * result + (isVerified ? 1 : 0);
@@ -121,6 +134,7 @@ public class User extends Entity {
 		sb.append("id=").append(id);
 		sb.append(", login='").append(login).append('\'');
 		sb.append(", password='").append(password).append('\'');
+		sb.append(", email='").append(email).append('\'');
 		sb.append(", role=").append(role);
 		sb.append(", isActive=").append(isActive);
 		sb.append(", isVerified=").append(isVerified);

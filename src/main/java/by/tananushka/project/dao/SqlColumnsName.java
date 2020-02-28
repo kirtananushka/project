@@ -2,9 +2,14 @@ package by.tananushka.project.dao;
 
 public class SqlColumnsName {
 
+	//	public static final String CLIENT_EMAIL = "client_email";
+//	public static final String MANAGER_EMAIL = "manager_email";
+//	public static final String ADMIN_EMAIL = "admin_email";
+	public static final String MANAGER_ID = "manager_id";
 	public static final String USER_ID = "user_id";
 	public static final String USER_LOGIN = "user_login";
 	public static final String USER_PASSWORD = "user_password";
+	public static final String USER_EMAIL = "user_email";
 	public static final String USER_ROLE = "user_role";
 	public static final String USER_ACTIVE = "user_active";
 	public static final String USER_VERIFIED = "user_verification";
@@ -13,16 +18,12 @@ public class SqlColumnsName {
 	public static final String CLIENT_NAME = "client_name";
 	public static final String CLIENT_SURNAME = "client_surname";
 	public static final String CLIENT_PHONE = "client_phone";
-	public static final String CLIENT_EMAIL = "client_email";
-	public static final String MANAGER_ID = "manager_id";
 	public static final String MANAGER_NAME = "manager_name";
 	public static final String MANAGER_SURNAME = "manager_surname";
 	public static final String MANAGER_PHONE = "manager_phone";
-	public static final String MANAGER_EMAIL = "manager_email";
 	public static final String ADMIN_ID = "admin_id";
 	public static final String ADMIN_NAME = "admin_name";
 	public static final String ADMIN_SURNAME = "admin_surname";
-	public static final String ADMIN_EMAIL = "admin_email";
 	public static final String FILM_ID = "film_id";
 	public static final String FILM_TITLE = "film_title";
 	public static final String FILM_AGE = "film_age";

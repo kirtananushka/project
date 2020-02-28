@@ -92,6 +92,24 @@
         <url-pattern>/confirmation_successful</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>password_changed_page</servlet-name>
+        <jsp-file>/jsp/user/common/password_changed.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>password_changed_page</servlet-name>
+        <url-pattern>/password_changed</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>password_forgotten_page</servlet-name>
+        <jsp-file>/jsp/user/common/password_forgotten.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>password_forgotten_page</servlet-name>
+        <url-pattern>/password_forgotten</url-pattern>
+    </servlet-mapping>
+
 
     <!--show-->
 

@@ -21,4 +21,6 @@ public interface UserService {
 	boolean emailConfirmation(int userId) throws ServiceException;
 
 	boolean sendMessage(SessionContent content);
+
+	boolean sendPassword(SessionContent content) throws ServiceException;
 }

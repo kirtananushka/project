@@ -6,9 +6,9 @@ import by.tananushka.project.dao.ClientDao;
 import by.tananushka.project.dao.DaoException;
 import by.tananushka.project.dao.SqlColumnsName;
 import by.tananushka.project.pool.ConnectionPool;
+import by.tananushka.project.util.PasswordUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,29 +27,29 @@ import java.util.TimeZone;
 public class ClientDaoImpl implements ClientDao {
 
 	private static final String INSERT_USER =
-					"INSERT INTO users (user_login, user_password, user_role, user_active)\n"
-									+ "VALUES (?, ?, ?, ?)";
+					"INSERT INTO users (user_login, user_password, user_email, user_role, user_active)\n"
+									+ "VALUES (?, ?, ?, ?, ?)";
 	private static final String INSERT_CLIENT =
 					"INSERT INTO clients (client_id, client_name, client_surname,\n"
-									+ "client_phone, client_email) VALUES (?, ?, ?, ?, ?)";
-	private static final String UPDATE_USER =
-					"UPDATE users SET user_active = ? WHERE user_id = ?;";
+									+ "client_phone) VALUES (?, ?, ?, ?)";
+	private static final String UPDATE_CLIENT_AS_USER =
+					"UPDATE users SET user_email = ?, user_active = ? WHERE user_id = ?;";
 	private static final String UPDATE_CLIENT =
 					"UPDATE clients SET client_name = ?, client_surname = ?,\n"
-									+ "client_phone = ?, client_email = ? WHERE client_id = ?;";
+									+ "client_phone = ? WHERE client_id = ?;";
 	private static final String FIND_ACTIVE_CLIENTS =
 					"SELECT client_id, user_login, client_name, client_surname, client_phone,\n"
-									+ "client_email, user_verification, user_active, user_registration_date,\n"
+									+ "user_email, user_verification, user_active, user_registration_date,\n"
 									+ "user_role FROM clients INNER JOIN users ON client_id = user_id\n"
 									+ "WHERE user_active = true ORDER BY user_login;";
 	private static final String FIND_ALL_CLIENTS =
 					"SELECT client_id, user_login, client_name, client_surname, client_phone,\n"
-									+ "client_email, user_verification, user_active, user_registration_date,\n"
+									+ "user_email, user_verification, user_active, user_registration_date,\n"
 									+ "user_role FROM clients INNER JOIN users ON client_id = user_id\n"
 									+ "ORDER BY user_login;";
 	private static final String FIND_CLIENT_BY_ID =
 					"SELECT client_id, user_login, client_name, client_surname, client_phone,\n"
-									+ "client_email, user_verification, user_active, user_registration_date, \n"
+									+ "user_email, user_verification, user_active, user_registration_date, \n"
 									+ "user_role\n"
 									+ "FROM clients INNER JOIN users ON client_id = user_id\n"
 									+ "WHERE client_id = ?;";
@@ -58,6 +58,7 @@ public class ClientDaoImpl implements ClientDao {
 	private static ClientDao clientDao = new ClientDaoImpl();
 	private static Logger log = LogManager.getLogger();
 	private final Calendar timezone = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"));
+	private PasswordUtility passwordUtility = PasswordUtility.getInstance();
 
 	private ClientDaoImpl() {
 	}
@@ -70,7 +71,7 @@ public class ClientDaoImpl implements ClientDao {
 	public Optional<Client> createClient(Client client) throws DaoException {
 		Optional<Client> clientOptional;
 		String password = client.getPassword();
-		String encodedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		String encodedPassword = passwordUtility.encodePassword(password);
 		ResultSet resultSet = null;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement userStatement = connection
@@ -80,8 +81,9 @@ public class ClientDaoImpl implements ClientDao {
 				connection.setAutoCommit(false);
 				userStatement.setString(1, client.getLogin());
 				userStatement.setString(2, encodedPassword);
-				userStatement.setString(3, client.getRole().name());
-				userStatement.setBoolean(4, client.isActive());
+				userStatement.setString(3, client.getEmail());
+				userStatement.setString(4, client.getRole().name());
+				userStatement.setBoolean(5, client.isActive());
 				userStatement.execute();
 				resultSet = userStatement.getGeneratedKeys();
 				if (resultSet.next()) {
@@ -92,7 +94,6 @@ public class ClientDaoImpl implements ClientDao {
 				clientStatement.setString(2, client.getName());
 				clientStatement.setString(3, client.getSurname());
 				clientStatement.setString(4, client.getPhone());
-				clientStatement.setString(5, client.getEmail());
 				clientStatement.execute();
 				connection.commit();
 				log.debug("A new client was created: {}.", client);
@@ -116,18 +117,18 @@ public class ClientDaoImpl implements ClientDao {
 		Optional<Client> clientOptional;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement userStatement = connection
-						     .prepareStatement(UPDATE_USER);
+						     .prepareStatement(UPDATE_CLIENT_AS_USER);
 		     PreparedStatement clientStatement = connection.prepareStatement(UPDATE_CLIENT)) {
 			try {
 				connection.setAutoCommit(false);
-				userStatement.setBoolean(1, client.isActive());
-				userStatement.setInt(2, client.getId());
+				userStatement.setString(1, client.getEmail());
+				userStatement.setBoolean(2, client.isActive());
+				userStatement.setInt(3, client.getId());
 				userStatement.execute();
 				clientStatement.setString(1, client.getName());
 				clientStatement.setString(2, client.getSurname());
 				clientStatement.setString(3, client.getPhone());
-				clientStatement.setString(4, client.getEmail());
-				clientStatement.setInt(5, client.getId());
+				clientStatement.setInt(4, client.getId());
 				clientStatement.execute();
 				connection.commit();
 			} catch (SQLException e) {
@@ -198,8 +199,6 @@ public class ClientDaoImpl implements ClientDao {
 		return clientOptional;
 	}
 
-
-
 	@Override
 	public boolean checkLogin(String login) throws DaoException {
 		boolean isLoginFree = false;
@@ -226,7 +225,7 @@ public class ClientDaoImpl implements ClientDao {
 		client.setName(resultSet.getString(SqlColumnsName.CLIENT_NAME));
 		client.setSurname(resultSet.getString(SqlColumnsName.CLIENT_SURNAME));
 		client.setPhone(resultSet.getString(SqlColumnsName.CLIENT_PHONE));
-		client.setEmail(resultSet.getString(SqlColumnsName.CLIENT_EMAIL));
+		client.setEmail(resultSet.getString(SqlColumnsName.USER_EMAIL));
 		client.setVerified(resultSet.getBoolean(SqlColumnsName.USER_VERIFIED));
 		client.setActive(resultSet.getBoolean(SqlColumnsName.USER_ACTIVE));
 		client.setRegistrationDate(

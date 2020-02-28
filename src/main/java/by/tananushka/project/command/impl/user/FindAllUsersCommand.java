@@ -11,6 +11,7 @@ import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.UserService;
+import by.tananushka.project.util.PagesCalculator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,6 +25,7 @@ public class FindAllUsersCommand implements Command {
 					"controller?command=find_all_users&page=";
 	private static Logger log = LogManager.getLogger();
 	private UserService userService = ServiceProvider.getInstance().getUserService();
+	private PagesCalculator pagesCalculator = PagesCalculator.getInstance();
 
 	@Override
 	public Router execute(SessionContent content) throws CommandException {
@@ -40,13 +42,13 @@ public class FindAllUsersCommand implements Command {
 								                .flatMap(Collection::stream)
 								                .collect(Collectors.toList());
 				int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
-				int usersFrom = 5 * (pageNumber - 1);
+				int usersFrom = pagesCalculator.calculateItemsFrom(pageNumber);
 				int usersNumber = usersList.size();
-				int totalPages = (usersNumber + 4) / 5;
+				int totalPages = pagesCalculator.calculateTotalPages(usersNumber);
 				usersList = usersList
 								.stream()
 								.skip(usersFrom)
-								.limit(5)
+								.limit(pagesCalculator.getItemsPerPage())
 								.collect(Collectors.toList());
 				content.assignRequestAttribute(ParamName.PARAM_USERS_LIST, usersList);
 				content.assignRequestAttribute(ParamName.PARAM_TOTAL_PAGES, totalPages);

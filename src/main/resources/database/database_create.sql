@@ -24,79 +24,79 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
 (
-    user_id                INT         NOT NULL AUTO_INCREMENT,
-    user_login             VARCHAR(15) NOT NULL,
-    user_password          VARCHAR(60) NOT NULL,
+    user_id                INT          NOT NULL AUTO_INCREMENT,
+    user_login             VARCHAR(15)  NOT NULL,
+    user_password          VARCHAR(60)  NOT NULL,
+    user_email             VARCHAR(255) NOT NULL,
     user_role              ENUM ('ADMIN', 'MANAGER', 'CLIENT')
-                                       NOT NULL DEFAULT 'CLIENT',
-    user_verification      BOOLEAN     NOT NULL DEFAULT FALSE,
-    user_active            BOOLEAN     NOT NULL DEFAULT FALSE,
-    user_registration_date TIMESTAMP   NOT NULL DEFAULT now(),
+                                        NOT NULL DEFAULT 'CLIENT',
+    user_verification      BOOLEAN      NOT NULL DEFAULT FALSE,
+    user_active            BOOLEAN      NOT NULL DEFAULT FALSE,
+    user_registration_date TIMESTAMP    NOT NULL DEFAULT now(),
     PRIMARY KEY (user_id),
     UNIQUE KEY user_login_UNIQUE (user_login) visible
 );
 
-INSERT INTO users (user_id, user_login, user_password, user_role, user_verification, user_active,
+INSERT INTO users (user_id, user_login, user_password, user_email, user_role, user_verification, user_active,
                    user_registration_date)
-VALUES (1, 'admin', '$2a$10$eojLKw7yZnQA86M3oXCcEuQgycx2GI8iAVQVwga2FtWi6.liJx.IW', 'ADMIN', true, true,
-        '2020-01-01 00:00:00'),
-       (2, 'manager1', '$2a$10$jiFsaOvj1HM9/yCQLkgr9..8Caa/XHmJMfJax5lpPzxmcX4nEFq4y', 'MANAGER', true, true,
-        '2020-01-02 00:00:00'),
-       (3, 'manager2', '$2a$10$U.OsBZTSua6I4wxwEiXyd.SG5wch4oBNdxgF0ZyEYqhBjj7oRbEo.', 'MANAGER', true, true,
-        '2020-01-02 00:00:00'),
-       (4, 'kirtananushka', '$2a$10$jqecGv.QeQTa6A24DawWU.mm1NJGa.dWwoiJiSDlO3JkZWuN87jIu', default, true, true,
-        '2020-02-07 21:46:54'),
-       (5, 'afanasenEG', '$2a$10$sxTbLeQywY9NA7NXWwofceeDMOxdmnDi1JQP6t.S3WZNp4Lm3s7ia', default, true, true,
-        '2020-02-07 21:46:54'),
-       (6, 'belokurs', '$2a$10$OwC5ltQPNYRfo6WbscDo5OySPat726emc8vyLivOfe8xAelfzNSfC', default, true, true,
-        '2020-02-07 21:46:54'),
-       (7, 'butkevic', '$2a$10$i4id4LVgiNkVrYc8KmcpAuvqSLAXS/t0lZ5ML84b1uv62TYwmRp1.', default, true, true,
-        '2020-02-07 21:46:54'),
-       (8, 'butkevicYA', '$2a$10$T0aY5FcEdQokXBBCh.xVmu6UxDGkYcVELeDyoYlnkNGhbmu65qnfi', default, true, true,
-        '2020-02-07 21:46:54'),
-       (9, 'volkovaDV', '$2a$10$nqX2LdEr2QVAutQ1Z73E7OdICAAqzAXRb/PxIPNRV5YoyQ6GcIjoq', default, true, true,
-        '2020-02-07 21:46:54'),
-       (10, 'golyakev', '$2a$10$KeCFjptSe8oZWC7F6/zvvuYS/VxxL6ascqqGIZtmrY4tZDdYVTc/q', default, true, true,
-        '2020-02-07 21:46:54'),
-       (11, 'dorogobe', '$2a$10$BJsfyI/o1K/X2tifwWOVae/JOE5kU/lX31VekY1vzJe6ZBlgXp6DW', default, true, true,
-        '2020-02-07 21:46:54'),
-       (12, 'egorovAS', '$2a$10$VjcYzEbZexzsxA5jmfL5Ledb.COND2md7shK5NJwdgomaktTDpk/q', default, true, true,
-        '2020-02-07 21:46:54'),
-       (13, 'karayan', '$2a$10$59ySSayO4QKmEMytEsqwA.qgUMIWpOi7OaKXw3LcnRTMCsSD0SceO', default, true, true,
-        '2020-02-07 21:46:54'),
-       (14, 'lopatnev', '$2a$10$ecYj3l0I2QGlqwejr4/sl.VpkJY3j7WXpoGUJByFC/YdesBydV46q', default, true, true,
-        '2020-02-07 21:46:54'),
-       (15, 'molchanKV', '$2a$10$q5j703PM3W8oxt2FY4ZyROTITPeWKxm5x1uKJrPQ44O2fEuJTFOh.', default, true, true,
-        '2020-02-07 21:46:54'),
-       (16, 'nemiro', '$2a$10$CtNbS6cIDfoxAQa3QemFkOv9wNZbtCrO.tDZPt.ATFHGq70Vh1rma', default, true, true,
-        '2020-02-07 21:46:54'),
-       (17, 'parhovicRG', '$2a$10$OcBoenr2uiQfvk0ur01wded5wco889o0z0PTIXDkHay1sNw.5dHeq', default, true, true,
-        '2020-02-07 21:46:54'),
-       (18, 'polyakovAS1', '$2a$10$enyVlhuy3nAu7PzKXbuqBOsZcOc9e.C4NryzdIdH3jasC1l8aW8JS', default, true, true,
-        '2020-02-07 21:46:54'),
-       (19, 'savostya', '$2a$10$N.5SWoOA9VjmFV6Dqs8bnOF/ZLQV6.quirCIxg0tRz6PrucNWx49K', default, true, true,
-        '2020-02-07 21:46:54'),
-       (20, 'sazonovYA', '$2a$10$B4lyoDL0wtxKciMKaYy3vejMUIZ4xG8/yvcYQX6NGFskw3YMGNcxe', default, true, true,
-        '2020-02-07 21:46:54'),
-       (21, 'silichKS', '$2a$10$dA3IF7gKpP2ISqZUKF.VNezOYpVi4Hyku4IPfyDYberWkmYIIjwbS', default, true, true,
-        '2020-02-07 21:46:54'),
-       (22, 'shamsutdNI', '$2a$10$iWRUUAI02mYkfWgVd.kVs.2DXwM1cQrLLRhIrqQLEXsBO/ElPlp1K', default, true, true,
-        '2020-02-07 21:46:54'),
-       (23, 'yarutich', '$2a$10$UP1r/ThJEDSnoCMGlZ26CuInfLEvFYSmY0s6/DrZ0ONXu2Ee5aY5a', default, true, true,
-        '2020-02-07 21:46:54');
+VALUES (1, 'admin', '$2a$10$eojLKw7yZnQA86M3oXCcEuQgycx2GI8iAVQVwga2FtWi6.liJx.IW', 'irrisorrimus@mail.ru', 'ADMIN',
+        true, true, '2020-01-01 00:00:00'),
+       (2, 'manager1', '$2a$10$jiFsaOvj1HM9/yCQLkgr9..8Caa/XHmJMfJax5lpPzxmcX4nEFq4y', 'irrisorrimus@mail.ru',
+        'MANAGER', true, true, '2020-01-02 00:00:00'),
+       (3, 'manager2', '$2a$10$U.OsBZTSua6I4wxwEiXyd.SG5wch4oBNdxgF0ZyEYqhBjj7oRbEo.', 'irrisorrimus@mail.ru',
+        'MANAGER', true, true, '2020-01-02 00:00:00'),
+       (4, 'kirtananushka', '$2a$10$jqecGv.QeQTa6A24DawWU.mm1NJGa.dWwoiJiSDlO3JkZWuN87jIu', 'irrisorrimus@mail.ru',
+        default, true, true, '2020-02-07 21:46:54'),
+       (5, 'afanasenEG', '$2a$10$sxTbLeQywY9NA7NXWwofceeDMOxdmnDi1JQP6t.S3WZNp4Lm3s7ia', 'irrisorrimus@mail.ru',
+        default, true, true, '2020-02-07 21:46:54'),
+       (6, 'belokurs', '$2a$10$OwC5ltQPNYRfo6WbscDo5OySPat726emc8vyLivOfe8xAelfzNSfC', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (7, 'butkevic', '$2a$10$i4id4LVgiNkVrYc8KmcpAuvqSLAXS/t0lZ5ML84b1uv62TYwmRp1.', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (8, 'butkevicYA', '$2a$10$T0aY5FcEdQokXBBCh.xVmu6UxDGkYcVELeDyoYlnkNGhbmu65qnfi', 'irrisorrimus@mail.ru',
+        default, true, true, '2020-02-07 21:46:54'),
+       (9, 'volkovaDV', '$2a$10$nqX2LdEr2QVAutQ1Z73E7OdICAAqzAXRb/PxIPNRV5YoyQ6GcIjoq', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (10, 'golyakev', '$2a$10$KeCFjptSe8oZWC7F6/zvvuYS/VxxL6ascqqGIZtmrY4tZDdYVTc/q', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (11, 'dorogobe', '$2a$10$BJsfyI/o1K/X2tifwWOVae/JOE5kU/lX31VekY1vzJe6ZBlgXp6DW', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (12, 'egorovAS', '$2a$10$VjcYzEbZexzsxA5jmfL5Ledb.COND2md7shK5NJwdgomaktTDpk/q', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (13, 'karayan', '$2a$10$59ySSayO4QKmEMytEsqwA.qgUMIWpOi7OaKXw3LcnRTMCsSD0SceO', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (14, 'lopatnev', '$2a$10$ecYj3l0I2QGlqwejr4/sl.VpkJY3j7WXpoGUJByFC/YdesBydV46q', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (15, 'molchanKV', '$2a$10$q5j703PM3W8oxt2FY4ZyROTITPeWKxm5x1uKJrPQ44O2fEuJTFOh.', 'irrisorrimus@mail.ru',
+        default, true, true, '2020-02-07 21:46:54'),
+       (16, 'nemiro', '$2a$10$CtNbS6cIDfoxAQa3QemFkOv9wNZbtCrO.tDZPt.ATFHGq70Vh1rma', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (17, 'parhovicRG', '$2a$10$OcBoenr2uiQfvk0ur01wded5wco889o0z0PTIXDkHay1sNw.5dHeq', 'irrisorrimus@mail.ru',
+        default, true, true, '2020-02-07 21:46:54'),
+       (18, 'polyakovAS1', '$2a$10$enyVlhuy3nAu7PzKXbuqBOsZcOc9e.C4NryzdIdH3jasC1l8aW8JS', 'irrisorrimus@mail.ru',
+        default, true, true, '2020-02-07 21:46:54'),
+       (19, 'savostya', '$2a$10$N.5SWoOA9VjmFV6Dqs8bnOF/ZLQV6.quirCIxg0tRz6PrucNWx49K', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (20, 'sazonovYA', '$2a$10$B4lyoDL0wtxKciMKaYy3vejMUIZ4xG8/yvcYQX6NGFskw3YMGNcxe', 'irrisorrimus@mail.ru',
+        default, true, true, '2020-02-07 21:46:54'),
+       (21, 'silichKS', '$2a$10$dA3IF7gKpP2ISqZUKF.VNezOYpVi4Hyku4IPfyDYberWkmYIIjwbS', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54'),
+       (22, 'shamsutdNI', '$2a$10$iWRUUAI02mYkfWgVd.kVs.2DXwM1cQrLLRhIrqQLEXsBO/ElPlp1K', 'irrisorrimus@mail.ru',
+        default, true, true, '2020-02-07 21:46:54'),
+       (23, 'yarutich', '$2a$10$UP1r/ThJEDSnoCMGlZ26CuInfLEvFYSmY0s6/DrZ0ONXu2Ee5aY5a', 'irrisorrimus@mail.ru', default,
+        true, true, '2020-02-07 21:46:54');
 
 CREATE TABLE admins
 (
     admin_id      INT          NOT NULL,
     admin_name    VARCHAR(255) NOT NULL,
     admin_surname VARCHAR(255) NOT NULL,
-    admin_email   VARCHAR(255) NOT NULL,
     PRIMARY KEY (admin_id),
     FOREIGN KEY (admin_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
-INSERT INTO admins (admin_id, admin_name, admin_surname, admin_email)
-VALUES (1, 'Кир', 'Тананушко', 'irrisorrimus@mail.ru');
+INSERT INTO admins (admin_id, admin_name, admin_surname)
+VALUES (1, 'Кир', 'Тананушко');
 
 CREATE TABLE managers
 (
@@ -104,14 +104,13 @@ CREATE TABLE managers
     manager_name    VARCHAR(255) NOT NULL,
     manager_surname VARCHAR(255) NOT NULL,
     manager_phone   VARCHAR(12)  NOT NULL,
-    manager_email   VARCHAR(255) NOT NULL,
     PRIMARY KEY (manager_id),
     FOREIGN KEY (manager_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
-INSERT INTO managers (manager_id, manager_name, manager_surname, manager_phone, manager_email)
-VALUES (2, 'Иван', 'Панаев', '375291689458', 'irrisorrimus@mail.ru'),
-       (3, 'Александр', 'Скабичевский', '375294567556', 'irrisorrimus@mail.ru');
+INSERT INTO managers (manager_id, manager_name, manager_surname, manager_phone)
+VALUES (2, 'Иван', 'Панаев', '375291689458'),
+       (3, 'Александр', 'Скабичевский', '375294567556');
 
 
 CREATE TABLE clients
@@ -120,32 +119,31 @@ CREATE TABLE clients
     client_name    VARCHAR(255) NOT NULL,
     client_surname VARCHAR(255) NOT NULL,
     client_phone   VARCHAR(12)  NOT NULL,
-    client_email   VARCHAR(255) NOT NULL,
     PRIMARY KEY (client_id),
     FOREIGN KEY (client_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
-INSERT INTO clients (client_id, client_name, client_surname, client_phone, client_email)
-VALUES (4, 'Кир', 'Тананушко', '375293249073', 'irrisorrimus@mail.ru'),
-       (5, 'Елена', 'Афанасенко', '375291561887', 'irrisorrimus@mail.ru'),
-       (6, 'Георгий', 'Белокурский', '375294527456', 'irrisorrimus@mail.ru'),
-       (7, 'Юлия', 'Буткевич', '375297138790', 'irrisorrimus@mail.ru'),
-       (8, 'Яна', 'Буткевич', '375296020260', 'irrisorrimus@mail.ru'),
-       (9, 'Дарья', 'Волкова', '375298690442', 'irrisorrimus@mail.ru'),
-       (10, 'Ангелина', 'Голякевич', '375294069030', 'irrisorrimus@mail.ru'),
-       (11, 'Михаил', 'Дорогобед', '375292698957', 'irrisorrimus@mail.ru'),
-       (12, 'Александр', 'Егоров', '375291515745', 'irrisorrimus@mail.ru'),
-       (13, 'Валерий', 'Караян', '375292594557', 'irrisorrimus@mail.ru'),
-       (14, 'Роман', 'Лопатнёв', '375296202575', 'irrisorrimus@mail.ru'),
-       (15, 'Константин', 'Молчан', '375297400119', 'irrisorrimus@mail.ru'),
-       (16, 'Владислав', 'Немиро', '375296826465', 'irrisorrimus@mail.ru'),
-       (17, 'Роман', 'Пархович', '375293274648', 'irrisorrimus@mail.ru'),
-       (18, 'Антон', 'Поляков', '375298384329', 'irrisorrimus@mail.ru'),
-       (19, 'Антон', 'Савостьянов', '375292330573', 'irrisorrimus@mail.ru'),
-       (20, 'Яков', 'Сазонов', '375294807746', 'irrisorrimus@mail.ru'),
-       (21, 'Кристина', 'Силич', '375293457248', 'irrisorrimus@mail.ru'),
-       (22, 'Натан', 'Шамсутдинов', '375292178739', 'irrisorrimus@mail.ru'),
-       (23, 'Ангелина', 'Ярутич', '375291159191', 'irrisorrimus@mail.ru');
+INSERT INTO clients (client_id, client_name, client_surname, client_phone)
+VALUES (4, 'Кир', 'Тананушко', '375293249073'),
+       (5, 'Елена', 'Афанасенко', '375291561887'),
+       (6, 'Георгий', 'Белокурский', '375294527456'),
+       (7, 'Юлия', 'Буткевич', '375297138790'),
+       (8, 'Яна', 'Буткевич', '375296020260'),
+       (9, 'Дарья', 'Волкова', '375298690442'),
+       (10, 'Ангелина', 'Голякевич', '375294069030'),
+       (11, 'Михаил', 'Дорогобед', '375292698957'),
+       (12, 'Александр', 'Егоров', '375291515745'),
+       (13, 'Валерий', 'Караян', '375292594557'),
+       (14, 'Роман', 'Лопатнёв', '375296202575'),
+       (15, 'Константин', 'Молчан', '375297400119'),
+       (16, 'Владислав', 'Немиро', '375296826465'),
+       (17, 'Роман', 'Пархович', '375293274648'),
+       (18, 'Антон', 'Поляков', '375298384329'),
+       (19, 'Антон', 'Савостьянов', '375292330573'),
+       (20, 'Яков', 'Сазонов', '375294807746'),
+       (21, 'Кристина', 'Силич', '375293457248'),
+       (22, 'Натан', 'Шамсутдинов', '375292178739'),
+       (23, 'Ангелина', 'Ярутич', '375291159191');
 
 
 

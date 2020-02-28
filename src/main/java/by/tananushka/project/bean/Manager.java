@@ -6,7 +6,6 @@ public class Manager extends User {
 	private String name;
 	private String surname;
 	private String phone;
-	private String email;
 
 	public Manager() {
 		setRole(UserRole.MANAGER);
@@ -36,14 +35,6 @@ public class Manager extends User {
 		this.phone = phone;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -62,10 +53,7 @@ public class Manager extends User {
 		if (surname != null ? !surname.equals(manager.surname) : manager.surname != null) {
 			return false;
 		}
-		if (phone != null ? !phone.equals(manager.phone) : manager.phone != null) {
-			return false;
-		}
-		return email != null ? email.equals(manager.email) : manager.email == null;
+		return phone != null ? phone.equals(manager.phone) : manager.phone == null;
 	}
 
 	@Override
@@ -74,7 +62,6 @@ public class Manager extends User {
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (surname != null ? surname.hashCode() : 0);
 		result = 31 * result + (phone != null ? phone.hashCode() : 0);
-		result = 31 * result + (email != null ? email.hashCode() : 0);
 		return result;
 	}
 
@@ -84,7 +71,6 @@ public class Manager extends User {
 		sb.append("name='").append(name).append('\'');
 		sb.append(", surname='").append(surname).append('\'');
 		sb.append(", phone='").append(phone).append('\'');
-		sb.append(", email='").append(email).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}

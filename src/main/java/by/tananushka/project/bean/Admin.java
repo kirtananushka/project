@@ -5,7 +5,6 @@ public class Admin extends User {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String surname;
-	private String email;
 
 	public Admin() {
 		setRole(UserRole.ADMIN);
@@ -27,14 +26,6 @@ public class Admin extends User {
 		this.surname = surname;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -46,14 +37,11 @@ public class Admin extends User {
 		if (!super.equals(o)) {
 			return false;
 		}
-		Admin manager = (Admin) o;
-		if (name != null ? !name.equals(manager.name) : manager.name != null) {
+		Admin admin = (Admin) o;
+		if (name != null ? !name.equals(admin.name) : admin.name != null) {
 			return false;
 		}
-		if (surname != null ? !surname.equals(manager.surname) : manager.surname != null) {
-			return false;
-		}
-		return email != null ? email.equals(manager.email) : manager.email == null;
+		return surname != null ? surname.equals(admin.surname) : admin.surname == null;
 	}
 
 	@Override
@@ -61,7 +49,6 @@ public class Admin extends User {
 		int result = super.hashCode();
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (surname != null ? surname.hashCode() : 0);
-		result = 31 * result + (email != null ? email.hashCode() : 0);
 		return result;
 	}
 
@@ -70,7 +57,6 @@ public class Admin extends User {
 		final StringBuilder sb = new StringBuilder("Admin{");
 		sb.append("name='").append(name).append('\'');
 		sb.append(", surname='").append(surname).append('\'');
-		sb.append(", email='").append(email).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}

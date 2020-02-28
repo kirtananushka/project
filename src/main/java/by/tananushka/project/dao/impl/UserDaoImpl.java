@@ -7,9 +7,9 @@ import by.tananushka.project.dao.DaoException;
 import by.tananushka.project.dao.SqlColumnsName;
 import by.tananushka.project.dao.UserDao;
 import by.tananushka.project.pool.ConnectionPool;
+import by.tananushka.project.util.PasswordUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,18 +30,13 @@ public class UserDaoImpl implements UserDao {
 					"UPDATE users SET user_active = true, user_verification = true\n"
 									+ "WHERE user_id = ? AND user_verification = false\n"
 									+ "AND user_active =  false;";
-	private static final String FIND_EMAIL_BY_LOGIN =
-					"SELECT admin_email\n"
-									+ "FROM users INNER JOIN admins ON user_id = admin_id\n"
-									+ "WHERE user_login = ?\n"
-									+ "UNION SELECT user_password, manager_email\n"
-									+ "FROM users INNER JOIN managers ON user_id = manager_id\n"
-									+ "WHERE user_login = ?\n"
-									+ "UNION SELECT user_password, client_email\n"
-									+ "FROM users INNER JOIN clients ON user_id = client_id\n"
-									+ "WHERE user_login = ?;";
+	private static final String SET_NEW_PASSWORD =
+					"UPDATE users SET user_password = ? WHERE user_login = ?;";
+	private static final String FIND_LOGIN_AND_EMAIL =
+					"SELECT * FROM users WHERE user_login = ? AND user_email = ?;";
 	private static Logger log = LogManager.getLogger();
 	private static UserDao userDao = new UserDaoImpl();
+	private PasswordUtility passwordUtility = PasswordUtility.getInstance();
 
 	private UserDaoImpl() {
 	}
@@ -60,7 +55,7 @@ public class UserDaoImpl implements UserDao {
 			resultSet = statement.executeQuery();
 			if (resultSet.first()) {
 				String encryptedPassword = resultSet.getString(SqlColumnsName.USER_PASSWORD);
-				if (BCrypt.checkpw(password, encryptedPassword)) {
+				if (passwordUtility.comparePasswords(password, encryptedPassword)) {
 					User user = new User();
 					user.setId(resultSet.getInt(SqlColumnsName.USER_ID));
 					user.setLogin(resultSet.getString(SqlColumnsName.USER_LOGIN));
@@ -135,25 +130,37 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Optional<String> findEmailByLogin(String login) throws DaoException {
-		Optional<String> emailOptional = Optional.empty();
+	public boolean checkLoginAndEmail(String login, String email) throws DaoException {
 		ResultSet resultSet = null;
+		boolean isConfirmed;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
-		     PreparedStatement statement = connection.prepareStatement(FIND_EMAIL_BY_LOGIN)) {
+		     PreparedStatement statement = connection.prepareStatement(FIND_LOGIN_AND_EMAIL)) {
 			statement.setString(1, login);
-			statement.setString(2, login);
-			statement.setString(3, login);
+			statement.setString(2, email);
 			resultSet = statement.executeQuery();
-			if (resultSet.first()) {
-				String email = resultSet.getString(1);
-				emailOptional = Optional.of(email);
-			}
+			isConfirmed = resultSet.first();
 		} catch (SQLException e) {
-			log.error("Exception while email finding by the login: {}.", login);
-			throw new DaoException("Exception while email finding by the login.", e);
+			log.error("Exception while finding login and email: {}.", login);
+			throw new DaoException("Exception while finding login and email.", e);
 		} finally {
 			closeResultSet(resultSet);
 		}
-		return emailOptional;
+		return isConfirmed;
+	}
+
+	@Override
+	public boolean setNewPassword(String login, String password) throws DaoException {
+		boolean isSet;
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+		     PreparedStatement statement = connection.prepareStatement(SET_NEW_PASSWORD)) {
+			String encodedPassword = passwordUtility.encodePassword(password);
+			statement.setString(1, encodedPassword);
+			statement.setString(2, login);
+			statement.execute();
+			isSet = true;
+		} catch (SQLException e) {
+			throw new DaoException("Exception while updating password.", e);
+		}
+		return isSet;
 	}
 }

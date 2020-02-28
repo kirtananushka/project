@@ -54,6 +54,8 @@ public final class PageName {
 	public static final String EDIT_MANAGER_PAGE = "admin/edit_manager";
 	public static final String VIEW_MANAGER_UPDATED_PAGE = "admin/manager_updated";
 	public static final String VIEW_USER_UPDATED_PAGE = "admin/user_updated";
+	public static final String PASSWORD_CHANGED_PAGE = "password_changed";
+	public static final String PASSWORD_FORGOTTEN_PAGE = "password_forgotten";
 //	public static final String APPOINT_MANAGER_PAGE = "admin/appoint_manager";
 
 	private PageName() {

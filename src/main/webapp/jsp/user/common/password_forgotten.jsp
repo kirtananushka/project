@@ -5,14 +5,13 @@
 <fmt:setBundle basename="bundle/pagecontent" var="resourceBundle"/>
 <fmt:setBundle basename="bundle/err" var="errorBundle"/>
 
-<fmt:message key="project.name" bundle="${resourceBundle}" var="projectName"/>
-<fmt:message key="title.authentication" bundle="${resourceBundle}" var="title"/>
+<fmt:message key="access.restoration" bundle="${resourceBundle}" var="title"/>
+<fmt:message key="access.restoration.text" bundle="${resourceBundle}" var="text"/>
 <fmt:message key="login" bundle="${resourceBundle}" var="login"/>
-<fmt:message key="password" bundle="${resourceBundle}" var="password"/>
-<fmt:message key="form.log.in" bundle="${resourceBundle}" var="logIn"/>
+<fmt:message key="email.email" bundle="${resourceBundle}" var="email"/>
+<fmt:message key="form.next" bundle="${resourceBundle}" var="next"/>
 <fmt:message key="form.field.required" bundle="${resourceBundle}" var="fieldRequired"/>
-<fmt:message key="wrong.login.password" bundle="${errorBundle}" var="wrongLoginPass"/>
-<fmt:message key="forgot.password" bundle="${resourceBundle}" var="forgotPass"/>
+<fmt:message key="incorrect.data" bundle="${errorBundle}" var="incorrectData"/>
 
 <html>
 <head>
@@ -27,12 +26,13 @@
     <div class="center">
         <div class="center grey shadow back-white">
             <form class="authentication" action="${pageContext.request.contextPath}controller" method="post">
-                <input type="hidden" name="command" value="authentication">
+                <input type="hidden" name="command" value="send_password">
                 <p class="noteRed">
-                    <c:if test="${sessionScope.errAuthMessage != null}">
-                        <fmt:message key="${sessionScope.errAuthMessage}" bundle="${errorBundle}"/>
+                    <c:if test="${sessionScope.errSendNewPasswordMessage != null}">
+                        ${incorrectData}
                     </c:if>
                 </p>
+                <p class="center">${text}</p>
                 <label for="login">${login}: *</label>
                 <input class="inputField" type="text" id="login"
                        name="login" pattern="[A-z][\w]{4,14}"
@@ -40,20 +40,19 @@
                        title=${login}>
                 <br>
 
-                <label for="password">${password}: *</label>
-                <input class="inputField" type="password" id="password"
-                       name="password" pattern="[\w]{8,20}"
-                       placeholder=${password} value="" required>
+                <label for="email">${email}: *</label>
+                <input class="inputField" type="email" id="email"
+                       name="email"
+                       pattern="([\w-]+\.)*[\w-]+@[\w-]+(\.[\w-]+)*\.[a-z]{2,6}"
+                       placeholder=${email} value="" required
+                       title=${email}>
                 <p class="noteSmall">${fieldRequired}</p>
                 <div class="centerOnly">
-                    <input class="button" type="submit" value=${logIn}>
-                </div>
-                <div class="centerOnly margin-top-40">
-                    <a class="forgot-password" href="${pageContext.request.contextPath}
-                    /password_forgotten">${forgotPass}</a>
+                    <input class="button" type="submit" value=${next}>
                 </div>
             </form>
         </div>
+
     </div>
 </div>
 </body>

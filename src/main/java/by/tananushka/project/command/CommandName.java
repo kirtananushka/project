@@ -53,5 +53,6 @@ public enum CommandName {
 	EDIT_USER,
 	UPDATE_USER,
 	APPOINT_MANAGER,
+	SEND_PASSWORD,
 
 }

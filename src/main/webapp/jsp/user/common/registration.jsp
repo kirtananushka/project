@@ -42,8 +42,6 @@
 <h1>${title}</h1>
 <div class="outer">
     <div class="center">
-        <div class="dif-buf">
-        </div>
         <div class="center grey shadow back-white">
             <form id="regForm" name="regForm" class="authentication registration"
                   action="${pageContext.request.contextPath}controller"
@@ -131,12 +129,6 @@
                     <input id="submit" name="submit" class="button" type="submit" value=${register}>
                     <input id="reset" name="reset" class="button" type="reset" value=${reset}>
                 </div>
-            </form>
-        </div>
-        <div class="dif-buf">
-            <form class="locale" action="${pageContext.request.contextPath}controller" method="post">
-                <input type="hidden" name="command" value="change_locale">
-                <input class="localeButton duration" type="submit" value="EN/RU">
             </form>
         </div>
     </div>

@@ -5,6 +5,7 @@ public class ErrorMessageKey {
 	public static final String WRONG_LOGIN_OR_PASS = "wrong.login.password";
 	public static final String INVALID_LOGIN_OR_PASSWORD = "invalid.login.or.password";
 	public static final String INVALID_LOGIN = "invalid.login";
+	public static final String INCORRECT_DATA = "incorrect.data";
 	public static final String LOGIN_EXISTS = "incorrect.login";
 	public static final String INVALID_PASSWORD = "invalid.password";
 	public static final String PASSWORDS_NOT_EQUAL = "passwords.not.equal";

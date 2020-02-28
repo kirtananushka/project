@@ -46,8 +46,6 @@ public class EmailSender {
 		} catch (MessagingException e) {
 			log.error("Exception while sending email", e);
 		}
-		log.info("Email was send to user: {} ({} {}) to {}", client.getLogin(), client.getName(), client
-						.getSurname(), client.getEmail());
 	}
 
 	public static void sendMessage(SessionContent content) {
@@ -73,6 +71,29 @@ public class EmailSender {
 			log.error("Exception while sending message", e);
 		}
 		log.info("New message was sent");
+	}
+
+	public static void sendNewPassword(String email, String newPassword) {
+		String username = properties.getProperty(ParamName.PARAM_MAIL_USERNAME);
+		String password = properties.getProperty(ParamName.PARAM_MAIL_PASS);
+		String subject = properties.getProperty(ParamName.PARAM_SEND_NEW_PASSWORD_SUBJECT);
+		String text = formNewPasswordText(newPassword);
+		Session session = Session.getDefaultInstance(properties, new Authenticator() {
+			@Override
+			public PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+			message.setSubject(subject);
+			message.setContent(text, ParamName.PARAM_CONTENT_TYPE);
+			Transport.send(message);
+		} catch (MessagingException e) {
+			log.error("Exception while sending new password", e);
+		}
 	}
 
 	private static String formMessageText(SessionContent content) {
@@ -102,5 +123,11 @@ public class EmailSender {
 		messageText.append(String.format(message3, client.getLogin()));
 		messageText.append(String.format(message4, client.getId()));
 		return messageText.toString();
+	}
+
+	private static String formNewPasswordText(String password) {
+		String message = properties.getProperty(ParamName.PARAM_SEND_NEW_PASSWORD_TEXT);
+		String messageText = String.format(message, password);
+		return messageText;
 	}
 }

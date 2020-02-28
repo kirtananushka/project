@@ -22,6 +22,7 @@ import by.tananushka.project.command.impl.common.NoSuchCommand;
 import by.tananushka.project.command.impl.common.RegistrationCommand;
 import by.tananushka.project.command.impl.common.RegistrationPrepareCommand;
 import by.tananushka.project.command.impl.common.SendMessageCommand;
+import by.tananushka.project.command.impl.common.SendPasswordCommand;
 import by.tananushka.project.command.impl.film.CreateFilmCommand;
 import by.tananushka.project.command.impl.film.DeleteFilmCommand;
 import by.tananushka.project.command.impl.film.EditFilmCommand;
@@ -117,6 +118,7 @@ public class CommandProvider {
 		commands.put(CommandName.EDIT_USER, new EditUserCommand());
 		commands.put(CommandName.UPDATE_USER, new UpdateUserCommand());
 		commands.put(CommandName.APPOINT_MANAGER, new AppointManagerCommand());
+		commands.put(CommandName.SEND_PASSWORD, new SendPasswordCommand());
 	}
 
 	public static CommandProvider getInstance() {

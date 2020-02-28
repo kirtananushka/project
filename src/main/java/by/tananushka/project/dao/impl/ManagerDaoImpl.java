@@ -26,34 +26,33 @@ import java.util.TimeZone;
  */
 public class ManagerDaoImpl implements ManagerDao {
 
-	private static final String UPDATE_USER =
-					"UPDATE users SET user_active = ? WHERE user_id = ?;";
+	private static final String UPDATE_MANAGER_AS_USER =
+					"UPDATE users SET user_email = ?, user_active = ? WHERE user_id = ?;";
 	private static final String UPDATE_MANAGER =
 					"UPDATE managers SET manager_name = ?, manager_surname = ?,\n"
-									+ "manager_phone = ?, manager_email = ? WHERE manager_id = ?;";
+									+ "manager_phone = ? WHERE manager_id = ?;";
 	private static final String SET_MANAGER =
 					"UPDATE users SET user_role = 'MANAGER' WHERE user_id = ?;";
 	private static final String INSERT_MANAGER =
 					"INSERT INTO managers (manager_id, manager_name, manager_surname,\n"
-									+ "manager_phone, manager_email) VALUES (?, ?, ?, ?, ?);";
+									+ "manager_phone) VALUES (?, ?, ?, ?);";
+	private static final String DELETE_CLIENT = "DELETE FROM clients WHERE client_id = ?;";
 	private static final String FIND_ACTIVE_MANAGERS =
 					"SELECT manager_id, user_login, manager_name, manager_surname, manager_phone,\n"
-									+ "manager_email, user_verification, user_active, user_registration_date,\n"
+									+ "user_email, user_verification, user_active, user_registration_date,\n"
 									+ "user_role FROM managers INNER JOIN users ON manager_id = user_id\n"
 									+ "WHERE user_active = true ORDER BY user_login;";
 	private static final String FIND_ALL_MANAGERS =
 					"SELECT manager_id, user_login, manager_name, manager_surname, manager_phone,\n"
-									+ "manager_email, user_verification, user_active, user_registration_date,\n"
+									+ "user_email, user_verification, user_active, user_registration_date,\n"
 									+ "user_role FROM managers INNER JOIN users ON manager_id = user_id\n"
 									+ "ORDER BY user_login;";
 	private static final String FIND_MANAGER_BY_ID =
 					"SELECT manager_id, user_login, manager_name, manager_surname, manager_phone,\n"
-									+ "manager_email, user_verification, user_active, user_registration_date, \n"
+									+ "user_email, user_verification, user_active, user_registration_date, \n"
 									+ "user_role\n"
 									+ "FROM managers INNER JOIN users ON manager_id = user_id\n"
 									+ "WHERE manager_id = ?;";
-	private static final String DELETE_CLIENT =
-					"DELETE FROM clients WHERE client_id = ?;";
 	private static ManagerDao managerDao = new ManagerDaoImpl();
 	private static Logger log = LogManager.getLogger();
 	private final Calendar timezone = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"));
@@ -70,18 +69,18 @@ public class ManagerDaoImpl implements ManagerDao {
 		Optional<Manager> managerOptional;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement userStatement = connection
-						     .prepareStatement(UPDATE_USER);
+						     .prepareStatement(UPDATE_MANAGER_AS_USER);
 		     PreparedStatement managerStatement = connection.prepareStatement(UPDATE_MANAGER)) {
 			try {
 				connection.setAutoCommit(false);
-				userStatement.setBoolean(1, manager.isActive());
-				userStatement.setInt(2, manager.getId());
+				userStatement.setString(1, manager.getEmail());
+				userStatement.setBoolean(2, manager.isActive());
+				userStatement.setInt(3, manager.getId());
 				userStatement.execute();
 				managerStatement.setString(1, manager.getName());
 				managerStatement.setString(2, manager.getSurname());
 				managerStatement.setString(3, manager.getPhone());
-				managerStatement.setString(4, manager.getEmail());
-				managerStatement.setInt(5, manager.getId());
+				managerStatement.setInt(4, manager.getId());
 				managerStatement.execute();
 				connection.commit();
 			} catch (SQLException e) {
@@ -168,7 +167,6 @@ public class ManagerDaoImpl implements ManagerDao {
 					insertStatement.setString(2, client.getName());
 					insertStatement.setString(3, client.getSurname());
 					insertStatement.setString(4, client.getPhone());
-					insertStatement.setString(5, client.getEmail());
 					insertStatement.execute();
 					setRoleStatement.setInt(1, clientId);
 					setRoleStatement.execute();
@@ -196,7 +194,7 @@ public class ManagerDaoImpl implements ManagerDao {
 		manager.setName(resultSet.getString(SqlColumnsName.MANAGER_NAME));
 		manager.setSurname(resultSet.getString(SqlColumnsName.MANAGER_SURNAME));
 		manager.setPhone(resultSet.getString(SqlColumnsName.MANAGER_PHONE));
-		manager.setEmail(resultSet.getString(SqlColumnsName.MANAGER_EMAIL));
+		manager.setEmail(resultSet.getString(SqlColumnsName.USER_EMAIL));
 		manager.setVerified(resultSet.getBoolean(SqlColumnsName.USER_VERIFIED));
 		manager.setActive(resultSet.getBoolean(SqlColumnsName.USER_ACTIVE));
 		manager.setRegistrationDate(

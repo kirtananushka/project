@@ -21,11 +21,12 @@ import java.util.TimeZone;
 public class AdminDaoImpl implements AdminDao {
 
 	private static final String UPDATE_ADMIN =
-					"UPDATE admins SET admin_name = ?, admin_surname = ?,\n"
-									+ "admin_email = ? WHERE admin_id = ?;";
+					"UPDATE admins SET admin_name = ?, admin_surname = ? WHERE admin_id = ?;";
+	private static final String UPDATE_ADMIN_AS_USER =
+					"UPDATE users SET user_email = ? WHERE user_id = ?;";
 	private static final String FIND_ADMIN =
 					"SELECT admin_id, user_login, admin_name, admin_surname,\n"
-									+ "admin_email, user_verification, user_active, user_registration_date,\n"
+									+ "user_email, user_verification, user_active, user_registration_date,\n"
 									+ "user_role FROM admins INNER JOIN users ON admin_id = user_id\n"
 									+ "WHERE user_role = 'ADMIN';";
 	private static AdminDao adminDao = new AdminDaoImpl();
@@ -43,15 +44,23 @@ public class AdminDaoImpl implements AdminDao {
 	public Optional<Admin> updateAdmin(Admin admin) throws DaoException {
 		Optional<Admin> adminOptional;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
-		     PreparedStatement adminStatement = connection.prepareStatement(UPDATE_ADMIN)) {
+		     PreparedStatement adminStatement = connection.prepareStatement(UPDATE_ADMIN);
+		     PreparedStatement userStatement = connection.prepareStatement(UPDATE_ADMIN_AS_USER)) {
 			try {
+				connection.setAutoCommit(false);
 				adminStatement.setString(1, admin.getName());
 				adminStatement.setString(2, admin.getSurname());
-				adminStatement.setString(3, admin.getEmail());
-				adminStatement.setInt(4, admin.getId());
+				adminStatement.setInt(3, admin.getId());
 				adminStatement.execute();
+				userStatement.setString(1, admin.getEmail());
+				userStatement.setInt(2, admin.getId());
+				userStatement.execute();
+				connection.commit();
 			} catch (SQLException e) {
+				connection.rollback();
 				throw new DaoException("Admin updating failed.", e);
+			} finally {
+				connection.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
 			throw new DaoException("SQL exception while admin updating.", e);
@@ -84,7 +93,7 @@ public class AdminDaoImpl implements AdminDao {
 		admin.setLogin(resultSet.getString(SqlColumnsName.USER_LOGIN));
 		admin.setName(resultSet.getString(SqlColumnsName.ADMIN_NAME));
 		admin.setSurname(resultSet.getString(SqlColumnsName.ADMIN_SURNAME));
-		admin.setEmail(resultSet.getString(SqlColumnsName.ADMIN_EMAIL));
+		admin.setEmail(resultSet.getString(SqlColumnsName.USER_EMAIL));
 		admin.setVerified(resultSet.getBoolean(SqlColumnsName.USER_VERIFIED));
 		admin.setActive(resultSet.getBoolean(SqlColumnsName.USER_ACTIVE));
 		admin.setRegistrationDate(

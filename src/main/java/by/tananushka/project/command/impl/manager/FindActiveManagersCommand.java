@@ -11,6 +11,7 @@ import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.service.ManagerService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
+import by.tananushka.project.util.PagesCalculator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,6 +24,7 @@ public class FindActiveManagersCommand implements Command {
 					"controller?command=find_active_managers&page=";
 	private static Logger log = LogManager.getLogger();
 	private ManagerService managerService = ServiceProvider.getInstance().getManagerService();
+	private PagesCalculator pagesCalculator = PagesCalculator.getInstance();
 
 	@Override
 	public Router execute(SessionContent content) throws CommandException {
@@ -35,13 +37,13 @@ public class FindActiveManagersCommand implements Command {
 			try {
 				List<Manager> managersList = managerService.findActiveManagers();
 				int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
-				int managersFrom = 5 * (pageNumber - 1);
+				int managersFrom = pagesCalculator.calculateItemsFrom(pageNumber);
 				int managersNumber = managersList.size();
-				int totalPages = (managersNumber + 4) / 5;
+				int totalPages = pagesCalculator.calculateTotalPages(managersNumber);
 				managersList = managersList
 								.stream()
 								.skip(managersFrom)
-								.limit(5)
+								.limit(pagesCalculator.getItemsPerPage())
 								.collect(Collectors.toList());
 				content.assignRequestAttribute(ParamName.PARAM_MANAGERS_LIST, managersList);
 				content.assignRequestAttribute(ParamName.PARAM_TOTAL_PAGES, totalPages);

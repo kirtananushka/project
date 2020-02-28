@@ -45,6 +45,7 @@ public final class ParamName {
 	public static final String PARAM_ERR_DELETE_SHOW_MESSAGE = "errDeleteShowMessage";
 	public static final String PARAM_ERR_EDIT_CINEMA_MESSAGE = "errEditCinemaMessage";
 	public static final String PARAM_ERR_EDIT_GENRE_MESSAGE = "errEditGenreMessage";
+	public static final String PARAM_ERR_SEND_NEW_PASSWORD_MESSAGE = "errSendNewPasswordMessage";
 	public static final String PARAM_ERR_MESSAGE = "errMessage";
 	public static final String PARAM_ERR_REG_MESSAGE = "errRegMessage";
 	public static final String PARAM_ERR_RESTORE_CINEMA_MESSAGE = "errRestoreCinemaMessage";
@@ -148,6 +149,9 @@ public final class ParamName {
 	public static final String PARAM_YEAR = "year";
 	public static final String PARAM_YEARS_LIST = "yearsList";
 	public static final String PARAM_YEARS_MAP = "yearsMap";
+	public static final String PARAM_SEND_NEW_PASSWORD_TEXT = "mail.newpassword.text";
+	public static final String PARAM_SEND_NEW_PASSWORD_SUBJECT = "mail.newpassword.subject";
+
 
 	private ParamName() {
 	}

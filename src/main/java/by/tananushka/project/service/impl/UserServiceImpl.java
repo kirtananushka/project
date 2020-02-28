@@ -19,6 +19,7 @@ import by.tananushka.project.service.UserService;
 import by.tananushka.project.service.validation.EscapeCharactersChanger;
 import by.tananushka.project.service.validation.UserDataValidator;
 import by.tananushka.project.util.EmailSender;
+import by.tananushka.project.util.PasswordUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
 			log.info("Login '{}' is invalid", login);
 			throw new ServiceException("Login or/and password are invalid.");
 		}
-		if (!validator.checkLogin(password)) {
+		if (!validator.checkPassword(password)) {
 			log.info("Password '{}' is invalid", password);
 			throw new ServiceException("Login or/and password are invalid.");
 		}
@@ -238,5 +239,37 @@ public class UserServiceImpl implements UserService {
 			content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_MESSAGE, errorsList);
 		}
 		return isParameterValid;
+	}
+
+	@Override
+	public boolean sendPassword(SessionContent content) throws ServiceException {
+		boolean isOperationSuccessful;
+		List<String> errorsList = new ArrayList<>();
+		content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_NEW_PASSWORD_MESSAGE, null);
+		String login = content.getRequestParameter(ParamName.PARAM_LOGIN).strip();
+		String email = content.getRequestParameter(ParamName.PARAM_EMAIL).strip();
+		if (!validator.checkLogin(login)) {
+			log.info("Login '{}' is invalid", login);
+			throw new ServiceException("Login or/and email are invalid.");
+		}
+		if (!validator.checkEmail(email)) {
+			log.info("Email '{}' is invalid", email);
+			throw new ServiceException("Login or/and email are invalid.");
+		}
+		try {
+			isOperationSuccessful = userDao.checkLoginAndEmail(login, email);
+			if (isOperationSuccessful) {
+				String newPassword = PasswordUtility.getInstance().generatePassword();
+				userDao.setNewPassword(login, newPassword);
+				EmailSender.sendNewPassword(email, newPassword);
+				isOperationSuccessful = true;
+			} else {
+				content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_NEW_PASSWORD_MESSAGE,
+								ErrorMessageKey.INCORRECT_DATA);
+			}
+		} catch (DaoException e) {
+			throw new ServiceException("Exception while setting new password.", e);
+		}
+		return isOperationSuccessful;
 	}
 }
