@@ -1,6 +1,5 @@
 package by.tananushka.project.command;
 
-import by.tananushka.project.command.impl.ViewProfileCommand;
 import by.tananushka.project.command.impl.cinema.CreateCinemaCommand;
 import by.tananushka.project.command.impl.cinema.DeleteCinemaCommand;
 import by.tananushka.project.command.impl.cinema.PrepareCinemaCreationCommand;
@@ -49,9 +48,13 @@ import by.tananushka.project.command.impl.show.FindShowToDeleteCommand;
 import by.tananushka.project.command.impl.show.FindShowsCommand;
 import by.tananushka.project.command.impl.show.PrepareShowCreationCommand;
 import by.tananushka.project.command.impl.show.UpdateShowCommand;
+import by.tananushka.project.command.impl.user.DeleteAccountCommand;
+import by.tananushka.project.command.impl.user.EditProfileCommand;
 import by.tananushka.project.command.impl.user.EditUserCommand;
 import by.tananushka.project.command.impl.user.FindAllUsersCommand;
+import by.tananushka.project.command.impl.user.UpdateProfileCommand;
 import by.tananushka.project.command.impl.user.UpdateUserCommand;
+import by.tananushka.project.command.impl.user.ViewProfileCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -69,7 +72,6 @@ public class CommandProvider {
 		commands.put(CommandName.AUTHENTICATION, new AuthenticationCommand());
 		commands.put(CommandName.CHANGE_LOCALE, new ChangeLocaleCommand());
 		commands.put(CommandName.VIEW_PROFILE, new ViewProfileCommand());
-//		commands.put(CommandName.VIEW_ADMIN_PROFILE, new ViewAdminProfileCommand());
 		commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
 		commands.put(CommandName.REGISTRATION, new RegistrationCommand());
 		commands.put(CommandName.REGISTRATION_INITIALIZE, new RegistrationPrepareCommand());
@@ -119,6 +121,9 @@ public class CommandProvider {
 		commands.put(CommandName.UPDATE_USER, new UpdateUserCommand());
 		commands.put(CommandName.APPOINT_MANAGER, new AppointManagerCommand());
 		commands.put(CommandName.SEND_PASSWORD, new SendPasswordCommand());
+		commands.put(CommandName.UPDATE_PROFILE, new UpdateProfileCommand());
+		commands.put(CommandName.EDIT_PROFILE, new EditProfileCommand());
+		commands.put(CommandName.DELETE_USER, new DeleteAccountCommand());
 	}
 
 	public static CommandProvider getInstance() {

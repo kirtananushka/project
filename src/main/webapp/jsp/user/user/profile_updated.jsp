@@ -6,18 +6,15 @@
 <fmt:setBundle basename="bundle/err" var="errorBundle"/>
 
 <fmt:message key="updating.successful" bundle="${resourceBundle}" var="title"/>
-<fmt:message key="form.back" bundle="${resourceBundle}" var="ok"/>
-<fmt:message key="user.id" bundle="${resourceBundle}" var="userId"/>
 <fmt:message key="login" bundle="${resourceBundle}" var="login"/>
 <fmt:message key="name" bundle="${resourceBundle}" var="name"/>
 <fmt:message key="surname" bundle="${resourceBundle}" var="surname"/>
 <fmt:message key="phone" bundle="${resourceBundle}" var="phone"/>
 <fmt:message key="email" bundle="${resourceBundle}" var="email"/>
-<fmt:message key="form.edit" bundle="${resourceBundle}" var="register"/>
 <fmt:message key="registration.date.short" bundle="${resourceBundle}" var="registrationDate"/>
-<fmt:message key="verified" bundle="${resourceBundle}" var="verified"/>
-<fmt:message key="active" bundle="${resourceBundle}" var="active"/>
-<fmt:message key="user.role" bundle="${resourceBundle}" var="role"/>
+<fmt:message key="form.back" bundle="${resourceBundle}" var="ok"/>
+<fmt:message key="form.edit" bundle="${resourceBundle}" var="register"/>
+
 
 <html>
 <head>
@@ -33,8 +30,10 @@
             <form id="regForm" name="regForm" class="authentication registration"
                   action="${pageContext.request.contextPath}controller"
                   method="post">
-                <input type="hidden" name="command" value="edit_user">
+                <input type="hidden" name="command" value="edit_profile">
                 <input type="hidden" name="id" value="${sessionScope.userUpd.id}">
+                <input type="hidden" name="role" value="${sessionScope.userObj.role}">
+
                 <p class="noteRed">
                     <c:if test="${sessionScope.errUpdateUserMessage != null}">
                         <c:forEach var="errorMessages" items="${sessionScope.errUpdateUserMessage}">
@@ -42,17 +41,6 @@
                         </c:forEach>
                     </c:if>
                 </p>
-                <label id="idLabel" class="" for="userId">${userId}:</label>
-                <input class="inputField" type="text" id="userId"
-                       name="id" value="${sessionScope.userUpd.id}"
-                       disabled title=${userId}>
-                <br>
-
-                <label id="roleLabel" class="" for="role">${role}:</label>
-                <input class="inputField" type="text" id="role"
-                       name="role" value="${sessionScope.userUpd.role}"
-                       disabled title=${role}>
-                <br>
 
                 <label id="loginLabel" class="" for="login">${login}:</label>
                 <input class="inputField" type="text" id="login"
@@ -72,7 +60,7 @@
                        title=${surname}>
                 <br>
 
-                <c:if test="${sessionScope.user.role != 'ADMIN'}">
+                <c:if test="${sessionScope.userUpd.role != 'ADMIN'}">
                     <label for="phone">${phone}:</label>
                     <input class="inputField" type="tel" id="phone"
                            name="phone" value="${sessionScope.userUpd.phone}" disabled
@@ -95,34 +83,6 @@
                        value="<fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${parsedDate}"/>"
                        disabled>
                 <br>
-
-                <label for="verified">${verified}:</label>
-                <c:choose>
-                    <c:when test="${sessionScope.userUpd.verified == true}">
-                        <input class="checkbox" type="checkbox" id="verified" name="verified"
-                               value="${sessionScope.userUpd.verified}"
-                               checked="checked" disabled>
-                    </c:when>
-                    <c:otherwise>
-                        <input class="checkbox" type="checkbox" id="verified" name="verified"
-                               value="${sessionScope.userUpd.verified}" disabled>
-                    </c:otherwise>
-                </c:choose>
-                <br>
-
-                <label for="active">${active}:</label>
-                <c:choose>
-                    <c:when test="${sessionScope.userUpd.active == true}">
-                        <input class="checkbox" type="checkbox" id="active" name="active"
-                               value="${sessionScope.userUpd.active}"
-                               checked="checked" disabled>
-                    </c:when>
-                    <c:otherwise>
-                        <input class="checkbox" type="checkbox" id="active" name="active"
-                               value="${sessionScope.userUpd.active}"
-                               disabled>
-                    </c:otherwise>
-                </c:choose>
 
                 <div class="centerOnly">
                     <a class="button" href="${sessionScope.pageToReturn}">${ok}</a>

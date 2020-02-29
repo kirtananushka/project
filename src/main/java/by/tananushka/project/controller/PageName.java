@@ -43,7 +43,6 @@ public final class PageName {
 	public static final String UPDATE_CINEMA_PAGE = "manager/cinema_update";
 	public static final String UPDATE_GENRE_PAGE = "manager/genre_update";
 	public static final String UPDATING_SUCCESSFUL_PAGE = "updating_successful";
-	//	public static final String VIEW_ADMIN_PROFILE_PAGE = "/jsp/user/admin/view_admin_profile.jsp";
 	public static final String VIEW_FILM_UPDATED_PAGE = "manager/film_updated";
 	public static final String VIEW_SHOW_UPDATED_PAGE = "manager/show_updated";
 	public static final String EDIT_CLIENT_PAGE = "manager/edit_client";
@@ -56,7 +55,9 @@ public final class PageName {
 	public static final String VIEW_USER_UPDATED_PAGE = "admin/user_updated";
 	public static final String PASSWORD_CHANGED_PAGE = "password_changed";
 	public static final String PASSWORD_FORGOTTEN_PAGE = "password_forgotten";
-//	public static final String APPOINT_MANAGER_PAGE = "admin/appoint_manager";
+	public static final String USER_PROFILE_PAGE = "user/user_profile";
+	public static final String VIEW_PROFILE_UPDATED_PAGE = "user/profile_updated";
+	public static final String EDIT_PROFILE_PAGE = "user/edit_profile";
 
 	private PageName() {
 	}

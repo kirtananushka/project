@@ -18,6 +18,8 @@ public interface UserService {
 
 	Optional<User> updateUser(SessionContent content) throws ServiceException;
 
+	boolean deleteUser(SessionContent content) throws ServiceException;
+
 	boolean emailConfirmation(int userId) throws ServiceException;
 
 	boolean sendMessage(SessionContent content);

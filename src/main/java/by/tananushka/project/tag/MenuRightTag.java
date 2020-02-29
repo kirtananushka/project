@@ -64,8 +64,8 @@ public class MenuRightTag extends TagSupport {
 			sb.append("<input type=\"submit\" value=\"");
 			sb.append(user.getLogin());
 			sb.append("\" disabled>\n");
-			sb.append("</form>\n"); // FIXME: 31.01.2020 
-			sb.append("<form class=\"header-user-form\" action=\"/user/admin/test\" method=\"post\">\n");
+			sb.append("</form>\n");
+			sb.append("<form class=\"header-user-form\" action=\"/controller\" method=\"post\">\n");
 			sb.append("<input type=\"hidden\" name=\"command\" value=\"view_profile\">\n");
 			sb.append("<input type=\"submit\" value=\"");
 			sb.append(valProfile);

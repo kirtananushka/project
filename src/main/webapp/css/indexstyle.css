@@ -54,6 +54,10 @@ div.outer {
     justify-content: center;
 }
 
+div.outer-root {
+    display: flow-root;
+}
+
 div.center {
     display: inherit;
     width: auto;
@@ -318,6 +322,10 @@ form.searchForm select {
     color: gray;
 }
 
+.del-form {
+    display: block;
+
+}
 .min-width200 {
     min-width: 200px;
 }
@@ -719,6 +727,10 @@ form.authentication input.button {
 }
 
 /*tables*/
+
+.edit {
+    font-size: 1em;
+}
 
 tr:nth-child(even).zebra {
     background: lightgray;

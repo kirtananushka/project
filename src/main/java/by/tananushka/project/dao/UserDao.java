@@ -20,5 +20,6 @@ public interface UserDao extends AbstractDao {
 
 	boolean setNewPassword(String login, String password) throws DaoException;
 
+	boolean deleteUser(int userId) throws DaoException;
 
 }

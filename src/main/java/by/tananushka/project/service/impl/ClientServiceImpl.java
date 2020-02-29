@@ -158,11 +158,11 @@ public class ClientServiceImpl implements ClientService {
 		content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_CLIENT_MESSAGE, null);
 		String strClientId = content.getRequestParameter(ParamName.PARAM_CLIENT_ID).strip();
 		int clientId = 0;
-		if (!validator.checkId(strClientId)) {
+		if (validator.checkId(strClientId)) {
+			clientId = Integer.parseInt(strClientId);
+		} else {
 			errorsList.add(ErrorMessageKey.INVALID_ID);
 			isParameterValid = false;
-		} else {
-			clientId = Integer.parseInt(strClientId);
 		}
 		String name = content.getRequestParameter(ParamName.PARAM_NAME).strip();
 		if (!validator.checkName(name)) {

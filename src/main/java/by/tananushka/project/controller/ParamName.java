@@ -143,6 +143,7 @@ public final class ParamName {
 	public static final String PARAM_USER_AUTHORIZATED = "userAuthorizated";
 	public static final String PARAM_USER_ID = "id";
 	public static final String PARAM_USER_UPD = "userUpd";
+	public static final String PARAM_USER_OBJ = "userObj";
 	public static final String PARAM_USERS_LIST = "usersList";
 	public static final String PARAM_UTF_8 = "UTF-8";
 	public static final String PARAM_VERIFIED = "verified";

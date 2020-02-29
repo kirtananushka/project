@@ -187,6 +187,33 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public boolean deleteUser(SessionContent content) throws ServiceException {
+		boolean isParameterValid = true;
+		boolean isDeleted = false;
+		List<String> errorsList = new ArrayList<>();
+		content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_USER_MESSAGE, null);
+		String strUserId = content.getRequestParameter(ParamName.PARAM_USER_ID).strip();
+		int userId = 0;
+		if (validator.checkId(strUserId)) {
+			userId = Integer.parseInt(strUserId);
+		} else {
+			errorsList.add(ErrorMessageKey.INVALID_ID);
+			isParameterValid = false;
+		}
+		if (isParameterValid) {
+			try {
+				isDeleted = userDao.deleteUser(userId);
+			} catch (DaoException e) {
+				throw new ServiceException("Exeption while user deletion.", e);
+			}
+		} else {
+			content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_USER_MESSAGE, errorsList);
+			throw new ServiceException("Invalid parameter(s).");
+		}
+		return isDeleted;
+	}
+
+	@Override
 	public boolean emailConfirmation(int userId) throws ServiceException {
 		boolean isConfirmationSuccessful;
 		if (userId <= 0) {
@@ -244,7 +271,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean sendPassword(SessionContent content) throws ServiceException {
 		boolean isOperationSuccessful;
-		List<String> errorsList = new ArrayList<>();
 		content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_NEW_PASSWORD_MESSAGE, null);
 		String login = content.getRequestParameter(ParamName.PARAM_LOGIN).strip();
 		String email = content.getRequestParameter(ParamName.PARAM_EMAIL).strip();

@@ -407,6 +407,15 @@
     <!--    user-->
 
     <servlet>
+        <servlet-name>user_profile_page</servlet-name>
+        <jsp-file>/jsp/user/user/user_profile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>user_profile_page</servlet-name>
+        <url-pattern>/user/user_profile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>all_users_page</servlet-name>
         <jsp-file>/jsp/user/user/all_users.jsp</jsp-file>
     </servlet>
@@ -424,14 +433,14 @@
         <url-pattern>/admin/edit_user</url-pattern>
     </servlet-mapping>
 
-    <!--    <servlet>-->
-    <!--        <servlet-name>appoint_manager_page</servlet-name>-->
-    <!--        <jsp-file>/jsp/user/user/appoint_manager.jsp</jsp-file>-->
-    <!--    </servlet>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>appoint_manager_page</servlet-name>-->
-    <!--        <url-pattern>/admin/appoint_manager</url-pattern>-->
-    <!--    </servlet-mapping>-->
+    <servlet>
+        <servlet-name>edit_profile_page</servlet-name>
+        <jsp-file>/jsp/user/user/edit_profile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>edit_profile_page</servlet-name>
+        <url-pattern>/user/edit_profile</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>view_user_updated_page</servlet-name>
@@ -440,6 +449,15 @@
     <servlet-mapping>
         <servlet-name>view_user_updated_page</servlet-name>
         <url-pattern>/admin/user_updated</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>view_profile_updated_page</servlet-name>
+        <jsp-file>/jsp/user/user/profile_updated.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>view_profile_updated_page</servlet-name>
+        <url-pattern>/user/profile_updated</url-pattern>
     </servlet-mapping>
 
 

@@ -14,11 +14,12 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/admin/*", "/client/*", "/manager/*"})
+@WebFilter(urlPatterns = {"/admin/*", "/manager/*", "/client/*", "/user/*"})
 public class AccessFilter implements Filter {
 
 	private static final String ADMIN = "admin";
 	private static final String MANAGER = "manager";
+	private static final String USER = "user";
 	private static final String SLASH = "/";
 	private static Logger log = LogManager.getLogger();
 
@@ -37,6 +38,9 @@ public class AccessFilter implements Filter {
 								|| currentPage.contains(SLASH + MANAGER + SLASH);
 			} else {
 				isAccessAllowes = currentPage.contains(SLASH + userRole + SLASH);
+			}
+			if (currentPage.contains(SLASH + USER + SLASH)) {
+				isAccessAllowes = true;
 			}
 			if (isAccessAllowes) {
 				chain.doFilter(request, response);

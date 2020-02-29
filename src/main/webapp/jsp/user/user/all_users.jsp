@@ -6,10 +6,8 @@
 <fmt:setBundle basename="bundle/err" var="errorBundle"/>
 
 <fmt:message key="nothing.found" bundle="${errorBundle}" var="nothingFound"/>
-
 <fmt:message key="users.all" bundle="${resourceBundle}" var="title"/>
 <fmt:message key="user.id" bundle="${resourceBundle}" var="id"/>
-
 <fmt:message key="login" bundle="${resourceBundle}" var="login"/>
 <fmt:message key="name" bundle="${resourceBundle}" var="name"/>
 <fmt:message key="surname" bundle="${resourceBundle}" var="surname"/>

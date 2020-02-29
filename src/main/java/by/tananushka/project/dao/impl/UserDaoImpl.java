@@ -33,7 +33,10 @@ public class UserDaoImpl implements UserDao {
 	private static final String SET_NEW_PASSWORD =
 					"UPDATE users SET user_password = ? WHERE user_login = ?;";
 	private static final String FIND_LOGIN_AND_EMAIL =
-					"SELECT * FROM users WHERE user_login = ? AND user_email = ?;";
+					"SELECT * FROM users WHERE user_login = ? AND user_email = ?\n"
+									+ "AND user_active = true;";
+	private static final String SET_USER_INACTIVE =
+					"UPDATE users SET user_active = false WHERE user_id = ?;";
 	private static Logger log = LogManager.getLogger();
 	private static UserDao userDao = new UserDaoImpl();
 	private PasswordUtility passwordUtility = PasswordUtility.getInstance();
@@ -162,5 +165,19 @@ public class UserDaoImpl implements UserDao {
 			throw new DaoException("Exception while updating password.", e);
 		}
 		return isSet;
+	}
+
+	@Override
+	public boolean deleteUser(int userId) throws DaoException {
+		boolean isDeleted;
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+		     PreparedStatement statement = connection.prepareStatement(SET_USER_INACTIVE)) {
+			statement.setInt(1, userId);
+			statement.execute();
+			isDeleted = true;
+		} catch (SQLException e) {
+			throw new DaoException("Exception while deleting user.", e);
+		}
+		return isDeleted;
 	}
 }
