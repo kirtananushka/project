@@ -9,6 +9,9 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Random;
 
+/**
+ * The type Password utility.
+ */
 public class PasswordUtility {
 
 	private static final PasswordUtility instance = new PasswordUtility();
@@ -21,18 +24,41 @@ public class PasswordUtility {
 	private PasswordUtility() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static PasswordUtility getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Compare passwords boolean.
+	 *
+	 * @param password          the password
+	 * @param encryptedPassword the encrypted password
+	 * @return the boolean
+	 */
 	public boolean comparePasswords(String password, String encryptedPassword) {
 		return BCrypt.checkpw(password, encryptedPassword);
 	}
 
+	/**
+	 * Encode password string.
+	 *
+	 * @param password the password
+	 * @return the string
+	 */
 	public String encodePassword(String password) {
 		return BCrypt.hashpw(password, BCrypt.gensalt());
 	}
 
+	/**
+	 * Generate password string.
+	 *
+	 * @return the string
+	 */
 	public String generatePassword() {
 		Random random = new Random();
 		UserDataValidator userDataValidator = UserDataValidator.getInstance();

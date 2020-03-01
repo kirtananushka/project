@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type User service.
+ */
 public class UserServiceImpl implements UserService {
 
 	private static final UserDataValidator validator = UserDataValidator.getInstance();
@@ -38,6 +41,11 @@ public class UserServiceImpl implements UserService {
 	private UserServiceImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static UserService getInstance() {
 		return instance;
 	}
@@ -271,7 +279,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean sendPassword(SessionContent content) throws ServiceException {
 		boolean isOperationSuccessful;
-		content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_NEW_PASSWORD_MESSAGE, null);
+		content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_NEW_PASS_MESSAGE, null);
 		String login = content.getRequestParameter(ParamName.PARAM_LOGIN).strip();
 		String email = content.getRequestParameter(ParamName.PARAM_EMAIL).strip();
 		if (!validator.checkLogin(login)) {
@@ -290,7 +298,7 @@ public class UserServiceImpl implements UserService {
 				EmailSender.sendNewPassword(email, newPassword);
 				isOperationSuccessful = true;
 			} else {
-				content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_NEW_PASSWORD_MESSAGE,
+				content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_NEW_PASS_MESSAGE,
 								ErrorMessageKey.INCORRECT_DATA);
 			}
 		} catch (DaoException e) {

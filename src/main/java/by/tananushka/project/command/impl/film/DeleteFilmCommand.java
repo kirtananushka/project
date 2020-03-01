@@ -11,15 +11,15 @@ import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.service.FilmService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Delete film command.
+ */
 public class DeleteFilmCommand implements Command {
 
-	private static Logger log = LogManager.getLogger();
 	private FilmService filmService = ServiceProvider.getInstance().getFilmService();
 
 	@Override

@@ -6,8 +6,6 @@ import by.tananushka.project.dao.AdminDao;
 import by.tananushka.project.dao.DaoException;
 import by.tananushka.project.dao.SqlColumnsName;
 import by.tananushka.project.pool.ConnectionPool;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +16,9 @@ import java.util.Calendar;
 import java.util.Optional;
 import java.util.TimeZone;
 
+/**
+ * The type Admin dao.
+ */
 public class AdminDaoImpl implements AdminDao {
 
 	private static final String UPDATE_ADMIN =
@@ -30,12 +31,16 @@ public class AdminDaoImpl implements AdminDao {
 									+ "user_role FROM admins INNER JOIN users ON admin_id = user_id\n"
 									+ "WHERE user_role = 'ADMIN';";
 	private static AdminDao adminDao = new AdminDaoImpl();
-	private static Logger log = LogManager.getLogger();
 	private final Calendar timezone = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"));
 
 	private AdminDaoImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static AdminDao getInstance() {
 		return adminDao;
 	}

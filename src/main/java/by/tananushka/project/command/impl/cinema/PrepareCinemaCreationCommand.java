@@ -2,20 +2,18 @@ package by.tananushka.project.command.impl.cinema;
 
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.Command;
-import by.tananushka.project.command.CommandException;
 import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
+/**
+ * The type Prepare cinema creation command.
+ */
 public class PrepareCinemaCreationCommand implements Command {
 
-	private static Logger log = LogManager.getLogger();
-
 	@Override
-	public Router execute(SessionContent content) throws CommandException {
+	public Router execute(SessionContent content) {
 		Router router = new Router();
 		router.setRoute(Router.RouteType.FORWARD);
 		router.setPageToGo(PageName.ACCESS_DENIED_PAGE);

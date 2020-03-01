@@ -17,6 +17,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The type Delete cinema command.
+ */
 public class DeleteCinemaCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
@@ -51,7 +54,8 @@ public class DeleteCinemaCommand implements Command {
 				router.setPageToGo(pageToGo);
 				content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 			} catch (ServiceException e) {
-				throw new CommandException("Exception while cinema creation.", e);
+				log.error("Exception while cinema deletion.");
+				throw new CommandException("Exception while cinema deletion.", e);
 			}
 		}
 		return router;

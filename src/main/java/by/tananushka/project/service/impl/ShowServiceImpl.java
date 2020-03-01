@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * The type Show service.
+ */
 public class ShowServiceImpl implements ShowService {
 
 	private static final ShowService instance = new ShowServiceImpl();
@@ -39,6 +42,11 @@ public class ShowServiceImpl implements ShowService {
 	private ShowServiceImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static ShowService getInstance() {
 		return instance;
 	}

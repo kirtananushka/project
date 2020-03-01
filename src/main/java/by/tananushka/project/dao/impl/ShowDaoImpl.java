@@ -2,6 +2,7 @@ package by.tananushka.project.dao.impl;
 
 import by.tananushka.project.bean.Film;
 import by.tananushka.project.bean.Show;
+import by.tananushka.project.dao.DaoConstant;
 import by.tananushka.project.dao.DaoException;
 import by.tananushka.project.dao.ShowDao;
 import by.tananushka.project.dao.SqlColumnsName;
@@ -25,6 +26,9 @@ import java.util.Optional;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
+/**
+ * The type Show dao.
+ */
 public class ShowDaoImpl implements ShowDao {
 
 	private static final String FIND_SHOW_BY_ID =
@@ -108,6 +112,11 @@ public class ShowDaoImpl implements ShowDao {
 	private ShowDaoImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static ShowDao getInstance() {
 		return showDao;
 	}
@@ -119,10 +128,12 @@ public class ShowDaoImpl implements ShowDao {
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement findShowStatement = connection.prepareStatement(
 						     FIND_SHOW_BY_ID);
-		     PreparedStatement findFilmStatement = connection.prepareStatement(FIND_FILM_BY_ID);
+		     PreparedStatement findFilmStatement =
+						     connection.prepareStatement(DaoConstant.FIND_FILM_BY_ID);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement =
+						     connection.prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findShowStatement.setInt(1, showId);
 			ResultSet findShowResultSet = findShowStatement.executeQuery();
 			while (findShowResultSet.next()) {
@@ -156,10 +167,12 @@ public class ShowDaoImpl implements ShowDao {
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement findShowStatement = connection.prepareStatement(
 						     FIND_ACTIVE_SHOWS_BY_DATE);
-		     PreparedStatement findFilmStatement = connection.prepareStatement(FIND_FILM_BY_ID);
+		     PreparedStatement findFilmStatement =
+						     connection.prepareStatement(DaoConstant.FIND_FILM_BY_ID);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement =
+						     connection.prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			Timestamp timestamp = Timestamp.valueOf(date.atTime(3, 0));
 			findShowStatement.setTimestamp(1, timestamp);
 			findShowStatement.setTimestamp(2, timestamp);
@@ -178,10 +191,12 @@ public class ShowDaoImpl implements ShowDao {
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement findShowStatement = connection
 						     .prepareStatement(FIND_ACTIVE_SHOWS_BY_DATE_AND_CINEMA);
-		     PreparedStatement findFilmStatement = connection.prepareStatement(FIND_FILM_BY_ID);
+		     PreparedStatement findFilmStatement =
+						     connection.prepareStatement(DaoConstant.FIND_FILM_BY_ID);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement =
+						     connection.prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			Timestamp timestamp = Timestamp.valueOf(date.atTime(3, 0));
 			findShowStatement.setTimestamp(1, timestamp);
 			findShowStatement.setTimestamp(2, timestamp);
@@ -200,10 +215,12 @@ public class ShowDaoImpl implements ShowDao {
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement findShowStatement = connection
 						     .prepareStatement(FIND_ACTIVE_SHOWS_BY_DATE_AND_CINEMA_ID);
-		     PreparedStatement findFilmStatement = connection.prepareStatement(FIND_FILM_BY_ID);
+		     PreparedStatement findFilmStatement =
+						     connection.prepareStatement(DaoConstant.FIND_FILM_BY_ID);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement =
+						     connection.prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			Timestamp timestamp = Timestamp.valueOf(date.atTime(3, 0));
 			findShowStatement.setTimestamp(1, timestamp);
 			findShowStatement.setTimestamp(2, timestamp);

@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Date parser.
+ */
 public class DateParser {
 
 	private static final DateParser instance = new DateParser();
@@ -21,10 +24,22 @@ public class DateParser {
 	private DateParser() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static DateParser getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Parse date optional.
+	 *
+	 * @param strDate the str date
+	 * @return the optional
+	 * @throws ParsingException the parsing exception
+	 */
 	public Optional<LocalDate> parseDate(String strDate) throws ParsingException {
 		LocalDate date;
 		Optional<LocalDate> dateOptional = Optional.empty();
@@ -39,6 +54,15 @@ public class DateParser {
 		return dateOptional;
 	}
 
+	/**
+	 * Parse date time optional.
+	 *
+	 * @param strDate    the str date
+	 * @param strHour    the str hour
+	 * @param strMinutes the str minutes
+	 * @return the optional
+	 * @throws ParsingException the parsing exception
+	 */
 	public Optional<LocalDateTime> parseDateTime(String strDate, String strHour, String strMinutes)
 					throws ParsingException {
 		LocalDateTime dateTime;
@@ -55,12 +79,24 @@ public class DateParser {
 		return dateTimeOptional;
 	}
 
+	/**
+	 * Format date string.
+	 *
+	 * @param date the date
+	 * @return the string
+	 */
 	public String formatDate(LocalDate date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
 		String strDate = date.format(formatter);
 		return strDate;
 	}
 
+	/**
+	 * Gets list of dates.
+	 *
+	 * @param monthsNumber the months number
+	 * @return the list of dates
+	 */
 	public List<String> getListOfDates(int monthsNumber) {
 		List<String> dates = new ArrayList<>();
 		LocalDate start = LocalDate.now();

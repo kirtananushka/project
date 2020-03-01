@@ -15,14 +15,13 @@ import by.tananushka.project.dao.ManagerDao;
 import by.tananushka.project.dao.impl.AdminDaoImpl;
 import by.tananushka.project.dao.impl.ClientDaoImpl;
 import by.tananushka.project.dao.impl.ManagerDaoImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
+/**
+ * The type View profile command.
+ */
 public class ViewProfileCommand implements Command {
-
-	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(SessionContent content) throws CommandException {

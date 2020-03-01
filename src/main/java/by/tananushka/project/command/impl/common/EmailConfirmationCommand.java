@@ -12,6 +12,9 @@ import by.tananushka.project.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * The type Email confirmation command.
+ */
 public class EmailConfirmationCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

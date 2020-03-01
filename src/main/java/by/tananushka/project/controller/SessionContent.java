@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * The type Session content.
+ */
 public class SessionContent {
 
 	private HashMap<String, Object> requestAttributes;
@@ -16,6 +19,11 @@ public class SessionContent {
 	private HttpServletRequest request;
 	private boolean invalidateSession;
 
+	/**
+	 * Instantiates a new Session content.
+	 *
+	 * @param request the request
+	 */
 	public SessionContent(HttpServletRequest request) {
 		this.request = request;
 		extractRequestValues(request);
@@ -38,6 +46,11 @@ public class SessionContent {
 		}
 	}
 
+	/**
+	 * Insert attributes.
+	 *
+	 * @param request the request
+	 */
 	void insertAttributes(HttpServletRequest request) {
 		for (Map.Entry<String, Object> entry : requestAttributes.entrySet()) {
 			String name = entry.getKey();
@@ -57,26 +70,58 @@ public class SessionContent {
 		}
 	}
 
+	/**
+	 * Assign session attribute object.
+	 *
+	 * @param attributeName the attribute name
+	 * @param object        the object
+	 * @return the object
+	 */
 	public Object assignSessionAttribute(String attributeName, Object object) {
 		Object updatedAttributes = sessionAttributes.put(attributeName, object);
 		return updatedAttributes;
 	}
 
+	/**
+	 * Assign request attribute object.
+	 *
+	 * @param attributeName the attribute name
+	 * @param object        the object
+	 * @return the object
+	 */
 	public Object assignRequestAttribute(String attributeName, Object object) {
 		Object updatedAttributes = requestAttributes.put(attributeName, object);
 		return updatedAttributes;
 	}
 
+	/**
+	 * Gets session attribute.
+	 *
+	 * @param attributeName the attribute name
+	 * @return the session attribute
+	 */
 	public Object getSessionAttribute(String attributeName) {
 		Object attribute = sessionAttributes.get(attributeName);
 		return attribute;
 	}
 
+	/**
+	 * Gets request attribute.
+	 *
+	 * @param attributeName the attribute name
+	 * @return the request attribute
+	 */
 	public Object getRequestAttribute(String attributeName) {
 		Object attribute = requestAttributes.get(attributeName);
 		return attribute;
 	}
 
+	/**
+	 * Gets request parameter.
+	 *
+	 * @param parameterName the parameter name
+	 * @return the request parameter
+	 */
 	public String getRequestParameter(String parameterName) {
 		String[] parameters = requestParameters.get(parameterName);
 		String parameter;
@@ -88,14 +133,28 @@ public class SessionContent {
 		return parameter;
 	}
 
+	/**
+	 * Gets request.
+	 *
+	 * @return the request
+	 */
 	public HttpServletRequest getRequest() {
 		return request;
 	}
 
+	/**
+	 * Invalidate session.
+	 */
 	public void invalidateSession() {
 		invalidateSession = true;
 	}
 
+	/**
+	 * Get parameter values by name string [ ].
+	 *
+	 * @param paramName the param name
+	 * @return the string [ ]
+	 */
 	public String[] getParameterValuesByName(String paramName) {
 		return request.getParameterValues(paramName);
 	}

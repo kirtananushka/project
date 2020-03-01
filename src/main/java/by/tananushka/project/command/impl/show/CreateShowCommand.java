@@ -19,6 +19,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * The type Create show command.
+ */
 public class CreateShowCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

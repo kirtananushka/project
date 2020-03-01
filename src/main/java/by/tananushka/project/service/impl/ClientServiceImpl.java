@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Client service.
+ */
 public class ClientServiceImpl implements ClientService {
 
 	private static final ClientService instance = new ClientServiceImpl();
@@ -28,6 +31,11 @@ public class ClientServiceImpl implements ClientService {
 	private ClientServiceImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static ClientService getInstance() {
 		return instance;
 	}
@@ -118,13 +126,13 @@ public class ClientServiceImpl implements ClientService {
 		String password = content.getRequestParameter(ParamName.PARAM_PASS).strip();
 		content.assignSessionAttribute(ParamName.PARAM_PASS_DEFAULT, password);
 		if (!validator.checkPassword(password)) {
-			errorsList.add(ErrorMessageKey.INVALID_PASSWORD);
+			errorsList.add(ErrorMessageKey.INVALID_PASS);
 			isParameterValid = false;
 		}
 		String passwordRepeated = content.getRequestParameter(ParamName.PARAM_PASS_REPEATED).strip();
 		content.assignSessionAttribute(ParamName.PARAM_PASS_REPEATED_DEFAULT, passwordRepeated);
 		if (!password.equals(passwordRepeated)) {
-			errorsList.add(ErrorMessageKey.PASSWORDS_NOT_EQUAL);
+			errorsList.add(ErrorMessageKey.PASS_NOT_EQUAL);
 			isParameterValid = false;
 		}
 		Client client = null;

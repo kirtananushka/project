@@ -7,6 +7,9 @@ import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
 
+/**
+ * The type Registration prepare command.
+ */
 public class RegistrationPrepareCommand implements Command {
 
 	@Override

@@ -11,6 +11,9 @@ import by.tananushka.project.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * The type Send password command.
+ */
 public class SendPasswordCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
@@ -24,11 +27,11 @@ public class SendPasswordCommand implements Command {
 			boolean isPasswordSent = userService.sendPassword(content);
 			if (isPasswordSent) {
 				router.setRoute(Router.RouteType.REDIRECT);
-				pageToGo = PageName.PASSWORD_CHANGED_PAGE;
-				content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_NEW_PASSWORD_MESSAGE, null);
+				pageToGo = PageName.PASS_CHANGED_PAGE;
+				content.assignSessionAttribute(ParamName.PARAM_ERR_SEND_NEW_PASS_MESSAGE, null);
 			} else {
 				router.setRoute(Router.RouteType.FORWARD);
-				pageToGo = PageName.PASSWORD_FORGOTTEN_PAGE;
+				pageToGo = PageName.PASS_FORGOTTEN_PAGE;
 			}
 		} catch (ServiceException e) {
 			log.error("Service exception", e);

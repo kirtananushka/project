@@ -17,6 +17,8 @@
 <fmt:message key="form.edit" bundle="${resourceBundle}" var="edit"/>
 <fmt:message key="form.delete" bundle="${resourceBundle}" var="delete"/>
 <fmt:message key="show.id" bundle="${resourceBundle}" var="showId"/>
+<fmt:message key="tickets.buy" bundle="${resourceBundle}" var="ticketsBuy"/>
+<fmt:message key="form.buy.button" bundle="${resourceBundle}" var="buy"/>
 
 <html>
 <head>
@@ -137,6 +139,20 @@
                                     </td>
                                 </tr>
                             </table>
+                        </c:if>
+                        <c:if test="${sessionScope.userAuthorizated.role eq 'CLIENT'}">
+                            <c:if test="${show.freePlace > 0}">
+                                <table class="width100">
+                                    <tr class="gray">
+                                        <td class="middle-center">${ticketsBuy}</td>
+                                        <td class="middle-center">
+                                            <a class="button"
+                                               href="${pageContext.request.contextPath}
+                                       /controller?command=buy_tickets&showId=${show.id}">${buy}</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </c:if>
                         </c:if>
                     </td>
                 </tr>

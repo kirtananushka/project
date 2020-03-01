@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Update manager command.
+ */
 public class UpdateManagerCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

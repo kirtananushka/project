@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Update profile command.
+ */
 public class UpdateProfileCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

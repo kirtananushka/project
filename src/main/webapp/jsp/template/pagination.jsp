@@ -7,40 +7,40 @@
 <fmt:message key="page.previous" bundle="${resourceBundle}" var="pagePrevious"/>
 
 <c:if test="${requestScope.totalPages > 1}">
-<div class="pagination-center">
-    <div class="pagination">
-        <div class="min-width50">
-            <c:choose>
-                <c:when test="${requestScope.pageNumber > 1}">
-                    <a href="${pageContext.request.contextPath}
-            ${requestScope.pageUrl}${requestScope.pageNumber - 1}">${pagePrevious}</a>
-                </c:when>
-                <c:otherwise><span class="inactive">${pagePrevious}</span></c:otherwise>
-            </c:choose>
-        </div>
-        <div>
-            <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum">
+    <div class="pagination-center">
+        <div class="pagination">
+            <div class="min-width50">
                 <c:choose>
-                    <c:when test="${requestScope.pageNumber eq pageNum}">
-                        <a class="active" href="${pageContext.request.contextPath}
-                   ${requestScope.pageUrl}${pageNum}">${pageNum}</a>
-                    </c:when>
-                    <c:otherwise>
+                    <c:when test="${requestScope.pageNumber > 1}">
                         <a href="${pageContext.request.contextPath}
-                   ${requestScope.pageUrl}${pageNum}">${pageNum}</a>
-                    </c:otherwise>
+            ${requestScope.pageUrl}${requestScope.pageNumber - 1}">${pagePrevious}</a>
+                    </c:when>
+                    <c:otherwise><span class="inactive">${pagePrevious}</span></c:otherwise>
                 </c:choose>
-            </c:forEach>
-        </div>
-        <div class="min-width50">
-            <c:choose>
-                <c:when test="${requestScope.pageNumber < requestScope.totalPages}">
-                    <a href="${pageContext.request.contextPath}
+            </div>
+            <div>
+                <c:forEach begin="1" end="${requestScope.totalPages}" var="pageNum">
+                    <c:choose>
+                        <c:when test="${requestScope.pageNumber eq pageNum}">
+                            <a class="active" href="${pageContext.request.contextPath}
+                   ${requestScope.pageUrl}${pageNum}">${pageNum}</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${pageContext.request.contextPath}
+                   ${requestScope.pageUrl}${pageNum}">${pageNum}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </div>
+            <div class="min-width50">
+                <c:choose>
+                    <c:when test="${requestScope.pageNumber < requestScope.totalPages}">
+                        <a href="${pageContext.request.contextPath}
             ${requestScope.pageUrl}${requestScope.pageNumber + 1}">${pageNext}</a>
-                </c:when>
-                <c:otherwise><span class="inactive">${pageNext}</span></c:otherwise>
-            </c:choose>
+                    </c:when>
+                    <c:otherwise><span class="inactive">${pageNext}</span></c:otherwise>
+                </c:choose>
+            </div>
         </div>
     </div>
-</div>
 </c:if>

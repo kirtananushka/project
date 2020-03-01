@@ -7,6 +7,9 @@ import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
 
+/**
+ * The type Logout command.
+ */
 public class LogoutCommand implements Command {
 
 	@Override

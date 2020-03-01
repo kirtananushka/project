@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+/**
+ * The type Prepare cinema restoration command.
+ */
 public class PrepareCinemaRestorationCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
@@ -42,6 +45,7 @@ public class PrepareCinemaRestorationCommand implements Command {
 				cinemasMap = showService.findInactiveCinemas();
 				content.assignSessionAttribute(ParamName.PARAM_CINEMAS_MAP, cinemasMap);
 			} catch (ServiceException e) {
+				log.error("Exception while preparing cinema restoration.");
 				throw new CommandException("Exception while preparing cinema restoration.", e);
 			}
 		}

@@ -1,8 +1,6 @@
 package by.tananushka.project.controller;
 
 import by.tananushka.project.service.validation.EscapeCharactersChanger;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,6 +12,9 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The type Image uploader.
+ */
 @WebServlet(urlPatterns = {"/upload"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
 				maxFileSize = 1024 * 1024 * 5,
@@ -25,7 +26,6 @@ public class ImageUploader extends HttpServlet {
 	private static final String IMAGE = "image";
 	private static final String UPLOAD_DIR = "E:/IdeaProjects/projectfl/src/main/webapp/image/film/";
 	private static final String PATH = "/image/film/";
-	private static Logger log = LogManager.getLogger();
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -2,6 +2,9 @@ package by.tananushka.project.bean;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type User.
+ */
 public class User extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -14,69 +17,152 @@ public class User extends Entity {
 	private boolean isVerified;
 	private LocalDateTime registrationDate;
 
+	/**
+	 * Instantiates a new User.
+	 */
 	public User() {
 	}
 
+	/**
+	 * Gets id.
+	 *
+	 * @return the id
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Sets id.
+	 *
+	 * @param id the id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets login.
+	 *
+	 * @return the login
+	 */
 	public String getLogin() {
 		return login;
 	}
 
+	/**
+	 * Sets login.
+	 *
+	 * @param login the login
+	 */
 	public void setLogin(String login) {
 		this.login = login;
 	}
 
+	/**
+	 * Gets password.
+	 *
+	 * @return the password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Sets password.
+	 *
+	 * @param password the password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	/**
+	 * Gets email.
+	 *
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Sets email.
+	 *
+	 * @param email the email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Gets role.
+	 *
+	 * @return the role
+	 */
 	public UserRole getRole() {
 		return role;
 	}
 
+	/**
+	 * Sets role.
+	 *
+	 * @param role the role
+	 */
 	public void setRole(UserRole role) {
 		this.role = role;
 	}
 
+	/**
+	 * Is active boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isActive() {
 		return isActive;
 	}
 
+	/**
+	 * Sets active.
+	 *
+	 * @param active the active
+	 */
 	public void setActive(boolean active) {
 		isActive = active;
 	}
 
+	/**
+	 * Is verified boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isVerified() {
 		return isVerified;
 	}
 
+	/**
+	 * Sets verified.
+	 *
+	 * @param verified the verified
+	 */
 	public void setVerified(boolean verified) {
 		isVerified = verified;
 	}
 
+	/**
+	 * Gets registration date.
+	 *
+	 * @return the registration date
+	 */
 	public LocalDateTime getRegistrationDate() {
 		return registrationDate;
 	}
 
+	/**
+	 * Sets registration date.
+	 *
+	 * @param registrationDate the registration date
+	 */
 	public void setRegistrationDate(LocalDateTime registrationDate) {
 		this.registrationDate = registrationDate;
 	}

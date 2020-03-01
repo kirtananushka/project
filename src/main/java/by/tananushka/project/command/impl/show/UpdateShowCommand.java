@@ -18,6 +18,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The type Update show command.
+ */
 public class UpdateShowCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

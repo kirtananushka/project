@@ -11,15 +11,15 @@ import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.service.FilmService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The type Update genre command.
+ */
 public class UpdateGenreCommand implements Command {
 
-	private static Logger log = LogManager.getLogger();
 	private FilmService filmService = ServiceProvider.getInstance().getFilmService();
 
 	@Override

@@ -14,8 +14,6 @@ import by.tananushka.project.service.FilmService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.ShowService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
@@ -23,9 +21,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * The type Edit show command.
+ */
 public class EditShowCommand implements Command {
 
-	private static Logger log = LogManager.getLogger();
 	private ShowService showService = ServiceProvider.getInstance().getShowService();
 	private FilmService filmService = ServiceProvider.getInstance().getFilmService();
 
@@ -96,7 +96,6 @@ public class EditShowCommand implements Command {
 					content.assignSessionAttribute(ParamName.PARAM_CINEMA_ID, cinemaNameId);
 					content.assignSessionAttribute(ParamName.PARAM_TITLE_ID, titleId);
 					content.assignSessionAttribute(ParamName.PARAM_TITLES_MAP, titlesMap);
-					content.assignSessionAttribute(ParamName.PARAM_SHOW_OBJ, show);
 					content.assignSessionAttribute(ParamName.PARAM_SHOW_OBJ, show);
 					content.assignSessionAttribute(ParamName.PARAM_RUBLE, ruble);
 					content.assignSessionAttribute(ParamName.PARAM_COPECK, copeck);

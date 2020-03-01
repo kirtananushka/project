@@ -1,5 +1,8 @@
 package by.tananushka.project.service.validation;
 
+/**
+ * The type Escape characters changer.
+ */
 public class EscapeCharactersChanger {
 
 	private static final EscapeCharactersChanger instance = new EscapeCharactersChanger();
@@ -17,10 +20,21 @@ public class EscapeCharactersChanger {
 	private EscapeCharactersChanger() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static EscapeCharactersChanger getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Change characters string.
+	 *
+	 * @param text the text
+	 * @return the string
+	 */
 	public String changeCharacters(String text) {
 		text = text.replace(AMPERSAND, AMPERSAND_ESCAPE);
 		text = text.replace(LESS_THAN, LESS_THAN_ESCAPE);
@@ -30,6 +44,12 @@ public class EscapeCharactersChanger {
 		return text;
 	}
 
+	/**
+	 * Delete characters string.
+	 *
+	 * @param text the text
+	 * @return the string
+	 */
 	public String deleteCharacters(String text) {
 		text = text.replace(AMPERSAND, "");
 		text = text.replace(LESS_THAN, "");

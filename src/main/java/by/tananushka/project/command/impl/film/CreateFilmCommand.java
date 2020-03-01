@@ -18,6 +18,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * The type Create film command.
+ */
 public class CreateFilmCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

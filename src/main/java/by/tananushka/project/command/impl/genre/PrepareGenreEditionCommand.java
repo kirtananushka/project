@@ -10,14 +10,14 @@ import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.service.FilmService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.impl.FilmServiceImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+/**
+ * The type Prepare genre edition command.
+ */
 public class PrepareGenreEditionCommand implements Command {
 
-	private static Logger log = LogManager.getLogger();
 	private FilmService filmService = FilmServiceImpl.getInstance();
 
 	@Override

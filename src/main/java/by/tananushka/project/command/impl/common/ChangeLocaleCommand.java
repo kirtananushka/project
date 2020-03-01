@@ -8,6 +8,9 @@ import by.tananushka.project.controller.SessionContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * The type Change locale command.
+ */
 public class ChangeLocaleCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

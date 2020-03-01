@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * The type Find films command.
+ */
 public class FindFilmsCommand implements Command {
 
 	private static final String CONTROLLER = "controller?command=";

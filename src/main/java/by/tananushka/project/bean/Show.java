@@ -3,6 +3,9 @@ package by.tananushka.project.bean;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * The type Show.
+ */
 public class Show extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -13,53 +16,116 @@ public class Show extends Entity {
 	private BigDecimal cost;
 	private int freePlace;
 
+	/**
+	 * Instantiates a new Show.
+	 */
 	public Show() {
 	}
 
+	/**
+	 * Gets id.
+	 *
+	 * @return the id
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Sets id.
+	 *
+	 * @param id the id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets film.
+	 *
+	 * @return the film
+	 */
 	public Film getFilm() {
 		return film;
 	}
 
+	/**
+	 * Sets film.
+	 *
+	 * @param film the film
+	 */
 	public void setFilm(Film film) {
 		this.film = film;
 	}
 
+	/**
+	 * Gets cinema name.
+	 *
+	 * @return the cinema name
+	 */
 	public String getCinemaName() {
 		return cinemaName;
 	}
 
+	/**
+	 * Sets cinema name.
+	 *
+	 * @param cinemaName the cinema name
+	 */
 	public void setCinemaName(String cinemaName) {
 		this.cinemaName = cinemaName;
 	}
 
+	/**
+	 * Gets date time.
+	 *
+	 * @return the date time
+	 */
 	public LocalDateTime getDateTime() {
 		return dateTime;
 	}
 
+	/**
+	 * Sets date time.
+	 *
+	 * @param dateTime the date time
+	 */
 	public void setDateTime(LocalDateTime dateTime) {
 		this.dateTime = dateTime;
 	}
 
+	/**
+	 * Gets cost.
+	 *
+	 * @return the cost
+	 */
 	public BigDecimal getCost() {
 		return cost;
 	}
 
+	/**
+	 * Sets cost.
+	 *
+	 * @param cost the cost
+	 */
 	public void setCost(BigDecimal cost) {
 		this.cost = cost;
 	}
 
+	/**
+	 * Gets free place.
+	 *
+	 * @return the free place
+	 */
 	public int getFreePlace() {
 		return freePlace;
 	}
 
+	/**
+	 * Sets free place.
+	 *
+	 * @param freePlace the free place
+	 */
 	public void setFreePlace(int freePlace) {
 		this.freePlace = freePlace;
 	}

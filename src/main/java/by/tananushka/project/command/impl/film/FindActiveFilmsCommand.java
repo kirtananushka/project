@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * The type Find active films command.
+ */
 public class FindActiveFilmsCommand implements Command {
 
 	private static final String CONTROLLER = "controller?command=";

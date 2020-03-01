@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+/**
+ * The type Prepare cinema edition command.
+ */
 public class PrepareCinemaEditionCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
@@ -42,6 +45,7 @@ public class PrepareCinemaEditionCommand implements Command {
 				cinemasMap = showService.findActiveCinemas();
 				content.assignSessionAttribute(ParamName.PARAM_CINEMAS_MAP, cinemasMap);
 			} catch (ServiceException e) {
+				log.error("Exception while preparing cinema deletion.");
 				throw new CommandException("Exception while preparing cinema edition.", e);
 			}
 		}

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Appoint manager command.
+ */
 public class AppointManagerCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

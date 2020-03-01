@@ -8,18 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The interface Abstract dao.
+ */
 public interface AbstractDao {
 
-	String FIND_FILM_BY_ID =
-					"SELECT film_id, film_title, film_age, film_year, film_img, film_active"
-									+ " FROM films WHERE film_id = ?;";
-	String FIND_COUNTRIES_BY_FILM =
-					"SELECT country_name FROM countries INNER JOIN films_countries "
-									+ "ON country_id = country_id_fk WHERE film_id_fk=?;";
-	String FIND_GENRES_BY_FILM =
-					"SELECT genre_name FROM genres INNER JOIN films_genres "
-									+ "ON genre_id = genre_id_fk WHERE film_id_fk=?;";
-
+	/**
+	 * Close result set.
+	 *
+	 * @param resultSet the result set
+	 * @throws DaoException the dao exception
+	 */
 	default void closeResultSet(ResultSet resultSet) throws DaoException {
 		if (resultSet != null) {
 			try {
@@ -30,6 +29,16 @@ public interface AbstractDao {
 		}
 	}
 
+	/**
+	 * Find films list query list.
+	 *
+	 * @param findFilmStatement      the find film statement
+	 * @param findCountriesStatement the find countries statement
+	 * @param findGenresStatement    the find genres statement
+	 * @return the list
+	 * @throws SQLException the sql exception
+	 * @throws DaoException the dao exception
+	 */
 	default List<Film> findFilmsListQuery(PreparedStatement findFilmStatement,
 	                                      PreparedStatement findCountriesStatement,
 	                                      PreparedStatement findGenresStatement)
@@ -49,6 +58,16 @@ public interface AbstractDao {
 		return filmsList;
 	}
 
+	/**
+	 * Find film query film.
+	 *
+	 * @param findFilmResultSet      the find film result set
+	 * @param findCountriesStatement the find countries statement
+	 * @param findGenresStatement    the find genres statement
+	 * @return the film
+	 * @throws SQLException the sql exception
+	 * @throws DaoException the dao exception
+	 */
 	default Film findFilmQuery(ResultSet findFilmResultSet,
 	                           PreparedStatement findCountriesStatement,
 	                           PreparedStatement findGenresStatement)

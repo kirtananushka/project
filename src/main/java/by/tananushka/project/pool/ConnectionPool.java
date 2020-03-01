@@ -30,6 +30,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * The type Connection pool.
+ */
 public class ConnectionPool {
 
 	private static ConnectionPool instance;
@@ -59,6 +62,11 @@ public class ConnectionPool {
 		}
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static ConnectionPool getInstance() {
 		if (!isInstanceCreated.get()) {
 			lock.lock();
@@ -121,6 +129,11 @@ public class ConnectionPool {
 		return givenConnectionQueue.size();
 	}
 
+	/**
+	 * Take connection proxy connection.
+	 *
+	 * @return the proxy connection
+	 */
 	public ProxyConnection takeConnection() {
 		ProxyConnection connection = null;
 		try {
@@ -133,6 +146,9 @@ public class ConnectionPool {
 		return connection;
 	}
 
+	/**
+	 * Clear connection pool.
+	 */
 	public void clearConnectionPool() {
 		try {
 			closeConnectionQueue(givenConnectionQueue);
@@ -168,11 +184,22 @@ public class ConnectionPool {
 
 		private Connection connection;
 
+		/**
+		 * Instantiates a new Proxy connection.
+		 *
+		 * @param connection the connection
+		 * @throws SQLException the sql exception
+		 */
 		ProxyConnection(Connection connection) throws SQLException {
 			this.connection = connection;
 			this.connection.setAutoCommit(true);
 		}
 
+		/**
+		 * Really close.
+		 *
+		 * @throws SQLException the sql exception
+		 */
 		void reallyClose() throws SQLException {
 			connection.close();
 		}

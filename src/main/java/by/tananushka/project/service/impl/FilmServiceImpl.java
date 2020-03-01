@@ -23,6 +23,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The type Film service.
+ */
 public class FilmServiceImpl implements FilmService {
 
 	private static final FilmService instance = new FilmServiceImpl();
@@ -34,6 +37,11 @@ public class FilmServiceImpl implements FilmService {
 	private FilmServiceImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static FilmService getInstance() {
 		return instance;
 	}

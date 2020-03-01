@@ -5528,9 +5528,7 @@ CREATE TABLE orders
     films_shows_id_fk INT           NOT NULL,
     ticket_cost       DECIMAL(5, 2) NOT NULL DEFAULT 1 CHECK (ticket_cost > 0),
     tickets_num       INT UNSIGNED  NOT NULL DEFAULT 1 CHECK (tickets_num > 0),
-    full_cost         DECIMAL(5, 2) NOT NULL DEFAULT 1,
     ordering_date     DATETIME      NOT NULL DEFAULT now(),
-    CHECK (full_cost > 0 AND full_cost = tickets_num * ticket_cost),
     PRIMARY KEY (order_id),
     FOREIGN KEY (client_id_fk) REFERENCES clients (client_id),
     FOREIGN KEY (films_shows_id_fk) REFERENCES films_shows (films_shows_id)

@@ -12,17 +12,17 @@ import by.tananushka.project.service.ManagerService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.util.PagesCalculator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Find all managers command.
+ */
 public class FindAllManagersCommand implements Command {
 
 	private static final String FULL_URL =
 					"controller?command=find_all_managers&page=";
-	private static Logger log = LogManager.getLogger();
 	private ManagerService managerService = ServiceProvider.getInstance().getManagerService();
 	private PagesCalculator pagesCalculator = PagesCalculator.getInstance();
 

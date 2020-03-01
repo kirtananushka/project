@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Update client command.
+ */
 public class UpdateClientCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

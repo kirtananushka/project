@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Manager service.
+ */
 public class ManagerServiceImpl implements ManagerService {
 
 	private static final ManagerService instance = new ManagerServiceImpl();
@@ -27,6 +30,11 @@ public class ManagerServiceImpl implements ManagerService {
 	private ManagerServiceImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static ManagerService getInstance() {
 		return instance;
 	}

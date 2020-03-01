@@ -2,7 +2,6 @@ package by.tananushka.project.command.impl.cinema;
 
 import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.Command;
-import by.tananushka.project.command.CommandException;
 import by.tananushka.project.command.ErrorMessageKey;
 import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
@@ -11,19 +10,19 @@ import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.ShowService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The type Prepare cinema update command.
+ */
 public class PrepareCinemaUpdateCommand implements Command {
 
-	private static Logger log = LogManager.getLogger();
 	private ShowService showService = ServiceProvider.getInstance().getShowService();
 
 	@Override
-	public Router execute(SessionContent content) throws CommandException {
+	public Router execute(SessionContent content) {
 		Router router = new Router();
 		router.setRoute(Router.RouteType.FORWARD);
 		router.setPageToGo(PageName.ACCESS_DENIED_PAGE);

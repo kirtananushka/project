@@ -12,17 +12,17 @@ import by.tananushka.project.service.FilmService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.ShowService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * The type Prepare show creation command.
+ */
 public class PrepareShowCreationCommand implements Command {
 
-	private static Logger log = LogManager.getLogger();
 	private ShowService showService = ServiceProvider.getInstance().getShowService();
 	private FilmService filmService = ServiceProvider.getInstance().getFilmService();
 

@@ -1,12 +1,11 @@
 package by.tananushka.project.dao.impl;
 
 import by.tananushka.project.bean.Film;
+import by.tananushka.project.dao.DaoConstant;
 import by.tananushka.project.dao.DaoException;
 import by.tananushka.project.dao.FilmDao;
 import by.tananushka.project.dao.SqlColumnsName;
 import by.tananushka.project.pool.ConnectionPool;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +19,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * The type Film dao.
+ */
 public class FilmDaoImpl implements FilmDao {
 
 	private static final String FIND_ACTIVE_AVAILABLE_FILMS =
@@ -173,12 +175,16 @@ public class FilmDaoImpl implements FilmDao {
 					+ "WHERE genre_name = ?";
 	private static final String CHECK_GENRE_NAME_BY_ID = "SELECT genre_name FROM genres "
 					+ "WHERE genre_name = ? AND genre_id <> ?";
-	private static Logger log = LogManager.getLogger();
 	private static FilmDao filmDao = new FilmDaoImpl();
 
 	private FilmDaoImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static FilmDao getInstance() {
 		return filmDao;
 	}
@@ -189,10 +195,11 @@ public class FilmDaoImpl implements FilmDao {
 		ResultSet findFilmResultSet;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
-						     FIND_FILM_BY_ID);
+						     DaoConstant.FIND_FILM_BY_ID);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement =
+						     connection.prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setInt(1, filmId);
 			findFilmResultSet = findFilmStatement.executeQuery();
 			if (findFilmResultSet.next()) {
@@ -212,8 +219,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_ACTIVE_AVAILABLE_FILMS);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement =
+						     connection.prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
@@ -229,8 +237,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_ACTIVE_FILMS);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement =
+						     connection.prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
@@ -246,8 +255,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_AVAILABLE_FILMS_BY_GENRE);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement =
+						     connection.prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setString(1, genre);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -264,8 +274,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_ACTIVE_FILMS_BY_GENRE);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setString(1, genre);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -282,8 +293,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_AVAILABLE_FILMS_BY_GENRE_ID);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setInt(1, genre);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -300,8 +312,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_ACTIVE_FILMS_BY_GENRE_ID);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setInt(1, genre);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -318,8 +331,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_AVAILABLE_FILMS_BY_COUNTRY);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setString(1, country);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -336,8 +350,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_ACTIVE_FILMS_BY_COUNTRY);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setString(1, country);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -354,8 +369,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement =
 						     connection.prepareStatement(FIND_AVAILABLE_FILMS_BY_COUNTRY_ID);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setInt(1, country);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -372,8 +388,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement =
 						     connection.prepareStatement(FIND_ACTIVE_FILMS_BY_COUNTRY_ID);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setInt(1, country);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -390,8 +407,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_AVAILABLE_FILMS_BY_AGE);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setInt(1, age);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -408,8 +426,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_ACTIVE_FILMS_BY_AGE);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setInt(1, age);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -426,8 +445,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_AVAILABLE_FILMS_BY_YEAR);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setInt(1, year);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -444,8 +464,9 @@ public class FilmDaoImpl implements FilmDao {
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     FIND_ACTIVE_FILMS_BY_YEAR);
 		     PreparedStatement findCountriesStatement = connection
-						     .prepareStatement(FIND_COUNTRIES_BY_FILM);
-		     PreparedStatement findGenresStatement = connection.prepareStatement(FIND_GENRES_BY_FILM)) {
+						     .prepareStatement(DaoConstant.FIND_COUNTRIES_BY_FILM);
+		     PreparedStatement findGenresStatement = connection
+						     .prepareStatement(DaoConstant.FIND_GENRES_BY_FILM)) {
 			findFilmStatement.setInt(1, year);
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
@@ -964,5 +985,4 @@ public class FilmDaoImpl implements FilmDao {
 		}
 		return isGenreNameFree;
 	}
-
 }

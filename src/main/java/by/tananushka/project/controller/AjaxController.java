@@ -15,12 +15,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * The type Ajax controller.
+ */
 @WebServlet(name = "LoginChecker", urlPatterns = {"/LoginChecker"})
 public class AjaxController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static Logger log = LogManager.getLogger();
 
+	/**
+	 * Process request.
+	 *
+	 * @param request  the request
+	 * @param response the response
+	 */
 	public void processRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.debug("AjaxController");
 		String login = request.getParameter(ParamName.PARAM_LOGIN);

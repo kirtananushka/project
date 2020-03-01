@@ -7,12 +7,12 @@ import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.UserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
+/**
+ * The type Send message command.
+ */
 public class SendMessageCommand implements Command {
 
-	private static Logger log = LogManager.getLogger();
 	private UserService userService = ServiceProvider.getInstance().getUserService();
 
 	@Override

@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type Locale filter.
+ */
 @WebFilter(urlPatterns = {"/jsp/*"}, dispatcherTypes = {DispatcherType.FORWARD,
-//                                                        DispatcherType.INCLUDE,
                                                         DispatcherType.REQUEST})
 public class LocaleFilter implements Filter {
 

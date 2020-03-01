@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type User dao.
+ */
 public class UserDaoImpl implements UserDao {
 
 	private static final String FIND_USER_BY_LOGIN =
@@ -30,7 +33,7 @@ public class UserDaoImpl implements UserDao {
 					"UPDATE users SET user_active = true, user_verification = true\n"
 									+ "WHERE user_id = ? AND user_verification = false\n"
 									+ "AND user_active =  false;";
-	private static final String SET_NEW_PASSWORD =
+	private static final String SET_NEW_PASS =
 					"UPDATE users SET user_password = ? WHERE user_login = ?;";
 	private static final String FIND_LOGIN_AND_EMAIL =
 					"SELECT * FROM users WHERE user_login = ? AND user_email = ?\n"
@@ -44,6 +47,11 @@ public class UserDaoImpl implements UserDao {
 	private UserDaoImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static UserDao getInstance() {
 		return userDao;
 	}
@@ -155,7 +163,7 @@ public class UserDaoImpl implements UserDao {
 	public boolean setNewPassword(String login, String password) throws DaoException {
 		boolean isSet;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
-		     PreparedStatement statement = connection.prepareStatement(SET_NEW_PASSWORD)) {
+		     PreparedStatement statement = connection.prepareStatement(SET_NEW_PASS)) {
 			String encodedPassword = passwordUtility.encodePassword(password);
 			statement.setString(1, encodedPassword);
 			statement.setString(2, login);

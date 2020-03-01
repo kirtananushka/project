@@ -12,18 +12,18 @@ import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.UserService;
 import by.tananushka.project.util.PagesCalculator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Find all users command.
+ */
 public class FindAllUsersCommand implements Command {
 
 	private static final String FULL_URL =
 					"controller?command=find_all_users&page=";
-	private static Logger log = LogManager.getLogger();
 	private UserService userService = ServiceProvider.getInstance().getUserService();
 	private PagesCalculator pagesCalculator = PagesCalculator.getInstance();
 

@@ -9,6 +9,9 @@ import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Optional;
 
+/**
+ * The type Money parser.
+ */
 public class MoneyParser {
 
 	private static final String MONEY_PATTERN = "#0.00";
@@ -21,10 +24,23 @@ public class MoneyParser {
 	private MoneyParser() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static MoneyParser getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Parse to big decimal optional.
+	 *
+	 * @param ruble  the ruble
+	 * @param copeck the copeck
+	 * @return the optional
+	 * @throws ParsingException the parsing exception
+	 */
 	public Optional<BigDecimal> parseToBigDecimal(String ruble, String copeck)
 					throws ParsingException {
 		String money = ruble + DECIMAL_SEPARATOR + copeck;
@@ -44,6 +60,13 @@ public class MoneyParser {
 		return bigDecimalOptional;
 	}
 
+	/**
+	 * Parse big decimal to string optional.
+	 *
+	 * @param cost    the cost
+	 * @param element the element
+	 * @return the optional
+	 */
 	public Optional<String> parseBigDecimalToString(BigDecimal cost, int element) {
 		Optional<String> stringOptional;
 		String string = cost.toString().split(SEPARATOR_PATTERN)[element];

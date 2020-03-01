@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Admin service.
+ */
 public class AdminServiceImpl implements AdminService {
 
 	private static final AdminService instance = new AdminServiceImpl();
@@ -27,6 +30,11 @@ public class AdminServiceImpl implements AdminService {
 	private AdminServiceImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static AdminService getInstance() {
 		return instance;
 	}

@@ -7,12 +7,11 @@ import by.tananushka.project.controller.PageName;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.Router;
 import by.tananushka.project.controller.SessionContent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
+/**
+ * The type Prepare genre creation command.
+ */
 public class PrepareGenreCreationCommand implements Command {
-
-	private static Logger log = LogManager.getLogger();
 
 	@Override
 	public Router execute(SessionContent content) throws CommandException {

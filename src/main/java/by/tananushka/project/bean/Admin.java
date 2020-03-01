@@ -1,27 +1,53 @@
 package by.tananushka.project.bean;
 
+/**
+ * The type Admin.
+ */
 public class Admin extends User {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String surname;
 
+	/**
+	 * Instantiates a new Admin.
+	 */
 	public Admin() {
 		setRole(UserRole.ADMIN);
 	}
 
+	/**
+	 * Gets name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets name.
+	 *
+	 * @param name the name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets surname.
+	 *
+	 * @return the surname
+	 */
 	public String getSurname() {
 		return surname;
 	}
 
+	/**
+	 * Sets surname.
+	 *
+	 * @param surname the surname
+	 */
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}

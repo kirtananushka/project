@@ -7,8 +7,6 @@ import by.tananushka.project.dao.DaoException;
 import by.tananushka.project.dao.ManagerDao;
 import by.tananushka.project.dao.SqlColumnsName;
 import by.tananushka.project.pool.ConnectionPool;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,12 +52,16 @@ public class ManagerDaoImpl implements ManagerDao {
 									+ "FROM managers INNER JOIN users ON manager_id = user_id\n"
 									+ "WHERE manager_id = ?;";
 	private static ManagerDao managerDao = new ManagerDaoImpl();
-	private static Logger log = LogManager.getLogger();
 	private final Calendar timezone = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"));
 
 	private ManagerDaoImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static ManagerDao getInstance() {
 		return managerDao;
 	}

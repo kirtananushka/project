@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * The type Find shows command.
+ */
 public class FindShowsCommand implements Command {
 
 	private static final String ALL = "all";

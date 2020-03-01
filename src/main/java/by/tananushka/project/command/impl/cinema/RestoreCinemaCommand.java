@@ -17,6 +17,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The type Restore cinema command.
+ */
 public class RestoreCinemaCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();
@@ -51,6 +54,7 @@ public class RestoreCinemaCommand implements Command {
 				router.setPageToGo(pageToGo);
 				content.assignSessionAttribute(ParamName.PARAM_CURRENT_PAGE, pageToGo);
 			} catch (ServiceException e) {
+				log.error("Exception while preparing cinema restoration.");
 				throw new CommandException("Exception while cinema restoration.", e);
 			}
 		}

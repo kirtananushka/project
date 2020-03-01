@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
+/**
+ * The type Registration command.
+ */
 public class RegistrationCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

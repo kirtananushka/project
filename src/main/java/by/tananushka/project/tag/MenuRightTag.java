@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-//@SuppressWarnings("serial")
+/**
+ * The type Menu right tag.
+ */
 public class MenuRightTag extends TagSupport {
 
 	private static final String LANGUAGE_EN = "en";

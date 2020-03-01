@@ -7,6 +7,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * The type Show data validator.
+ */
 public class ShowDataValidator {
 
 	private static final ShowDataValidator instance = new ShowDataValidator();
@@ -18,10 +21,21 @@ public class ShowDataValidator {
 	private ShowDataValidator() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static ShowDataValidator getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Check cinema boolean.
+	 *
+	 * @param string the string
+	 * @return the boolean
+	 */
 	public boolean checkCinema(String string) {
 		if (string == null) {
 			return false;
@@ -30,6 +44,12 @@ public class ShowDataValidator {
 		return string.matches(STRING_PATTERN);
 	}
 
+	/**
+	 * Check date boolean.
+	 *
+	 * @param strDate the str date
+	 * @return the boolean
+	 */
 	public boolean checkDate(String strDate) {
 		if (strDate == null) {
 			return false;
@@ -46,6 +66,12 @@ public class ShowDataValidator {
 		return true;
 	}
 
+	/**
+	 * Check two digits boolean.
+	 *
+	 * @param strNumber the str number
+	 * @return the boolean
+	 */
 	public boolean checkTwoDigits(String strNumber) {
 		if (strNumber == null) {
 			return false;

@@ -12,6 +12,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+/**
+ * The type Character set filter.
+ */
 @WebFilter(urlPatterns = "/*", dispatcherTypes = {
 				DispatcherType.FORWARD,
 				DispatcherType.REQUEST

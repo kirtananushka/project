@@ -63,6 +63,11 @@ public class ClientDaoImpl implements ClientDao {
 	private ClientDaoImpl() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static ClientDao getInstance() {
 		return clientDao;
 	}

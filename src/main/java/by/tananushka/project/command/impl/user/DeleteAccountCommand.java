@@ -16,6 +16,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Delete account command.
+ */
 public class DeleteAccountCommand implements Command {
 
 	private static Logger log = LogManager.getLogger();

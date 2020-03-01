@@ -14,6 +14,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * The type Access filter.
+ */
 @WebFilter(urlPatterns = {"/admin/*", "/manager/*", "/client/*", "/user/*"})
 public class AccessFilter implements Filter {
 

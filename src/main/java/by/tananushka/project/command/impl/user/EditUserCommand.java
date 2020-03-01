@@ -11,14 +11,14 @@ import by.tananushka.project.controller.SessionContent;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.UserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
+/**
+ * The type Edit user command.
+ */
 public class EditUserCommand implements Command {
 
-	private static Logger log = LogManager.getLogger();
 	private UserService userService = ServiceProvider.getInstance().getUserService();
 
 	@Override

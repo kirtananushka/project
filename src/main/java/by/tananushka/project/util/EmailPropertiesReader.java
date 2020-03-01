@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 
+/**
+ * The type Email properties reader.
+ */
 public class EmailPropertiesReader {
 
 	private static final EmailPropertiesReader instance = new EmailPropertiesReader();
@@ -16,10 +19,20 @@ public class EmailPropertiesReader {
 	private EmailPropertiesReader() {
 	}
 
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
 	public static EmailPropertiesReader getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Read properties properties.
+	 *
+	 * @return the properties
+	 */
 	Properties readProperties() {
 		Properties properties = new Properties();
 		try {

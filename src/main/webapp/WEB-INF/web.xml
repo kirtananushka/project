@@ -460,5 +460,33 @@
         <url-pattern>/user/profile_updated</url-pattern>
     </servlet-mapping>
 
+    <!--    tickets-->
+
+    <servlet>
+        <servlet-name>buy_tickets_page</servlet-name>
+        <jsp-file>/jsp/user/ticket/buy_tickets.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>buy_tickets_page</servlet-name>
+        <url-pattern>/client/buy_tickets</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>pay_for_tickets_page</servlet-name>
+        <jsp-file>/jsp/user/ticket/pay_for_tickets.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pay_for_tickets_page</servlet-name>
+        <url-pattern>/client/pay</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>payment_successful_page</servlet-name>
+        <jsp-file>/jsp/user/ticket/payment_successful.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>payment_successful_page</servlet-name>
+        <url-pattern>/client/payment_successful</url-pattern>
+    </servlet-mapping>
 
 </web-app>
