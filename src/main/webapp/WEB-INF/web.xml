@@ -460,6 +460,15 @@
         <url-pattern>/user/profile_updated</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>change_pass_page</servlet-name>
+        <jsp-file>/jsp/user/user/change_password.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>change_pass_page</servlet-name>
+        <url-pattern>/user/change_password</url-pattern>
+    </servlet-mapping>
+
     <!--    tickets-->
 
     <servlet>
@@ -488,5 +497,24 @@
         <servlet-name>payment_successful_page</servlet-name>
         <url-pattern>/client/payment_successful</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>client_orders_page</servlet-name>
+        <jsp-file>/jsp/user/ticket/client_orders.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>client_orders_page</servlet-name>
+        <url-pattern>/client/client_orders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>all_orders_page</servlet-name>
+        <jsp-file>/jsp/user/ticket/all_orders.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>all_orders_page</servlet-name>
+        <url-pattern>/manager/all_orders</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

@@ -12,6 +12,8 @@ import by.tananushka.project.service.ManagerService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.util.PagesCalculator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +25,7 @@ public class FindActiveManagersCommand implements Command {
 
 	private static final String FULL_URL =
 					"controller?command=find_active_managers&page=";
+	private static Logger log = LogManager.getLogger();
 	private ManagerService managerService = ServiceProvider.getInstance().getManagerService();
 	private PagesCalculator pagesCalculator = PagesCalculator.getInstance();
 
@@ -36,7 +39,13 @@ public class FindActiveManagersCommand implements Command {
 			router.setPageToGo(PageName.MANAGERS_PAGE);
 			try {
 				List<Manager> managersList = managerService.findActiveManagers();
-				int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
+				String strPageNumber = content.getRequestParameter(ParamName.PARAM_PAGE);
+				int pageNumber = 1;
+				try {
+					pageNumber = Integer.parseInt(strPageNumber);
+				} catch (NumberFormatException e) {
+					log.info("Invalid page number: {}.", strPageNumber);
+				}
 				int managersFrom = pagesCalculator.calculateItemsFrom(pageNumber);
 				int managersNumber = managersList.size();
 				int totalPages = pagesCalculator.calculateTotalPages(managersNumber);

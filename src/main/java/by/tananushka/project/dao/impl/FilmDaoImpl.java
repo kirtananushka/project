@@ -6,6 +6,8 @@ import by.tananushka.project.dao.DaoException;
 import by.tananushka.project.dao.FilmDao;
 import by.tananushka.project.dao.SqlColumnsName;
 import by.tananushka.project.pool.ConnectionPool;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -176,6 +178,7 @@ public class FilmDaoImpl implements FilmDao {
 	private static final String CHECK_GENRE_NAME_BY_ID = "SELECT genre_name FROM genres "
 					+ "WHERE genre_name = ? AND genre_id <> ?";
 	private static FilmDao filmDao = new FilmDaoImpl();
+	private static Logger log = LogManager.getLogger();
 
 	private FilmDaoImpl() {
 	}
@@ -192,7 +195,7 @@ public class FilmDaoImpl implements FilmDao {
 	@Override
 	public Optional<Film> findFilmById(int filmId) throws DaoException {
 		Optional<Film> filmOptional = Optional.empty();
-		ResultSet findFilmResultSet;
+		ResultSet findFilmResultSet = null;
 		try (Connection connection = ConnectionPool.getInstance().takeConnection();
 		     PreparedStatement findFilmStatement = connection.prepareStatement(
 						     DaoConstant.FIND_FILM_BY_ID);
@@ -207,7 +210,10 @@ public class FilmDaoImpl implements FilmDao {
 				filmOptional = Optional.of(film);
 			}
 		} catch (SQLException e) {
+			log.error("SQLException while getting available films.");
 			throw new DaoException("SQLException while getting available films.", e);
+		} finally {
+			closeResultSet(findFilmResultSet);
 		}
 		return filmOptional;
 	}
@@ -225,6 +231,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting available films.");
 			throw new DaoException("SQLException while getting available films.", e);
 		}
 		return filmsList;
@@ -243,6 +250,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting active films.");
 			throw new DaoException("SQLException while getting active films.", e);
 		}
 		return filmsList;
@@ -262,6 +270,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by genre.");
 			throw new DaoException("SQLException while getting films by genre.", e);
 		}
 		return filmsList;
@@ -281,6 +290,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by genre.");
 			throw new DaoException("SQLException while getting films by genre.", e);
 		}
 		return filmsList;
@@ -300,6 +310,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by genre.");
 			throw new DaoException("SQLException while getting films by genre.", e);
 		}
 		return filmsList;
@@ -319,6 +330,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by genre.");
 			throw new DaoException("SQLException while getting films by genre.", e);
 		}
 		return filmsList;
@@ -338,6 +350,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by country.");
 			throw new DaoException("SQLException while getting films by country.", e);
 		}
 		return filmsList;
@@ -357,6 +370,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by country.");
 			throw new DaoException("SQLException while getting films by country.", e);
 		}
 		return filmsList;
@@ -376,6 +390,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by country.");
 			throw new DaoException("SQLException while getting films by country.", e);
 		}
 		return filmsList;
@@ -395,6 +410,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by country.");
 			throw new DaoException("SQLException while getting films by country.", e);
 		}
 		return filmsList;
@@ -414,6 +430,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by age.");
 			throw new DaoException("SQLException while getting films by age.", e);
 		}
 		return filmsList;
@@ -433,6 +450,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by age.");
 			throw new DaoException("SQLException while getting films by age.", e);
 		}
 		return filmsList;
@@ -452,6 +470,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by year.");
 			throw new DaoException("SQLException while getting films by year.", e);
 		}
 		return filmsList;
@@ -471,6 +490,7 @@ public class FilmDaoImpl implements FilmDao {
 			filmsList =
 							findFilmsListQuery(findFilmStatement, findCountriesStatement, findGenresStatement);
 		} catch (SQLException e) {
+			log.error("SQLException while getting films by year.");
 			throw new DaoException("SQLException while getting films by year.", e);
 		}
 		return filmsList;
@@ -488,6 +508,7 @@ public class FilmDaoImpl implements FilmDao {
 				genresList.add(genre);
 			}
 		} catch (SQLException e) {
+			log.error("SQLException while getting films genres.");
 			throw new DaoException("SQLException while getting films genres.", e);
 		} finally {
 			closeResultSet(findGenresResultSet);
@@ -508,6 +529,7 @@ public class FilmDaoImpl implements FilmDao {
 				genresMap.put(genreId, genre);
 			}
 		} catch (SQLException e) {
+			log.error("SQLException while getting films genres.");
 			throw new DaoException("SQLException while getting films genres.", e);
 		} finally {
 			closeResultSet(findGenresResultSet);
@@ -527,6 +549,7 @@ public class FilmDaoImpl implements FilmDao {
 				countriesList.add(country);
 			}
 		} catch (SQLException e) {
+			log.error("SQLException while getting films countries.");
 			throw new DaoException("SQLException while getting films countries.", e);
 		} finally {
 			closeResultSet(findCountriesResultSet);
@@ -548,6 +571,7 @@ public class FilmDaoImpl implements FilmDao {
 				countriesMap.put(countryId, country);
 			}
 		} catch (SQLException e) {
+			log.error("SQLException while getting films countries.");
 			throw new DaoException("SQLException while getting films countries.", e);
 		} finally {
 			closeResultSet(findCountriesResultSet);
@@ -567,7 +591,8 @@ public class FilmDaoImpl implements FilmDao {
 				agesList.add(age);
 			}
 		} catch (SQLException e) {
-			throw new DaoException("SQLException while getting film ages", e);
+			log.error("SQLException while getting film ages.");
+			throw new DaoException("SQLException while getting film ages.", e);
 		} finally {
 			closeResultSet(findAgesResultSet);
 		}
@@ -586,7 +611,8 @@ public class FilmDaoImpl implements FilmDao {
 				agesMap.put(age, age);
 			}
 		} catch (SQLException e) {
-			throw new DaoException("SQLException while getting film ages", e);
+			log.error("SQLException while getting film ages.");
+			throw new DaoException("SQLException while getting film ages.", e);
 		} finally {
 			closeResultSet(findAgesResultSet);
 		}
@@ -605,6 +631,7 @@ public class FilmDaoImpl implements FilmDao {
 				yearsList.add(year);
 			}
 		} catch (SQLException e) {
+			log.error("SQLException while getting films years.");
 			throw new DaoException("SQLException while getting films years.", e);
 		} finally {
 			closeResultSet(findYearsResultSet);
@@ -624,6 +651,7 @@ public class FilmDaoImpl implements FilmDao {
 				yearsMap.put(year, year);
 			}
 		} catch (SQLException e) {
+			log.error("SQLException while getting films years.");
 			throw new DaoException("SQLException while getting films years.", e);
 		} finally {
 			closeResultSet(findYearsResultSet);
@@ -645,6 +673,7 @@ public class FilmDaoImpl implements FilmDao {
 				titlesMap.put(filmId, title);
 			}
 		} catch (SQLException e) {
+			log.error("SQLException while getting films titles.");
 			throw new DaoException("SQLException while getting films titles.", e);
 		} finally {
 			closeResultSet(findTitlesResultSet);
@@ -672,11 +701,13 @@ public class FilmDaoImpl implements FilmDao {
 				filmOptional = findFilmById(film.getId());
 			} catch (SQLException e) {
 				connection.rollback();
+				log.error("Transaction while updating film failed; not committed.");
 				throw new DaoException("Transaction while updating film failed; not committed.", e);
 			} finally {
 				connection.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while updating film.");
 			throw new DaoException("SQL exception while updating film.", e);
 		}
 		return filmOptional;
@@ -700,11 +731,13 @@ public class FilmDaoImpl implements FilmDao {
 				result = true;
 			} catch (SQLException e) {
 				connection.rollback();
+				log.error("Transaction while film deletion failed; not committed.");
 				throw new DaoException("Transaction while film deletion failed; not committed.", e);
 			} finally {
 				connection.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while film deletion.");
 			throw new DaoException("SQL exception while film deletion.", e);
 		}
 		return result;
@@ -729,12 +762,14 @@ public class FilmDaoImpl implements FilmDao {
 				connection.commit();
 			} catch (SQLException e) {
 				connection.rollback();
-				throw new SQLException("Transaction while updating films_genres table failed; not "
-								+ "committed.", e);
+				log.error("Transaction while updating films_genres table failed; not committed.");
+				throw new SQLException(
+								"Transaction while updating films_genres table failed; not committed.", e);
 			} finally {
 				connection.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while updating films_genres table.");
 			throw new SQLException("SQL exception while updating films_genres table.", e);
 		}
 	}
@@ -758,12 +793,14 @@ public class FilmDaoImpl implements FilmDao {
 				connection.commit();
 			} catch (SQLException e) {
 				connection.rollback();
-				throw new SQLException("Transaction while updating films_countries table failed; not "
-								+ "committed.", e);
+				log.error("Transaction while updating films_countries table failed; not committed.");
+				throw new SQLException(
+								"Transaction while updating films_countries table failed; not committed.", e);
 			} finally {
 				connection.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while updating films_countries table.");
 			throw new SQLException("SQL exception while updating films_countries table.", e);
 		}
 	}
@@ -781,6 +818,7 @@ public class FilmDaoImpl implements FilmDao {
 				isTitleFree = true;
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while checking title.");
 			throw new DaoException("SQL exception while checking title.", e);
 		} finally {
 			closeResultSet(resultSet);
@@ -800,6 +838,7 @@ public class FilmDaoImpl implements FilmDao {
 				isTitleFree = true;
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while checking title.");
 			throw new DaoException("SQL exception while checking title.", e);
 		} finally {
 			closeResultSet(resultSet);
@@ -827,11 +866,13 @@ public class FilmDaoImpl implements FilmDao {
 				createFilmsCountries(film);
 				filmOptional = findFilmById(film.getId());
 			} catch (SQLException e) {
+				log.error("Film creation failed.");
 				throw new DaoException("Film creation failed.", e);
 			} finally {
 				closeResultSet(resultSet);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while creation film.");
 			throw new DaoException("SQL exception while creation film.", e);
 		}
 		return filmOptional;
@@ -852,12 +893,14 @@ public class FilmDaoImpl implements FilmDao {
 				connection.commit();
 			} catch (SQLException e) {
 				connection.rollback();
-				throw new SQLException("Transaction while updating films_genres table failed; not "
-								+ "committed.", e);
+				log.error("Transaction while updating films_genres table failed; not committed.");
+				throw new SQLException(
+								"Transaction while updating films_genres table failed; not committed.", e);
 			} finally {
 				connection.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while updating films_genres table.");
 			throw new SQLException("SQL exception while updating films_genres table.", e);
 		}
 	}
@@ -877,12 +920,14 @@ public class FilmDaoImpl implements FilmDao {
 				connection.commit();
 			} catch (SQLException e) {
 				connection.rollback();
-				throw new SQLException("Transaction while updating films_countries table failed; not "
-								+ "committed.", e);
+				log.error("Transaction while updating films_countries table failed; not committed.");
+				throw new SQLException(
+								"Transaction while updating films_countries table failed; not committed.", e);
 			} finally {
 				connection.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while updating films_countries table.");
 			throw new SQLException("SQL exception while updating films_countries table.", e);
 		}
 	}
@@ -899,9 +944,11 @@ public class FilmDaoImpl implements FilmDao {
 				updateImageStatement.execute();
 				filmOptional = findFilmById(filmId);
 			} catch (SQLException e) {
+				log.error("Image updating failed.");
 				throw new DaoException("Image updating failed.", e);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while image updating.");
 			throw new DaoException("SQL exception while image updating.", e);
 		}
 		return filmOptional;
@@ -918,9 +965,11 @@ public class FilmDaoImpl implements FilmDao {
 				createStatement.execute();
 				result = true;
 			} catch (SQLException e) {
+				log.error("Genre creation failed.");
 				throw new DaoException("Genre creation failed.", e);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while genre creation.");
 			throw new DaoException("SQL exception while genre creation.", e);
 		}
 		return result;
@@ -938,9 +987,11 @@ public class FilmDaoImpl implements FilmDao {
 				createStatement.execute();
 				result = true;
 			} catch (SQLException e) {
+				log.error("Genre updating failed.");
 				throw new DaoException("Genre updating failed.", e);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while genre updating.");
 			throw new DaoException("SQL exception while genre updating.", e);
 		}
 		return result;
@@ -958,6 +1009,7 @@ public class FilmDaoImpl implements FilmDao {
 				isGenreNameFree = true;
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while checking genre name.");
 			throw new DaoException("SQL exception while checking genre name.", e);
 		} finally {
 			closeResultSet(resultSet);
@@ -979,6 +1031,7 @@ public class FilmDaoImpl implements FilmDao {
 				isGenreNameFree = true;
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while checking genre name.");
 			throw new DaoException("SQL exception while checking genre name.", e);
 		} finally {
 			closeResultSet(resultSet);

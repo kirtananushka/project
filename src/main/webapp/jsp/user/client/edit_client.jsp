@@ -27,7 +27,7 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexstyle.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/indexstyle.css">
     <title>${title}</title>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script defer src="${pageContext.request.contextPath}js/checkValidationWhileClientUpdating.js"></script>

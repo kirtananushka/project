@@ -78,6 +78,7 @@ public class UserDaoImpl implements UserDao {
 			log.debug("User '{}' was found by the login '{}' and pass '{}'", userOptional.orElse(null),
 							login, password);
 		} catch (SQLException e) {
+			log.error("Exception while authentication.");
 			throw new DaoException("Exception while authentication.", e);
 		} finally {
 			closeResultSet(resultSet);
@@ -170,6 +171,7 @@ public class UserDaoImpl implements UserDao {
 			statement.execute();
 			isSet = true;
 		} catch (SQLException e) {
+			log.error("Exception while updating password.");
 			throw new DaoException("Exception while updating password.", e);
 		}
 		return isSet;
@@ -184,6 +186,7 @@ public class UserDaoImpl implements UserDao {
 			statement.execute();
 			isDeleted = true;
 		} catch (SQLException e) {
+			log.error("Exception while deleting user.");
 			throw new DaoException("Exception while deleting user.", e);
 		}
 		return isDeleted;

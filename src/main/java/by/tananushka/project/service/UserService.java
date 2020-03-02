@@ -90,4 +90,13 @@ public interface UserService {
 	 * @throws ServiceException the service exception
 	 */
 	boolean sendPassword(SessionContent content) throws ServiceException;
+
+	/**
+	 * Change password boolean.
+	 *
+	 * @param content the content
+	 * @return the boolean
+	 * @throws ServiceException the service exception
+	 */
+	boolean changePassword(SessionContent content) throws ServiceException;
 }

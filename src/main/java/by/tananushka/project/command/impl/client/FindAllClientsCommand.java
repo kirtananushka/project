@@ -12,6 +12,8 @@ import by.tananushka.project.service.ClientService;
 import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.util.PagesCalculator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +25,7 @@ public class FindAllClientsCommand implements Command {
 
 	private static final String FULL_URL =
 					"controller?command=find_all_clients&page=";
+	private static Logger log = LogManager.getLogger();
 	private ClientService clientService = ServiceProvider.getInstance().getClientService();
 	private PagesCalculator pagesCalculator = PagesCalculator.getInstance();
 
@@ -38,7 +41,13 @@ public class FindAllClientsCommand implements Command {
 			router.setPageToGo(PageName.ALL_CLIENTS_PAGE);
 			try {
 				List<Client> clientsList = clientService.findAllClients();
-				int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
+				String strPageNumber = content.getRequestParameter(ParamName.PARAM_PAGE);
+				int pageNumber = 1;
+				try {
+					pageNumber = Integer.parseInt(strPageNumber);
+				} catch (NumberFormatException e) {
+					log.info("Invalid page number: {}.", strPageNumber);
+				}
 				int clientsFrom = pagesCalculator.calculateItemsFrom(pageNumber);
 				int clientsNumber = clientsList.size();
 				int totalPages = pagesCalculator.calculateTotalPages(clientsNumber);

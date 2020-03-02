@@ -51,6 +51,7 @@ public class RegistrationCommand implements Command {
 		} catch (ServiceException e) {
 			log.error("Exception while registration.", e);
 		} catch (Exception e) {
+			log.error("Exception while registration.", e);
 			throw new CommandException("Exception while registration.", e);
 		}
 		router.setPageToGo(pageToGo);

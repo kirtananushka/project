@@ -22,6 +22,10 @@ public final class PageName {
 	 */
 	public static final String ALL_MANAGERS_PAGE = "admin/all_managers";
 	/**
+	 * The constant ALL_ORDERS_PAGE.
+	 */
+	public static final String ALL_ORDERS_PAGE = "manager/all_orders";
+	/**
 	 * The constant ALL_USERS_PAGE.
 	 */
 	public static final String ALL_USERS_PAGE = "admin/all_users";
@@ -41,6 +45,14 @@ public final class PageName {
 	 * The constant BUY_TICKETS_PAGE.
 	 */
 	public static final String BUY_TICKETS_PAGE = "client/buy_tickets";
+	/**
+	 * The constant CHANGE_PASS_PAGE.
+	 */
+	public static final String CHANGE_PASS_PAGE = "user/change_password";
+	/**
+	 * The constant CLIENT_ORDERS_PAGE.
+	 */
+	public static final String CLIENT_ORDERS_PAGE = "client/client_orders";
 	/**
 	 * The constant CLIENTS_PAGE.
 	 */
@@ -217,6 +229,10 @@ public final class PageName {
 	 * The constant USER_PROFILE_PAGE.
 	 */
 	public static final String USER_PROFILE_PAGE = "user/user_profile";
+	/**
+	 * The constant USER_CONTROLLER.
+	 */
+	public static final String USER_CONTROLLER = "/user/controller";
 	/**
 	 * The constant VIEW_CLIENT_UPDATED_PAGE.
 	 */

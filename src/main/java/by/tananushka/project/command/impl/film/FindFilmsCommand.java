@@ -69,7 +69,13 @@ public class FindFilmsCommand implements Command {
 					itemMap = filmService.findGenresMap();
 					paramSelect = ParamName.PARAM_GENRE;
 			}
-			int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
+			String strPageNumber = content.getRequestParameter(ParamName.PARAM_PAGE);
+			int pageNumber = 1;
+			try {
+				pageNumber = Integer.parseInt(strPageNumber);
+			} catch (NumberFormatException e) {
+				log.info("Invalid page number: {}.", strPageNumber);
+			}
 			int filmsFrom = pagesCalculator.calculateItemsFrom(pageNumber);
 			int filmsNumber = filmsList.size();
 			int totalPages = pagesCalculator.calculateTotalPages(filmsNumber);

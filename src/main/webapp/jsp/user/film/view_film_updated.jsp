@@ -15,7 +15,7 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexstyle.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/indexstyle.css">
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script defer src="${pageContext.request.contextPath}js/checkUploadImage.js"></script>
     <title>${title}</title>

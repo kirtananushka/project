@@ -16,7 +16,7 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexstyle.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/indexstyle.css">
     <title>${title}</title>
     <script defer src="${pageContext.request.contextPath}/js/checkValidationAuth.js"></script>
 </head>

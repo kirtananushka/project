@@ -4,6 +4,7 @@ import by.tananushka.project.bean.Client;
 import by.tananushka.project.bean.Show;
 import by.tananushka.project.bean.TicketOrder;
 import by.tananushka.project.bean.User;
+import by.tananushka.project.bean.UserRole;
 import by.tananushka.project.command.ErrorMessageKey;
 import by.tananushka.project.controller.ParamName;
 import by.tananushka.project.controller.SessionContent;
@@ -17,11 +18,14 @@ import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.ShowService;
 import by.tananushka.project.service.validation.FilmDataValidator;
 import by.tananushka.project.service.validation.OrderDataValidator;
+import by.tananushka.project.service.validation.UserDataValidator;
 import by.tananushka.project.util.EmailSender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -110,5 +114,52 @@ public class OrderServiceImpl implements OrderService {
 			throw new ServiceException("Exception while getting order by ID.", e);
 		}
 		return Optional.empty();
+	}
+
+	@Override
+	public List<TicketOrder> findOrdersByClientId(SessionContent content) throws ServiceException {
+		List<TicketOrder> ordersList = new ArrayList<>();
+		User user = (User) content.getSessionAttribute(ParamName.PARAM_USER_AUTHORIZATED);
+		if (user != null && user.getRole().equals(UserRole.CLIENT)) {
+			int clientId = user.getId();
+			try {
+				ordersList = orderDao.findOrdersByClientId(clientId);
+			} catch (DaoException e) {
+				log.error("Exception while finding orders by client ID.");
+				throw new ServiceException("Exception while finding orders by client ID.", e);
+			}
+		}
+		return ordersList;
+	}
+
+	@Override
+	public List<TicketOrder> findOrdersByClientId(SessionContent content, String strClientId)
+					throws ServiceException {
+		List<TicketOrder> ordersList = new ArrayList<>();
+		UserDataValidator userValidator = UserDataValidator.getInstance();
+		int clientId = 0;
+		if (userValidator.checkId(strClientId)) {
+			clientId = Integer.parseInt(strClientId);
+			content.assignSessionAttribute(ParamName.PARAM_CLIENT_ID_FOR_ORDER, clientId);
+			try {
+				ordersList = orderDao.findOrdersByClientId(clientId);
+			} catch (DaoException e) {
+				log.error("Exception while finding orders by client ID.");
+				throw new ServiceException("Exception while finding orders by client ID.", e);
+			}
+		}
+		return ordersList;
+	}
+
+	@Override
+	public List<TicketOrder> findAllOrders() throws ServiceException {
+		List<TicketOrder> ordersList;
+		try {
+			ordersList = orderDao.findAllOrders();
+		} catch (DaoException e) {
+			log.error("Exception while finding orders.");
+			throw new ServiceException("Exception while finding orders.", e);
+		}
+		return ordersList;
 	}
 }

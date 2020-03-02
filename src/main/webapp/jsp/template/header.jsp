@@ -28,6 +28,7 @@
 <fmt:message key="managers.active" bundle="${resourceBundle}" var="managersActive"/>
 <fmt:message key="managers.all" bundle="${resourceBundle}" var="managersAll"/>
 <fmt:message key="users" bundle="${resourceBundle}" var="users"/>
+<fmt:message key="all.orders" bundle="${resourceBundle}" var="allOrders"/>
 
 <div class="header">
     <div class="locale">
@@ -116,7 +117,21 @@
             controller?command=find_all_users&page=1">${users}</a>
             </li>
         </c:if>
+
+        <c:if test="${sessionScope.userAuthorizated.role eq 'CLIENT'}">
+            <li><a href="${pageContext.request.contextPath}
+            controller?command=client_orders&page=1">${allOrders}</a>
+            </li>
+        </c:if>
+
+        <c:if test="${sessionScope.userAuthorizated.role eq 'ADMIN' or sessionScope.userAuthorizated.role eq 'MANAGER'}">
+            <li><a href="${pageContext.request.contextPath}
+            controller?command=all_orders&page=1">${allOrders}</a>
+            </li>
+        </c:if>
+
         <li><a href="${pageContext.request.contextPath}send_message">${sendMessage}</a></li>
+
     </ul>
     <ctg:menu-right/>
 </div>

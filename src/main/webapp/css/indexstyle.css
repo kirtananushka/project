@@ -39,6 +39,7 @@ body {
     font-family: 'Roboto', serif;
     font-weight: 300;
     font-size: 1.25em;
+    min-width: 1300px;
     background: white;
     background: linear-gradient(to right, #eff5fa, #ecf0f4, #e0e5eb, #dce2e9, #e0e5eb, #ecf0f4, #eff5fa);
 
@@ -99,6 +100,10 @@ div.margin-top-40 {
     margin-top: 40px;
 }
 
+.margins0 {
+    margin: 0;
+}
+
 div.red {
     border: 1px solid red;
 }
@@ -143,6 +148,10 @@ div.displayBlock {
 }
 
 div.width50 {
+    width: 50%;
+}
+
+.width50 {
     width: 50%;
 }
 
@@ -738,6 +747,10 @@ form.authentication input.button {
     align-self: center;
 }
 
+.display-inline {
+    display: inline-block;
+}
+
 /*tables*/
 
 .edit {
@@ -845,6 +858,11 @@ td.middle-center {
     text-align: center;
 }
 
+td.middle-right {
+    vertical-align: middle !important;
+    text-align: right;
+}
+
 td.middle-left {
     vertical-align: middle !important;
     text-align: left;
@@ -874,6 +892,10 @@ table.table-view input {
 
 .width15 {
     width: 15%;
+}
+
+.fontsize1 {
+    font-size: 1em;
 }
 
 /*pagination*/

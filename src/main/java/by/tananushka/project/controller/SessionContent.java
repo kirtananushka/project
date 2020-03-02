@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * The type Session content.
@@ -38,7 +37,7 @@ public class SessionContent {
 		requestParameters = new HashMap<>(request.getParameterMap());
 		HttpSession session = request.getSession(false);
 		sessionAttributes = new HashMap<>();
-		if (Objects.nonNull(session)) {
+		if (session != null) {
 			Enumeration<String> sessionAttributesNames = session.getAttributeNames();
 			for (String name : Collections.list(sessionAttributesNames)) {
 				sessionAttributes.put(name, session.getAttribute(name));
@@ -58,7 +57,7 @@ public class SessionContent {
 			request.setAttribute(name, o);
 		}
 		HttpSession session = request.getSession(false);
-		if (Objects.nonNull(session)) {
+		if (session != null) {
 			for (Map.Entry<String, Object> entry : sessionAttributes.entrySet()) {
 				String key = entry.getKey();
 				Object value = entry.getValue();

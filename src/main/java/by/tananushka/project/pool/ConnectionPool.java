@@ -90,8 +90,10 @@ public class ConnectionPool {
 			createConnections(poolSize);
 			checkConnectionsNumber();
 		} catch (SQLException e) {
+			log.fatal("SQL exception while connection pool initialization.");
 			throw new ConnectionPoolException("SQL exception while connection pool initialization.", e);
 		} catch (ClassNotFoundException e) {
+			log.fatal("Database driver class is not found.");
 			throw new ConnectionPoolException("Database driver class is not found.", e);
 		}
 	}
@@ -208,12 +210,15 @@ public class ConnectionPool {
 		public void close() throws SQLException {
 			checkConnectionsNumber();
 			if (connection == null) {
+				log.error("Attempt to close the null connection.");
 				throw new SQLException("Attempt to close the null connection.");
 			}
 			if (connection.isClosed()) {
+				log.error("Attempt to close the closed connection.");
 				throw new SQLException("Attempt to close the closed connection.");
 			}
 			if (!(this instanceof ProxyConnection)) {
+				log.error("Attempt to put connection, which was created outside the pool.");
 				throw new SQLException("Attempt to put connection, which was created outside the pool.");
 			}
 			if (connection.isReadOnly()) {
@@ -221,10 +226,12 @@ public class ConnectionPool {
 			}
 			this.setAutoCommit(true);
 			if (!givenConnectionQueue.remove(this)) {
+				log.error("Exception while deletion connection from the pool of given connections.");
 				throw new SQLException("Exception while deletion connection "
 								+ "from the pool of given connections.");
 			}
 			if (!freeConnectionQueue.offer(this)) {
+				log.error("Exception while placing connection in the pool.");
 				throw new SQLException("Exception while placing connection in the pool.");
 			}
 			checkConnectionsNumber();

@@ -15,6 +15,7 @@
 <fmt:message key="form.back" bundle="${resourceBundle}" var="ok"/>
 <fmt:message key="form.edit" bundle="${resourceBundle}" var="register"/>
 <fmt:message key="form.delete" bundle="${resourceBundle}" var="delete"/>
+<fmt:message key="change.password.but" bundle="${resourceBundle}" var="changePass"/>
 
 <html>
 <body>
@@ -98,15 +99,27 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="centerOnly">
-                            <form id="delForm" name="delForm" class="authentication registration del-form"
-                                  action="${pageContext.request.contextPath}controller"
-                                  method="post">
-                                <input type="hidden" name="command" value="delete_user">
-                                <input type="hidden" name="id" value="${sessionScope.userObj.id}">
-                                <input class="button" id="submitDelete" name="submit" type="submit" value=${delete}>
-                            </form>
-                        </div>
+                        <table class="width100 fontsize1">
+                            <tr>
+                                <td class="middle-center">
+                                    <form id="chPassForm" name="chPassForm" class="registration display-inline"
+                                          action="${pageContext.request.contextPath}controller"
+                                          method="post">
+                                        <input type="hidden" name="command" value="prepare_change_password">
+                                        <input class="button" id="chPass" name="submit" type="submit"
+                                               value=${changePass}>
+                                    </form>
+                                    <form id="delForm" name="delForm" class="registration display-inline"
+                                          action="${pageContext.request.contextPath}controller"
+                                          method="post">
+                                        <input type="hidden" name="command" value="delete_user">
+                                        <input type="hidden" name="id" value="${sessionScope.userObj.id}">
+                                        <input class="button" id="submitDelete" name="submit" type="submit"
+                                               value=${delete}>
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
             </table>
@@ -117,7 +130,7 @@
 
 </body>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexstyle.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/indexstyle.css">
     <title>${title}</title>
 </head>
 </html>

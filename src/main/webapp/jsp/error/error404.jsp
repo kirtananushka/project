@@ -9,7 +9,7 @@
 <fmt:message key="form.goto.main" bundle="${resourceBundle}" var="toMain"/>
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexstyle.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/indexstyle.css">
     <title>${title}</title>
 </head>
 <body>

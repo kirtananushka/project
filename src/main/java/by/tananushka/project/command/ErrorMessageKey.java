@@ -86,6 +86,14 @@ public class ErrorMessageKey {
 	 */
 	public static final String INVALID_PASS = "invalid.password";
 	/**
+	 * The constant INVALID_OLD_PASS.
+	 */
+	public static final String INVALID_OLD_PASS = "invalid.old.password";
+	/**
+	 * The constant INVALID_NEW_PASS.
+	 */
+	public static final String INVALID_NEW_PASS = "invalid.new.password";
+	/**
 	 * The constant INVALID_PHONE.
 	 */
 	public static final String INVALID_PHONE = "invalid.phone";

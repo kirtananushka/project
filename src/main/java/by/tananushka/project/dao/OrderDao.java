@@ -2,6 +2,7 @@ package by.tananushka.project.dao;
 
 import by.tananushka.project.bean.TicketOrder;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,4 +27,21 @@ public interface OrderDao extends AbstractDao {
 	 * @throws DaoException the dao exception
 	 */
 	Optional<TicketOrder> findOrderById(int orderId) throws DaoException;
+
+	/**
+	 * Find orders by client id list.
+	 *
+	 * @param clientId the client id
+	 * @return the list
+	 * @throws DaoException the dao exception
+	 */
+	List<TicketOrder> findOrdersByClientId(int clientId) throws DaoException;
+
+	/**
+	 * Find all orders list.
+	 *
+	 * @return the list
+	 * @throws DaoException the dao exception
+	 */
+	List<TicketOrder> findAllOrders() throws DaoException;
 }

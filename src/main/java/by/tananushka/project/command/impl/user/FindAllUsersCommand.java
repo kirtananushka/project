@@ -12,6 +12,8 @@ import by.tananushka.project.service.ServiceException;
 import by.tananushka.project.service.ServiceProvider;
 import by.tananushka.project.service.UserService;
 import by.tananushka.project.util.PagesCalculator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +26,7 @@ public class FindAllUsersCommand implements Command {
 
 	private static final String FULL_URL =
 					"controller?command=find_all_users&page=";
+	private static Logger log = LogManager.getLogger();
 	private UserService userService = ServiceProvider.getInstance().getUserService();
 	private PagesCalculator pagesCalculator = PagesCalculator.getInstance();
 
@@ -41,7 +44,13 @@ public class FindAllUsersCommand implements Command {
 								usersInitialList.stream()
 								                .flatMap(Collection::stream)
 								                .collect(Collectors.toList());
-				int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
+				String strPageNumber = content.getRequestParameter(ParamName.PARAM_PAGE);
+				int pageNumber = 1;
+				try {
+					pageNumber = Integer.parseInt(strPageNumber);
+				} catch (NumberFormatException e) {
+					log.info("Invalid page number: {}.", strPageNumber);
+				}
 				int usersFrom = pagesCalculator.calculateItemsFrom(pageNumber);
 				int usersNumber = usersList.size();
 				int totalPages = pagesCalculator.calculateTotalPages(usersNumber);

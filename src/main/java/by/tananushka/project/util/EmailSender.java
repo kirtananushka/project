@@ -194,7 +194,7 @@ public class EmailSender {
 		String cinemaName = order.getShow().getCinemaName();
 		String filmTitle = order.getShow().getFilm().getTitle();
 		int ticketsNumber = order.getTicketsNumber();
-		BigDecimal totalCost = order.getTicketCost();
+		BigDecimal totalCost = order.getTicketCost().multiply(new BigDecimal(ticketsNumber));
 		DecimalFormat df = new DecimalFormat(DECIMAL_PATTERN);
 		String strTotalCost = df.format(totalCost);
 		String messageText = String.format(message, orderNumber, orderDate, orderDate, orderDate,

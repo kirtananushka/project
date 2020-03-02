@@ -18,10 +18,11 @@
 <fmt:message key="registration.date.short" bundle="${resourceBundle}" var="registrationDate"/>
 <fmt:message key="form.edit" bundle="${resourceBundle}" var="edit"/>
 <fmt:message key="user.role" bundle="${resourceBundle}" var="role"/>
+<fmt:message key="all.orders" bundle="${resourceBundle}" var="orders"/>
 
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexstyle.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/indexstyle.css">
     <title>${title}</title>
 </head>
 <body>
@@ -150,6 +151,10 @@
                                 <a class="button"
                                    href="${pageContext.request.contextPath}
                                        /controller?command=edit_client&id=${client.id}">${edit}</a>
+                                <a class="button"
+                                   href="${pageContext.request.contextPath}
+                                   /controller?command=single_client_orders&id=${client.id}&page=1">${orders}</a>
+                            </td>
                             </td>
                         </tr>
                         <tr>

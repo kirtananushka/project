@@ -15,7 +15,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 import java.util.TimeZone;
 
@@ -30,6 +32,14 @@ public class OrderDaoImpl implements OrderDao {
 	private static final String FIND_ORDER_BY_ID =
 					"SELECT order_id, client_id_fk, films_shows_id_fk, ticket_cost, tickets_num, ordering_date\n"
 									+ "FROM orders WHERE order_id = ?;";
+	private static final String FIND_ORDERS_BY_CLIENT_ID =
+					"SELECT order_id, client_id_fk, films_shows_id_fk, orders.ticket_cost, tickets_num,\n"
+									+ "ordering_date FROM orders INNER JOIN films_shows\n"
+									+ "ON films_shows_id_fk = films_shows_id\n"
+									+ "WHERE client_id_fk = ? ORDER BY show_date_time;";
+	private static final String FIND_ALL_ORDERS =
+					"SELECT order_id, client_id_fk, films_shows_id_fk, orders.ticket_cost, tickets_num,\n"
+									+ "ordering_date FROM orders;";
 	private static final String UPDATE_PLACES =
 					"UPDATE films_shows SET show_free_places = show_free_places - ?\n"
 									+ "WHERE films_shows_id = ?;";
@@ -62,7 +72,6 @@ public class OrderDaoImpl implements OrderDao {
 				createOrderStatement.setInt(1, order.getClient().getId());
 				createOrderStatement.setInt(2, order.getShow().getId());
 				createOrderStatement.setBigDecimal(3, order.getShow().getCost());
-				log.debug("Ticket number: {}", order.getTicketsNumber());
 				createOrderStatement.setInt(4, order.getTicketsNumber());
 				createOrderStatement.execute();
 				resultSet = createOrderStatement.getGeneratedKeys();
@@ -107,10 +116,50 @@ public class OrderDaoImpl implements OrderDao {
 		return orderOptional;
 	}
 
+	@Override
+	public List<TicketOrder> findOrdersByClientId(int clientId) throws DaoException {
+		List<TicketOrder> ordersList = new ArrayList<>();
+		ResultSet resultSet = null;
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+		     PreparedStatement findOrdersStatement = connection.prepareStatement(
+						     FIND_ORDERS_BY_CLIENT_ID)) {
+			findOrdersStatement.setInt(1, clientId);
+			resultSet = findOrdersStatement.executeQuery();
+			while (resultSet.next()) {
+				TicketOrder order = findOrderQuery(resultSet);
+				ordersList.add(order);
+			}
+		} catch (SQLException e) {
+			throw new DaoException("SQLException while getting orders by client ID.", e);
+		} finally {
+			closeResultSet(resultSet);
+		}
+		return ordersList;
+	}
+
+	@Override
+	public List<TicketOrder> findAllOrders() throws DaoException {
+		List<TicketOrder> ordersList = new ArrayList<>();
+		ResultSet resultSet = null;
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+		     PreparedStatement findOrdersStatement = connection.prepareStatement(
+						     FIND_ALL_ORDERS)) {
+			resultSet = findOrdersStatement.executeQuery();
+			while (resultSet.next()) {
+				TicketOrder order = findOrderQuery(resultSet);
+				ordersList.add(order);
+			}
+		} catch (SQLException e) {
+			throw new DaoException("SQLException while getting all orders.", e);
+		} finally {
+			closeResultSet(resultSet);
+		}
+		return ordersList;
+	}
+
 	private TicketOrder findOrderQuery(ResultSet findOrderResultSet)
 					throws SQLException, DaoException {
-		TicketOrder order;
-		order = new TicketOrder();
+		TicketOrder order = new TicketOrder();
 		order.setId(findOrderResultSet.getInt(SqlColumnsName.ORDER_ID));
 		int clientId = findOrderResultSet.getInt(SqlColumnsName.CLIENT_ID_FK);
 		Client client = new Client();

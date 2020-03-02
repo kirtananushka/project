@@ -21,6 +21,10 @@ public enum CommandName {
 	 */
 	ADD_SHOW,
 	/**
+	 * All orders command name.
+	 */
+	ALL_ORDERS,
+	/**
 	 * Appoint manager command name.
 	 */
 	APPOINT_MANAGER,
@@ -33,9 +37,17 @@ public enum CommandName {
 	 */
 	BUY_TICKETS,
 	/**
+	 * Change password command name.
+	 */
+	CHANGE_PASSWORD,
+	/**
 	 * Change locale command name.
 	 */
 	CHANGE_LOCALE,
+	/**
+	 * Client orders command name.
+	 */
+	CLIENT_ORDERS,
 	/**
 	 * Create cinema command name.
 	 */
@@ -149,6 +161,10 @@ public enum CommandName {
 	 */
 	NO_SUCH_COMMAND,
 	/**
+	 * Prepare change password command name.
+	 */
+	PREPARE_CHANGE_PASSWORD,
+	/**
 	 * Prepare cinema update command name.
 	 */
 	PREPARE_CINEMA_UPDATE,
@@ -180,6 +196,10 @@ public enum CommandName {
 	 * Return cinema command name.
 	 */
 	RETURN_CINEMA,
+	/**
+	 * Single client orders command name.
+	 */
+	SINGLE_CLIENT_ORDERS,
 	/**
 	 * Send message command name.
 	 */
@@ -220,6 +240,10 @@ public enum CommandName {
 	 * Update manager command name.
 	 */
 	UPDATE_MANAGER,
+	/**
+	 * Update password command name.
+	 */
+	UPDATE_PASSWORD,
 	/**
 	 * Update profile command name.
 	 */

@@ -57,7 +57,13 @@ public class FindShowsCommand implements Command {
 			                                     .map(d -> dateParser.formatDate(d))
 			                                     .collect(Collectors.toList());
 			Map<Integer, String> cinemasMap = showService.findCinemas();
-			int pageNumber = Integer.parseInt(content.getRequestParameter(ParamName.PARAM_PAGE));
+			String strPageNumber = content.getRequestParameter(ParamName.PARAM_PAGE);
+			int pageNumber = 1;
+			try {
+				pageNumber = Integer.parseInt(strPageNumber);
+			} catch (NumberFormatException e) {
+				log.info("Invalid page number: {}.", strPageNumber);
+			}
 			int showsFrom = pageNumber - pagesCalculator.getSingleItemsPerPage();
 			int totalPages = showsMap.size();
 			List<String> cinemaNames = new ArrayList<>(showsMap.keySet())

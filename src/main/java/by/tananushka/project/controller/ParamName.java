@@ -46,6 +46,10 @@ public final class ParamName {
 	 */
 	public static final String PARAM_CLIENT_ID = "id";
 	/**
+	 * The constant PARAM_CLIENT_ID_FOR_ORDER.
+	 */
+	public static final String PARAM_CLIENT_ID_FOR_ORDER = "clientId";
+	/**
 	 * The constant PARAM_CLIENT_UPD.
 	 */
 	public static final String PARAM_CLIENT_UPD = "clientUpd";
@@ -414,6 +418,10 @@ public final class ParamName {
 	 */
 	public static final String PARAM_ORDER_OBJ = "orderObj";
 	/**
+	 * The constant PARAM_ORDERS_LIST.
+	 */
+	public static final String PARAM_ORDERS_LIST = "ordersList";
+	/**
 	 * The constant PARAM_PAGE.
 	 */
 	public static final String PARAM_PAGE = "page";
@@ -433,6 +441,14 @@ public final class ParamName {
 	 * The constant PARAM_PASS.
 	 */
 	public static final String PARAM_PASS = "password";
+	/**
+	 * The constant PARAM_NEW_PASS.
+	 */
+	public static final String PARAM_NEW_PASS = "newPassword";
+	/**
+	 * The constant PARAM_OLD_PASS.
+	 */
+	public static final String PARAM_OLD_PASS = "oldPassword";
 	/**
 	 * The constant PARAM_PASS_DEFAULT.
 	 */

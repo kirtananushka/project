@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userOptional = userDao.authentication(login, password);
 		} catch (DaoException e) {
+			log.error("Exception while authentication.");
 			throw new ServiceException("Exception while authentication.", e);
 		}
 		return userOptional;
@@ -114,6 +115,7 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 		} catch (DaoException e) {
+			log.error("Exception while finding user by ID.");
 			throw new ServiceException("Exception while finding user by ID.", e);
 		}
 		return userOptional;
@@ -125,7 +127,8 @@ public class UserServiceImpl implements UserService {
 		try {
 			usersList = userDao.findAllUsers();
 		} catch (DaoException e) {
-			throw new ServiceException("Exception while getting all users", e);
+			log.error("Exception while getting all users.");
+			throw new ServiceException("Exception while getting all users.", e);
 		}
 		return usersList;
 	}
@@ -188,7 +191,8 @@ public class UserServiceImpl implements UserService {
 			}
 		} else {
 			content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_USER_MESSAGE, errorsList);
-			throw new ServiceException("Invalid parameter(s)");
+			log.info("Invalid parameter(s).");
+			throw new ServiceException("Invalid parameter(s).");
 		}
 		content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_USER_MESSAGE, errorsList);
 		return userOptional;
@@ -212,10 +216,12 @@ public class UserServiceImpl implements UserService {
 			try {
 				isDeleted = userDao.deleteUser(userId);
 			} catch (DaoException e) {
-				throw new ServiceException("Exeption while user deletion.", e);
+				log.error("Exception while user deletion.");
+				throw new ServiceException("Exception while user deletion.", e);
 			}
 		} else {
 			content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_USER_MESSAGE, errorsList);
+			log.info("Invalid parameter(s).");
 			throw new ServiceException("Invalid parameter(s).");
 		}
 		return isDeleted;
@@ -225,11 +231,13 @@ public class UserServiceImpl implements UserService {
 	public boolean emailConfirmation(int userId) throws ServiceException {
 		boolean isConfirmationSuccessful;
 		if (userId <= 0) {
+			log.info("User ID is invalid.");
 			throw new ServiceException("User ID is invalid.");
 		}
 		try {
 			isConfirmationSuccessful = userDao.emailConfirmation(userId);
 		} catch (DaoException e) {
+			log.error("Exception while email confirmation.");
 			throw new ServiceException("Exception while email confirmation.", e);
 		}
 		return isConfirmationSuccessful;
@@ -302,8 +310,57 @@ public class UserServiceImpl implements UserService {
 								ErrorMessageKey.INCORRECT_DATA);
 			}
 		} catch (DaoException e) {
-			throw new ServiceException("Exception while setting new password.", e);
+			log.error("Exception while setting new password.");
+			throw new ServiceException("", e);
 		}
 		return isOperationSuccessful;
+	}
+
+	@Override
+	public boolean changePassword(SessionContent content) throws ServiceException {
+		boolean isParameterValid = true;
+		boolean isChanged = false;
+		List<String> errorsList = new ArrayList<>();
+		content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, null);
+		User user = (User) content.getSessionAttribute(ParamName.PARAM_USER_AUTHORIZATED);
+		String login = null;
+		if (user != null) {
+			login = user.getLogin();
+		}
+		if (!validator.checkLogin(login)) {
+			errorsList.add(ErrorMessageKey.INVALID_LOGIN);
+			isParameterValid = false;
+		}
+		String oldPassword = content.getRequestParameter(ParamName.PARAM_OLD_PASS).strip();
+		if (!validator.checkPassword(oldPassword)) {
+			errorsList.add(ErrorMessageKey.INVALID_OLD_PASS);
+			isParameterValid = false;
+		}
+		String newPassword = content.getRequestParameter(ParamName.PARAM_NEW_PASS).strip();
+		if (!validator.checkPassword(newPassword)) {
+			errorsList.add(ErrorMessageKey.INVALID_NEW_PASS);
+			isParameterValid = false;
+		}
+		String passwordRepeated = content.getRequestParameter(ParamName.PARAM_PASS_REPEATED).strip();
+		if (!newPassword.equals(passwordRepeated)) {
+			errorsList.add(ErrorMessageKey.PASS_NOT_EQUAL);
+			isParameterValid = false;
+		}
+		if (isParameterValid) {
+			try {
+				Optional<User> userOptional = userDao.authentication(login, oldPassword);
+				if (userOptional.isPresent()) {
+					isChanged = userDao.setNewPassword(login, newPassword);
+				}
+			} catch (DaoException e) {
+				log.error("Exception while password changing.");
+				throw new ServiceException("Exception while password changing.", e);
+			}
+		} else {
+			content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, errorsList);
+			log.info("Invalid parameter(s).");
+			throw new ServiceException("Invalid parameter(s).");
+		}
+		return isChanged;
 	}
 }

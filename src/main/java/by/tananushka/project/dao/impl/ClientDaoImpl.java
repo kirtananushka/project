@@ -104,11 +104,13 @@ public class ClientDaoImpl implements ClientDao {
 				log.debug("A new client was created: {}.", client);
 			} catch (SQLException e) {
 				connection.rollback();
+				log.error("Transaction failed; not committed.");
 				throw new DaoException("Transaction failed; not committed.", e);
 			} finally {
 				connection.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while registration.");
 			throw new DaoException("SQL exception while registration.", e);
 		} finally {
 			closeResultSet(resultSet);
@@ -138,11 +140,13 @@ public class ClientDaoImpl implements ClientDao {
 				connection.commit();
 			} catch (SQLException e) {
 				connection.rollback();
+				log.error("Transaction failed; not committed.");
 				throw new DaoException("Transaction failed; not committed.", e);
 			} finally {
 				connection.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while client updating.");
 			throw new DaoException("SQL exception while client updating.", e);
 		}
 		clientOptional = findClientById(client.getId());
@@ -160,6 +164,7 @@ public class ClientDaoImpl implements ClientDao {
 				clientList.add(clientSetter(resultSet));
 			}
 		} catch (SQLException e) {
+			log.error("Exception while getting active clients.");
 			throw new DaoException("Exception while getting active clients.", e);
 		} finally {
 			closeResultSet(resultSet);
@@ -178,6 +183,7 @@ public class ClientDaoImpl implements ClientDao {
 				clientList.add(clientSetter(resultSet));
 			}
 		} catch (SQLException e) {
+			log.error("Exception while getting all clients.");
 			throw new DaoException("Exception while getting all clients.", e);
 		} finally {
 			closeResultSet(resultSet);
@@ -197,7 +203,8 @@ public class ClientDaoImpl implements ClientDao {
 				clientOptional = Optional.of(clientSetter(resultSet));
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Exception while getting client by Id.", e);
+			log.error("Exception while getting client by ID.");
+			throw new DaoException("Exception while getting client by ID.", e);
 		} finally {
 			closeResultSet(resultSet);
 		}
@@ -216,6 +223,7 @@ public class ClientDaoImpl implements ClientDao {
 				isLoginFree = true;
 			}
 		} catch (SQLException e) {
+			log.error("SQL exception while checking login.");
 			throw new DaoException("SQL exception while checking login.", e);
 		} finally {
 			closeResultSet(resultSet);

@@ -46,6 +46,7 @@ public class ClientServiceImpl implements ClientService {
 		try {
 			clientsList = clientDao.findActiveClients();
 		} catch (DaoException e) {
+			log.error("Exception while getting active clients");
 			throw new ServiceException("Exception while getting active clients", e);
 		}
 		return clientsList;
@@ -57,7 +58,8 @@ public class ClientServiceImpl implements ClientService {
 		try {
 			clientsList = clientDao.findAllClients();
 		} catch (DaoException e) {
-			throw new ServiceException("Exception while getting all clients", e);
+			log.error("Exception while getting all clients.");
+			throw new ServiceException("Exception while getting all clients.", e);
 		}
 		return clientsList;
 	}
@@ -79,6 +81,7 @@ public class ClientServiceImpl implements ClientService {
 		try {
 			clientOptional = clientDao.findClientById(clientId);
 		} catch (DaoException e) {
+			log.error("Exception while finding client by ID.");
 			throw new ServiceException("Exception while finding client by ID.", e);
 		}
 		return clientOptional;
@@ -146,7 +149,8 @@ public class ClientServiceImpl implements ClientService {
 			client.setPhone(phone);
 		} else {
 			content.assignSessionAttribute(ParamName.PARAM_ERR_REG_MESSAGE, errorsList);
-			throw new ServiceException("Invalid parameter(s)");
+			log.info("Invalid parameter(s)");
+			throw new ServiceException("Invalid parameter(s).");
 		}
 		try {
 			clientOptional = clientDao.createClient(client);
@@ -205,7 +209,8 @@ public class ClientServiceImpl implements ClientService {
 			clientOptional = Optional.of(client);
 		} else {
 			content.assignSessionAttribute(ParamName.PARAM_ERR_UPDATE_CLIENT_MESSAGE, errorsList);
-			throw new ServiceException("Invalid parameter(s)");
+			log.info("Invalid parameter(s).");
+			throw new ServiceException("Invalid parameter(s).");
 		}
 		try {
 			clientOptional = clientDao.updateClient(clientOptional.get());
@@ -222,7 +227,8 @@ public class ClientServiceImpl implements ClientService {
 		try {
 			isLoginFree = clientDao.checkLogin(login);
 		} catch (DaoException e) {
-			throw new ServiceException(e);
+			log.error("Exception while checking login.");
+			throw new ServiceException("Exception while checking login.", e);
 		}
 		return isLoginFree;
 	}
