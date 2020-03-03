@@ -1,4 +1,4 @@
-# The "Tickets" project.
+# The «Cinema tickets» project.
 The project «Cinema tickets» is a website, designed to sell tickets to cinemas via the Internet.<br>
 Implemented the ability to select interface language between English and Russian.<br>
 Four roles are implemented: guest, client, manager, administrator.<br>
