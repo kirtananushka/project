@@ -14,4 +14,5 @@ The user has a personal account, in which he can view and change his data. Also,
 After entering the site, the client can view a list of films and shows, order the ticket (tickets). If there are no free places, the purchase opportunity is blocked. Payment is made by credit card. After payment, the ticket is sent to the e-mail, specified at registration. The client has the ability to view a list of his orders.<br>
 When viewing a list of films, you can search by genre, country, year, age restrictions.<br>
 When viewing shows, you can search by cinemas and show date.<br>
-When adding or editing a film or a show, the manager or administrator uses the same categories. Also, the film or the show can be deleted.
+When adding or editing a film or a show, the manager or administrator uses the same categories, as well as the ticket cost, and the number of seats. Also, the
+ film or the show can be deleted.
