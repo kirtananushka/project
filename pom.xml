@@ -11,7 +11,7 @@
 
     <properties>
         <jdk-version>11</jdk-version>
-        <log4j-version>2.13.0</log4j-version>
+        <log4j-version>2.13.3</log4j-version>
         <log4j-version>2.4.1</log4j-version>
         <sourceEncoding>UTF-8</sourceEncoding>
         <outputEncoding>UTF-8</outputEncoding>
